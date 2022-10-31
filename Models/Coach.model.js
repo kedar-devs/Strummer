@@ -8,6 +8,10 @@ const Coach=Schema({
     earned:{type:Double,required:true},
     email:{type:String,required:true},
     password:{type:String,required:true},
+    Channel:{type:[mongoose.Schema.Types.ObjectId]},
+    earningCount:{type:Double},
+    
+
 })
 const Creator=mongoose.model("Creator",Coach)
 module.exports=Creator
