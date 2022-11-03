@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs')
 const Creator = require("../Models/Coach.model")
 const Vonage = require('@vonage/server-sdk')
 const otpGenerator = require('otp-generator')
+const cloudinary = require('cloudinary').v2
 const vonage = new Vonage({
     apiKey: "",
     apiSecret: ""
@@ -33,6 +34,7 @@ exports.RegisterUser = async (req, res) => {
         refreshToken: ' ',
         resetToken: ' '
     }
+    User.ProfilePic=cloudinary.url(User.ProfilePic, {width: 100, height: 150, crop: "fill", fetch_format: "auto"})
     const FoundUser = await User.findOne({ email: User.email })
     if (FoundUser) {
         return res.status(401).send({ message: 'A user with this email ID already exist' })
@@ -173,7 +175,10 @@ exports.EditProfile = async (req, res) => {
     const FoundUser = UserData.findOne({ accessToken: req.body.accessToken })
     if (FoundUser) {
         FoundUser.name = name ? name : FoundUser.name
-        FoundUser.ProfilePic = ProfilePic ? ProfilePic : FoundUser.ProfilePic
+        // FoundUser.ProfilePic = ProfilePic ? ProfilePic : FoundUser.ProfilePic
+        if(ProfilePic!=null || ProfilePic!=undefined){
+            FoundUser.ProfilePic= User.ProfilePic=cloudinary.url(FoundUser.ProfilePic, {width: 100, height: 150, crop: "fill", fetch_format: "auto"})
+        }
         FoundUser.save((err, user) => {
             if (err) {
                 return res.status(400).send({ err })
