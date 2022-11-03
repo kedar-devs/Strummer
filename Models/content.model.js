@@ -8,5 +8,8 @@ const ContentSchema=Schema({
     DislikeCount:{type:Number},
     length:{type:Double},
     viewCount:{type:Number},
-        
+    isApproved:{type:Boolean,required:true},
+    reportCount:{type:Number}
 })
+const ContentData=new mongoose.Model('Content',ContentSchema)
+module.exports=ContentData
