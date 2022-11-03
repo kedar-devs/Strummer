@@ -10,6 +10,14 @@ const vonage = new Vonage({
     apiSecret: ""
 })
 
+const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: 'StrummerForLife@gmail.com',
+        pass: 'Strummer*123'
+    }
+})
+
 exports.RegisterUser = async (req, res) => {
     const User = {
         name: req.body.name,
@@ -22,7 +30,8 @@ exports.RegisterUser = async (req, res) => {
         isCoach: false,
         CoachId: new ObjectId(),
         accessToken: ' ',
-        refreshToken: ' '
+        refreshToken: ' ',
+        resetToken: ' '
     }
     const FoundUser = await User.findOne({ email: User.email })
     if (FoundUser) {
@@ -192,15 +201,15 @@ exports.SendOTP = async (req, res) => {
                 console.log(err);
             } else {
                 if (responseData.messages[0]['status'] === "0") {
-                    FoundUser.otp=Otp
-                    FoundUser.save((err,user)=>{
+                    FoundUser.otp = Otp
+                    FoundUser.save((err, user) => {
                         if (err) {
                             return res.status(400).send({ err })
                         }
                         else {
                             return res.status(200).send({ message: 'OTP send successfully' })
                         }
-                })
+                    })
 
                 }
             }
@@ -212,27 +221,82 @@ exports.SendOTP = async (req, res) => {
     }
 }
 
-exports.EditContact=async(req,res)=>{
-    const {oldContact,newContact,otp,accessToken}=req.body
-    const FoundUser=await UserData.findOne().Where("contact").equals(oldContact).where("otp").equals(otp)
-    if(FoundUser){
-        FoundUser.contact=newContact
+exports.EditContact = async (req, res) => {
+    const { oldContact, newContact, otp, accessToken } = req.body
+    const FoundUser = await UserData.findOne().Where("contact").equals(oldContact).where("otp").equals(otp)
+    if (FoundUser) {
+        FoundUser.contact = newContact
         let payload = { subject: new ObjectId() }
         let token = await jwt.sign(payload, process.env.SECRET_KEY_COACH)
         FoundUser.accessToken = token
-        FoundUser.save((err,user)=>{
+        FoundUser.save((err, user) => {
             if (err) {
                 return res.status(400).send({ err })
             }
             else {
                 return res.status(200).send({ message: 'OTP send successfully' })
             }
+        })
+    }
+    else {
+        return res.status(401).send({ message: 'No user was found' })
+    }
+
+}
+exports.generateResetLink = async (req, res) => {
+    const { email } = req.body
+    const FoundUser = await UserData.findOne({ email })
+    let payload = { subject: new ObjectId() }
+    let token = await jwt.sign(payload, process.env.SECRET_KEY_COACH)
+    FoundUser.resetToken = token
+    FoundUser.save((err, user) => {
+        if (err) {
+            return res.status(400).send({ err })
+        }
+        else {
+            transporter.sendMail({
+                to: FoundUser.email,
+                rom: "StrummerForLife@gmail.com",
+                subject: "Email Password Reset",
+                html: `
+                <p>Hi ${user.firstname}, forgot your password.<br/> Don't worry we got you covered</p>
+                <h5><a href="https://savishkar-webapp.herokuapp.com/update-password/${token}">click here</a></h5>
+                <p>link expires in one hour, thank you</p>
+                `
+
+            }, (err, result) => {
+                if (err) {
+                    console.log(err)
+                }
+                else {
+                    return res.status(200).send({
+                        message: 'An email has been sent to the provided email with further instructions.'
+                    })
+                }
+                transporter.close()
+            }
+            )
+
+        }
     })
+
+}
+exports.ResetPassword=async(req,res)=>{
+    const {resetToken,password}=req.body
+    const FoundUser=await UserData.findOne({resetToken})
+    if(FoundUser){
+        FoundUser.password=password
+        FoundUser.save((err, user) => {
+            if (err) {
+                return res.status(400).send({ err })
+            }
+            else {
+                return res.status(200).send({ message: 'Password successfully Updated' })
+            }
+        })
     }
     else{
         return res.status(401).send({ message: 'No user was found' })
     }
-    
 }
-
 

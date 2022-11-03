@@ -12,7 +12,8 @@ const UserDetail=Schema({
     isCoach:{type:Boolean,required:true},
     CoachId:{type:mongoose.Schema.Types.ObjectId,ref:"Coach"},
     accessToken:{type:String,required:true,expireAfterSeconds: 864000 },
-    refreshToken:{type:String,required:true}
+    refreshToken:{type:String,required:true},
+    resetToken:{type:String,required:true}
     
 })
 const UserData=new mongoose.Model('User',UserDetail)
