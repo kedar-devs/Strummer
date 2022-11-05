@@ -9,6 +9,8 @@ const ContentSchema=Schema({
     DislikeCount:{type:Number},
     length:{type:Double},
     viewCount:{type:Number},
+    inPlaylist:{type:Boolean},
+    playListID:{type:mongoose.Schema.Types.ObjectId},
     isApproved:{type:Boolean,required:true},
     reportCount:{type:Number},
     reportReason:{type:String}
