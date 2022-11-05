@@ -9,4 +9,7 @@ const ChannelSchema=Schema({
     socialFB:{type:String},
     socialTwit:{type:String},
     channelCreator:{type:mongoose.Schema.Types.ObjectId}
+    
 })
+const ChannelData=mongoose.Model('Channel',ChannelSchema)
+module.exports=ChannelData
