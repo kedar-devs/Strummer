@@ -4,7 +4,9 @@ const ReplySchema=Schema({
     parentReply:{type:String},
     likes:{type:Number},
     dislikes:{type:Number},
-    replyContent:{type:String}
+    replyContent:{type:String},
+    CommentId:{type:mongoose.Schema.Types.ObjectId},
+    replierId:{type:mongoose.Schema.Types.ObjectId}
 })
 const ReplyData=mongoose.model('Reply',ReplySchema)
 module.exports=ReplyData
