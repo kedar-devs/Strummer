@@ -16,5 +16,5 @@ const UserDetail=Schema({
     resetToken:{type:String,required:true}
     
 })
-const UserData=new mongoose.Model('User',UserDetail)
+const UserData=mongoose.Model('User',UserDetail)
 module.exports=UserData
