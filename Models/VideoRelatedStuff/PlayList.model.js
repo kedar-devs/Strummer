@@ -6,5 +6,5 @@ const PlaylistSchema=Schema({
     channelName:{type:String},
     ContentList:{type:[mongoose.Schema.Types.ObjectId]}
 })
-const ReplyData=mongoose.model('Reply',PlaylistSchema)
-module.exports=ReplyData
+const PlaylistData=mongoose.model('Reply',PlaylistSchema)
+module.exports=PlaylistData
