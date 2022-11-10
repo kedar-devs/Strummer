@@ -1,4 +1,1 @@
-1.add a playlist model with name, no of videos 
-2.create a comment model
-3.Form a relationship between user and channel subscribed
-4.create a rreation between 
+1.Add remove like and dislike function in content Controller
