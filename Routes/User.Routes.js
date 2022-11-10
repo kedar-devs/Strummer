@@ -1,0 +1,13 @@
+const routes=require('express').Router()
+const UserController=require('./../Controller/User.Controller')
+routes.post("/User/AddNewUser",UserController.RegisterUser)
+routes.post("/User/VerifyMobile",UserController.RegisterUserMobile)
+routes.post("/User/Login",UserController.LoginUser)
+routes.post("/User/LoginMobile",UserController.LoginUserMobile)
+routes.put("/User/RegisterMobile",UserController.SendOTP)
+routes.put("/User/ResetPassWord",UserController.ResetPassword)
+routes.put("/User/ForgotPassword",UserController.generateResetLink)
+routes.put("/User/EditProfile",UserController.EditProfile)
+routes.put("/User/EditContact",UserController.EditContact)
+routes.post("/User/MakeCreator",UserController.BecomeCreator)
+module.exports=routes
