@@ -38,7 +38,7 @@ exports.CreateNewContent=async(req,res)=>{
       });
 }
 exports.AddLikes=async(req,res)=>{
-    const _id=req.body.id
+    const _id=req.params.id
     const FoundContent=await ContentData.findOne({_id})
     FoundContent.LikeCount+=1
     FoundContent.save((err,user)=>{
