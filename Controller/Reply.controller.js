@@ -3,6 +3,7 @@ const ReplyData = require("../Models/VideoRelatedStuff/Reply.model")
 
 exports.AddReply=async(req,res)=>{
     const {parentReply,replyContent,accessToken,commentId}=req.body
+    const videoId=req.params.id
     const FoundUser=await UserData.findOne({accessToken})
     const Reply={
         parentReply:parentReply,
@@ -26,7 +27,7 @@ exports.AddReply=async(req,res)=>{
 
 }
 exports.AddLike=async(req,res)=>{
-    const {id}=req.body
+    const {id}=req.params
     const FoundReply=await ReplyData.findOne({_id:id})
     FoundReply.likeCount+=1
     FoundReply.save((err,user)=>{
@@ -39,7 +40,7 @@ exports.AddLike=async(req,res)=>{
     })
 }
 exports.AddDislike=async(req,res)=>{
-    const {id}=req.body
+    const {id}=req.params
     const FoundReply=await ReplyData.findOne({_id:id})
     FoundReply.disLikeCount+=1
     FoundReply.save((err,user)=>{
@@ -52,7 +53,7 @@ exports.AddDislike=async(req,res)=>{
     })
 }
 exports.RemoveLike=async(req,res)=>{
-    const {id}=req.body
+    const {id}=req.params
     const FoundReply=await ReplyData.findOne({_id:id})
     if(FoundReply.likeCount==0){
         return res.status(200).send({message:'Count cant be increased'}) 
@@ -68,7 +69,7 @@ exports.RemoveLike=async(req,res)=>{
     })
 }
 exports.RemoveDisLike=async(req,res)=>{
-    const {id}=req.body
+    const {id}=req.params
     const FoundReply=await ReplyData.findOne({_id:id})
     if(FoundReply.disLikeCount==0){
         return res.status(200).send({message:'Count cant be increased'}) 
