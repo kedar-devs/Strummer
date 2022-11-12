@@ -11,5 +11,5 @@ const ChannelSchema=Schema({
     channelCreator:{type:mongoose.Schema.Types.ObjectId}
     
 })
-const ChannelData=mongoose.Model('Channel',ChannelSchema)
+const ChannelData=mongoose.model('Channel',ChannelSchema)
 module.exports=ChannelData

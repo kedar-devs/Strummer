@@ -1,3 +1,4 @@
+// const { Double } = require('mongodb')
 const { Double } = require('mongodb')
 const mongoose=require('mongoose')
 const Schema=mongoose.Schema
@@ -7,7 +8,7 @@ const ContentSchema=Schema({
     channelId:{type:mongoose.Schema.Types.ObjectId,required:true},
     LikeCount:{type:Number},
     DislikeCount:{type:Number},
-    length:{type:Double},
+    length:{type:Schema.Types.Decimal128},
     viewCount:{type:Number},
     inPlaylist:{type:Boolean},
     playListID:{type:mongoose.Schema.Types.ObjectId},
@@ -15,5 +16,5 @@ const ContentSchema=Schema({
     reportCount:{type:Number},
     reportReason:{type:String}
 })
-const ContentData=new mongoose.Model('Content',ContentSchema)
+const ContentData=new mongoose.model('Content',ContentSchema)
 module.exports=ContentData
