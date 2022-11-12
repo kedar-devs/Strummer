@@ -4,9 +4,7 @@ const url = process.env.DB_ConnectionString
 try {
     mongoose.connect(url, {
         useNewUrlParser: true,
-        useCreateIndex: true,
         useUnifiedTopology: true,
-        useFindAndModify: false,
     })
     const connection = mongoose.connection
     connection.once('open', () => {
