@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs')
 const Creator = require("../Models/Coach.model")
 const Vonage = require('@vonage/server-sdk')
 const otpGenerator = require('otp-generator')
+const nodemailer=require('nodemailer')
 const cloudinary = require('cloudinary').v2
 const vonage = new Vonage({
     apiKey: "",
