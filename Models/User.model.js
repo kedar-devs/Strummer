@@ -4,7 +4,7 @@ const Coach=require('./Coach.model')
 const UserDetail=Schema({
     name:{type:String,required:true,default:'User123'},
     email:{type:String,unique:true,required:true},
-    pasword:{type:String,required:true,default:'User@123'},
+    password:{type:String,required:true,default:'User@123'},
     Courses:{type:[String]},
     contact:{type:Number,required:true,unique:true},
     otp:{type:String,required:true},
