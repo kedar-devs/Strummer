@@ -9,8 +9,8 @@ const nodemailer=require('nodemailer')
 const cloudinary = require('cloudinary').v2
 require('./../Helper/Cloudinary')
 const vonage = new Vonage({
-    apiKey: "",
-    apiSecret: ""
+    apiKey: process.env.VONAGE_API_KEY,
+    apiSecret: process.env.VONAGE_API_SECRET
 })
 
 const transporter = nodemailer.createTransport({
@@ -102,16 +102,15 @@ exports.RegisterUserMobile = async (req, res) => {
     const { contact, accessToken } = req.body
     const Otp = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
     const from = "Strummer"
-    const to = contact
-    const text = `Your One-Time-Password is ${Otp}
-                    We welcome you to our platform 
-                    Hope you enjoy it`
-    vonage.message.sendSms(from, to, text, (err, responseData) => {
+    const to = 919763346848
+    const text = `Your One-Time-Password is ${Otp}.We welcome you to our platform Hope you enjoy it`
+    vonage.message.sendSms(from, to, text, async(err, responseData) => {
         if (err) {
             console.log(err);
         } else {
             if (responseData.messages[0]['status'] === "0") {
-                const FoundUser = UserData.findOne({ accessToken })
+                const FoundUser =await UserData.findOne({accessToken})
+                console.log(FoundUser)
                 FoundUser.otp = Otp
                 FoundUser.save((err, user) => {
                     if (err) {
