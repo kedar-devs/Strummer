@@ -1,12 +1,13 @@
 const { ObjectId } = require("mongodb")
 const UserData = require("../Models/User.model")
-const jwt = require('json-web-token')
+const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const Creator = require("../Models/Coach.model")
 const Vonage = require('@vonage/server-sdk')
 const otpGenerator = require('otp-generator')
 const nodemailer=require('nodemailer')
 const cloudinary = require('cloudinary').v2
+require('./../Helper/Cloudinary')
 const vonage = new Vonage({
     apiKey: "",
     apiSecret: ""
@@ -21,6 +22,7 @@ const transporter = nodemailer.createTransport({
 })
 
 exports.RegisterUser = async (req, res) => {
+    const uri=req.protocol+':\\'+req.get('host')
     const User = {
         name: req.body.name,
         email: req.body.email,
@@ -28,15 +30,21 @@ exports.RegisterUser = async (req, res) => {
         courses: [],
         contact: req.body.contact,
         otp: 12234,
-        ProfilePic: req.body.Pp,
+        ProfilePic: req.files.Pp,
         isCoach: false,
         CoachId: new ObjectId(),
         accessToken: ' ',
         refreshToken: ' ',
         resetToken: ' '
     }
-    User.ProfilePic=cloudinary.url(User.ProfilePic, {width: 100, height: 150, crop: "fill", fetch_format: "auto"})
-    const FoundUser = await User.findOne({ email: User.email })
+    try{
+    //User.ProfilePic=await cloudinary.uploader.upload(User.ProfilePic.tempFilePath )
+    //User.ProfilePic=User.ProfilePic.url
+    User.ProfilePic="http://res.cloudinary.com/dwxxqd2zu/image/upload/v1668406330/kh3jt9quputhrv95u14k.jpg"
+    }catch(err){
+        console.log('The Error being:',err)
+    }
+    const FoundUser = await UserData.findOne({ email: User.email })
     if (FoundUser) {
         return res.status(401).send({ message: 'A user with this email ID already exist' })
     }
@@ -51,6 +59,7 @@ exports.RegisterUser = async (req, res) => {
     let token = jwt.sign(payload, process.env.SECRET_KEY)
     NewUser.accessToken = token
     payload = { subject: NewUser.email }
+
     token = jwt.sign(payload, process.env.SECRET_KEY)
     NewUser.refreshToken = token
     NewUser.save((err, user) => {
