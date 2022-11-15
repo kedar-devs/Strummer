@@ -50,10 +50,46 @@ exports.AddLikes=async(req,res)=>{
         }
     })
 }
+exports.RemoveLikes=async(req,res)=>{
+    const _id=req.params.id
+    const FoundContent=await ContentData.findOne({_id})
+    if(!FoundContent){
+        return res.status(404).send({message:'No User Found'})
+    }
+    if(FoundContent.LikeCount>=1){
+    FoundContent.LikeCount-=1
+    }
+    FoundContent.save((err,user)=>{
+        if(err){
+            return res.status(400).send(err)
+        }
+        else{
+            return res.status(200).send({newLikeCount:user.LikeCount})
+        }
+    })
+}
 exports.AddDislike=async(req,res)=>{
     const _id=req.body.id
     const FoundContent=await ContentData.findOne({_id})
     FoundContent.DislikeCount+=1
+    FoundContent.save((err,user)=>{
+        if(err){
+            return res.status(400).send(err)
+        }
+        else{
+            return res.status(200).send({newLikeCount:user.DislikeCount})
+        }
+    })
+}
+exports.RemoveDislike=async(req,res)=>{
+    const _id=req.body.id
+    const FoundContent=await ContentData.findOne({_id})
+    if(!FoundContent){
+        return res.status(404).send({message:'No User Found'})
+    }
+    if(FoundContent.DislikeCount>=1){
+    FoundContent.DislikeCount+=1
+    }
     FoundContent.save((err,user)=>{
         if(err){
             return res.status(400).send(err)
