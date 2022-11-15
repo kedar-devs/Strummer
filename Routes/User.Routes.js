@@ -10,4 +10,6 @@ routes.put("/ForgotPassword",UserController.generateResetLink)
 routes.put("/EditProfile",UserController.EditProfile)
 routes.put("/EditContact",UserController.EditContact)
 routes.post("/MakeCreator",UserController.BecomeCreator)
+routes.get("/GetAll",UserController.getAlluser)
+routes.get("/GetOne/:token",UserController.getOneUser)
 module.exports=routes
