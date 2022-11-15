@@ -14,10 +14,13 @@ const vonage = new Vonage({
 })
 
 const transporter = nodemailer.createTransport({
-    service: 'Gmail',
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    requireTLS: true,
     auth: {
         user: 'StrummerForLife@gmail.com',
-        pass: 'Strummer*123'
+        pass: 'naaxmbgcjmxctgmf'
     }
 })
 
@@ -128,12 +131,10 @@ exports.RegisterUserMobile = async (req, res) => {
     })
 }
 exports.LoginUserMobile = async (req, res) => {
-    const { contact, otp } = req.body
-    const FoundUser = await UserData.find()
-        .Where("contact")
-        .equals(contact)
-        .Where("otp")
-        .equals(otp)
+    const { contact, otp,accessToken } = req.body
+    
+    const FoundUser = await UserData.findOne({accessToken:accessToken,otp:otp})
+    console.log(FoundUser)
     let payload = { subject: new ObjectId() }
     let token = await jwt.sign(payload, process.env.SECRET_KEY)
     FoundUser.accessToken = token
@@ -237,7 +238,7 @@ exports.SendOTP = async (req, res) => {
 
 exports.EditContact = async (req, res) => {
     const { oldContact, newContact, otp, accessToken } = req.body
-    const FoundUser = await UserData.findOne().Where("contact").equals(oldContact).where("otp").equals(otp)
+    const FoundUser = await UserData.findOne({accessToken}).where("otp").equals(otp)
     if (FoundUser) {
         FoundUser.contact = newContact
         let payload = { subject: new ObjectId() }
@@ -259,7 +260,11 @@ exports.EditContact = async (req, res) => {
 }
 exports.generateResetLink = async (req, res) => {
     const { email } = req.body
+    try{
     const FoundUser = await UserData.findOne({ email })
+    if(!FoundUser){
+        return res.status(404).send({message:'No user Find'})
+    }
     let payload = { subject: new ObjectId() }
     let token = await jwt.sign(payload, process.env.SECRET_KEY_COACH)
     FoundUser.resetToken = token
@@ -269,8 +274,8 @@ exports.generateResetLink = async (req, res) => {
         }
         else {
             transporter.sendMail({
-                to: FoundUser.email,
-                rom: "StrummerForLife@gmail.com",
+                to: 'kedard249.kd@gmail.com',
+                from: "StrummerForLife@gmail.com",
                 subject: "Email Password Reset",
                 html: `
                 <p>Hi ${user.firstname}, forgot your password.<br/> Don't worry we got you covered</p>
@@ -281,8 +286,10 @@ exports.generateResetLink = async (req, res) => {
             }, (err, result) => {
                 if (err) {
                     console.log(err)
+                    return res.send(err)
                 }
                 else {
+                    console.log(result)
                     return res.status(200).send({
                         message: 'An email has been sent to the provided email with further instructions.'
                     })
@@ -293,6 +300,11 @@ exports.generateResetLink = async (req, res) => {
 
         }
     })
+}catch(err){
+    console.log(err)
+
+    return res.send(err)
+}
 
 }
 exports.ResetPassword=async(req,res)=>{
@@ -313,4 +325,22 @@ exports.ResetPassword=async(req,res)=>{
         return res.status(401).send({ message: 'No user was found' })
     }
 }
-
+exports.getAlluser=async(req,res)=>{
+    const AllUser=await UserData.find()
+    if(AllUser){
+        return res.status(200).send(AllUser)
+    }
+    else{
+        return res.status(400).send({message:'No User found'})
+    }
+}
+exports.getOneUser=async(req,res)=>{
+    const accessToken=req.params.token
+    const FoundUser=await UserData.findOne({accessToken})
+    if(FoundUser){
+        return res.status(200).send(FoundUser)
+    }
+    else{
+        return res.status(404).send({message:'No User Found'})
+    }
+}
