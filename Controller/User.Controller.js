@@ -155,6 +155,7 @@ exports.BecomeCreator = async (req, res) => {
         followers: 0,
         earned: 0.0,
         email: FoundUser.email,
+        parentId:FoundUser._id,
         password: req.body.password ? req.body.password : FoundUser.password,
         channel: [],
         accessToken: ' '
