@@ -14,7 +14,8 @@ exports.changeName=async(req,res)=>{
     })
 }
 exports.increaseFollowers=async(req,res)=>{
-    const {accessToken}=req.body
+    const {accessToken}=req.params
+    try{
     const FoundCoach=await Creator.findOne({accessToken})
     FoundCoach.followers+=1
     FoundCoach.save((err,user)=>{
@@ -25,10 +26,14 @@ exports.increaseFollowers=async(req,res)=>{
             return res.status(200).send({message:`Follower has increased to ${user.followers}`})
         }
     })
+}catch(err){
+    return res.status(400).send(err)
+}
 }
 
 exports.decreaseFollowers=async(req,res)=>{
-    const {accessToken}=req.body
+    const {accessToken}=req.params
+    try{
     const FoundCoach=await Creator.findOne({accessToken})
     FoundCoach.followers-=1
     FoundCoach.save((err,user)=>{
@@ -39,6 +44,9 @@ exports.decreaseFollowers=async(req,res)=>{
             return res.status(200).send({message:`Follower has descreased to ${user.followers}`})
         }
     })
+}catch(err){
+    return res.status(400).send(err)
+}
 }
 exports.AddChannel=async(req,res)=>{
     const {accessToken,_id}=req.body
@@ -53,4 +61,24 @@ exports.AddChannel=async(req,res)=>{
         }
  
     })
+}
+exports.getAllCreator=async(req,res)=>{
+    const AllCreators=await Creator.find()
+    if(AllCreators){
+        return res.status(200).send(AllCreators)
+    }
+    else{
+        return res.status(404).send({message:'User Not found'})
+    }
+}
+
+exports.GetOneCreator=async(req,res)=>{
+    const {accessToken}=req.params.token
+    const GetOneCreator=await Creator.findOne({accessToken})
+    if(GetOneCreator){
+        return res.status(200).send(GetOneCreator)
+    }
+    else{
+        return res.status(400).send({message:'No user found'})
+    }
 }
