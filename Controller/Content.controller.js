@@ -1,5 +1,6 @@
 const ContentData = require("../Models/content.model");
 const cloudinary = require('cloudinary').v2
+require('./../Helper/Cloudinary')
 
 exports.CreateNewContent=async(req,res)=>{
     const {ContentCreator,length,channelId}=req.body
