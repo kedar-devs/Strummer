@@ -41,9 +41,9 @@ exports.RegisterUser = async (req, res) => {
         resetToken: ' '
     }
     try{
-    //User.ProfilePic=await cloudinary.uploader.upload(User.ProfilePic.tempFilePath )
-    //User.ProfilePic=User.ProfilePic.url
-    User.ProfilePic="http://res.cloudinary.com/dwxxqd2zu/image/upload/v1668406330/kh3jt9quputhrv95u14k.jpg"
+    User.ProfilePic=await cloudinary.uploader.upload(User.ProfilePic.tempFilePath )
+    User.ProfilePic=User.ProfilePic.url
+    //User.ProfilePic="http://res.cloudinary.com/dwxxqd2zu/image/upload/v1668406330/kh3jt9quputhrv95u14k.jpg"
     }catch(err){
         console.log('The Error being:',err)
     }

@@ -5,15 +5,15 @@ require('./../Helper/Cloudinary')
 exports.CreateNewContent=async(req,res)=>{
     const {ContentCreator,length,channelId}=req.body
     const videoFile=req.files.video
-    cloudinary.v2.uploader.upload_large(videoFile, {
+    cloudinary.uploader.upload_large(videoFile.tempFilePath, {
         chunk_size: 7000000
-      }, (error, result) => {
+      },async (error, result) => {
         if(error){
-            return res.status(400).send({err})
+            return res.status(400).send({error})
         }
         else{
             console.log(result)
-            const ContentUrl=result
+            const ContentUrl=result.url
             const Content={
                 ContentUrl:ContentUrl,
                 ContentCreator:ContentCreator,
@@ -70,7 +70,7 @@ exports.RemoveLikes=async(req,res)=>{
     })
 }
 exports.AddDislike=async(req,res)=>{
-    const _id=req.body.id
+    const _id=req.params.id
     const FoundContent=await ContentData.findOne({_id})
     FoundContent.DislikeCount+=1
     FoundContent.save((err,user)=>{
@@ -78,12 +78,12 @@ exports.AddDislike=async(req,res)=>{
             return res.status(400).send(err)
         }
         else{
-            return res.status(200).send({newLikeCount:user.DislikeCount})
+            return res.status(200).send({newDisLikeCount:user.DislikeCount})
         }
     })
 }
 exports.RemoveDislike=async(req,res)=>{
-    const _id=req.body.id
+    const _id=req.params.id
     const FoundContent=await ContentData.findOne({_id})
     if(!FoundContent){
         return res.status(404).send({message:'No User Found'})
@@ -101,7 +101,7 @@ exports.RemoveDislike=async(req,res)=>{
     })
 }
 exports.AddReportCount=async(req,res)=>{
-    const _id=req.body.id
+    const _id=req.params.id
     const FoundContent=await ContentData.findOne({_id})
     FoundContent.reportCount+=1
     FoundContent.reportReason=req.body.reason
@@ -110,7 +110,7 @@ exports.AddReportCount=async(req,res)=>{
             return res.status(400).send(err)
         }
         else{
-            return res.status(200).send({newLikeCount:user.reportCount})
+            return res.status(200).send({newReportCount:user.reportCount})
         }
     })
 }
@@ -126,4 +126,41 @@ exports.ChangeApproval=async(req,res)=>{
             return res.status(200).send({message:"Approval Status has changed"})
         }
     })
+}
+exports.GetContent=async(req,res)=>{
+    const Content=await ContentData.find()
+    if(Content){
+        return res.status(200).send(Content)
+    }
+    else{
+        return res.status(404).send({message:'No User Found'})
+    }
+}
+exports.getOneContent=async(req,res)=>{
+    const _id=req.params.id
+    const Content=await ContentData.findOne({_id})
+    if(Content){
+        return res.status(200).send(Content)
+    }
+    else{
+        return res.status(400).send({message:"No Content Found"})
+    }
+}
+exports.getCreator=async(req,res)=>{
+    const {id}=req.params
+    const Content=await ContentData.find({ContentCreator:id})
+    if(Content){
+        return res.status(200).send(Content)
+    }
+    else{
+        return res.status(400).send({message:"No Content Found"})
+    }
+}
+exports.getChannel=async(req,res)=>{
+    const {id}=req.params
+    const Content=await ContentData.find({channelId:id})
+    if(Content){
+        return res.status(200).send(Content)
+    }
+    return res.status(400).send({message:'Content not found'})
 }
