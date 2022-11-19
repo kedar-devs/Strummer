@@ -5,19 +5,18 @@ import LoginData from './../FormData/LoginUser'
 function LoginForm() {
     const [initialVal,setInitialVal]=useState({})
     const [FormEleArray,setFormElement]=useState([])
-    console.log('in Here')
     useEffect(()=>{
         console.log('In here',LoginData)
         var ele=[]
-        var init=new Set()
+        var init={}
         for(let key in LoginData.orderForm){
             ele.push({
                 id:key,
                 config:LoginData.orderForm[key]
             })
-            init.add(key)
+            init[key]=''
         }
-        console.log(ele,init)
+        console.log(init)
         setFormElement(ele)
         setInitialVal(init)
     },[])
@@ -60,14 +59,20 @@ function LoginForm() {
         >
             {({isSubmitting})=>(
                 <Form>
+                    
                     {FormEleArray.map((ele)=>{
+                        return(
                         <>
+                    
+
                         <Field name={ele.id} 
-                        type={ele.config.elementType}
+                        type={ele.config.elementConfig.type}
                         value={ele.config.value}
+                        placeholder={ele.config.elementConfig.placeholder}
                         />
                         <ErrorMessage name={ele.id} component="div" />
                         </>
+                        )
                     })}
                      <button type="submit" disabled={isSubmitting}>
                             Submit
