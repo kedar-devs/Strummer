@@ -14,7 +14,7 @@ let state={
             touched:false
         },
         password:{
-            elementType:"password",
+            elementType:"input",
             elementConfig:{
                 type:"password",
                 placeholder:"Password"

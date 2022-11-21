@@ -23,19 +23,19 @@ function Input(props) {
                 />
             )
             break
-        case 'select':
-            inputElement=(
-                <select
-                value={props.value}
-                onChange={props.changed}
-                {...props.elementConfig.options.map((opt)=>(
-                    <option key={option.value} value={option.value}>
-							{option.displayValue}
-						</option>
-                ))}
-                />
-            )
-            break
+        // case 'select':
+        //     inputElement=(
+        //         <select
+        //         value={props.value}
+        //         onChange={props.changed}
+        //         {...props.elementConfig.options.map((opt)=>(
+        //             <option key={option.value} value={option.value}>
+		// 					{option.displayValue}
+		// 				</option>
+        //         ))}
+        //         />
+        //     )
+        //     break
         case 'file':
             inputElement=(
                 <input
@@ -58,7 +58,7 @@ function Input(props) {
     }
     return (
     <div>
-        <label>{props.label}</label>
+        <label>{props.key}</label>
         {inputElement}
     </div>
   )
