@@ -26,6 +26,8 @@ let state={
             valid:false,
             touched:false
         }
-    }
+    },
+    resetMessage:'Forgot Password',
+    resetLink:'/ResetPassword'
 }
 module.exports=state

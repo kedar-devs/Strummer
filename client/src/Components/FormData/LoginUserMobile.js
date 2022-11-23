@@ -26,6 +26,9 @@ let state={
             valid:false,
             touched:true
         }
-    }
+    },
+    resetMessage:'Resend Otp',
+    resetLink:'/resendOtp'
+
 }
 module.exports=state

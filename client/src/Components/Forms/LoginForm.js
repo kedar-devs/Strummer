@@ -7,10 +7,16 @@ import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 function LoginForm() {
     const [initialVal,setInitialVal]=useState({})
     const [FormEleArray,setFormElement]=useState([])
+    const [otherDetails,setOtherDetails]=useState({})
     useEffect(()=>{
         console.log('In here',LoginData)
         var ele=[]
         var init={}
+        var otherDetails={
+            resetMessage:LoginData.resetMessage,
+            resetLink:LoginData.resetLink
+        }
+        setOtherDetails(otherDetails)
         for(let key in LoginData.orderForm){
             ele.push({
                 id:key,
@@ -18,6 +24,7 @@ function LoginForm() {
             })
             init[key]=''
         }
+
         console.log(init)
         setFormElement(ele)
         setInitialVal(init)
@@ -63,7 +70,7 @@ function LoginForm() {
                         onChange={handleChange}
                         name={ele.id}
                         />
-                        {errors[ele.id] && touched[ele.id] ? <>{errors[ele.id]} </>: null}
+                        {errors[ele.id] && touched[ele.id] ? <div className='text-red-500 text-xs italic'>{errors[ele.id]} </div>: null}
                         </div>
                         </>
                         )
@@ -82,7 +89,7 @@ function LoginForm() {
             <a
               href="#!"
               className="text-blue-600 hover:text-blue-700 focus:text-blue-700 active:text-blue-800 duration-200 transition ease-in-out"
-              >Forgot password?</a
+              >{otherDetails.resetMessage}</a
             >
           </div>
                      <button type="submit"
