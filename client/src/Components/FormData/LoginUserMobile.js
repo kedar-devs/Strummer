@@ -1,4 +1,4 @@
-state={
+let state={
     orderForm:{
         contact:{
             elementType:"input",
