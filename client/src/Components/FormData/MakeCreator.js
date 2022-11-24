@@ -40,6 +40,6 @@ let state={
             touched:true
         }
     },
-    submitText:'Become Creator'
+    submitText:'BECOME CREATOR'
 }
 module.exports=state

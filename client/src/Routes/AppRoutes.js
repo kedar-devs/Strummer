@@ -14,6 +14,7 @@ import MakeCreator from'../Components/FormData/MakeCreator'
 import UserLoginEmailValidation from '../Components/FormValidation/UserLoginValidation'
 import UserLoginValidation from '../Components/FormValidation/UserLoginMobileValidation'
 import UserRegisterValidationSchema from '../Components/FormValidation/UserRegisterValidation'
+import UserCreatorValidationSchema from '../Components/FormValidation/UserCreatorValidation'
 function AppRoutes() {
   return (
     <Router>
@@ -24,7 +25,7 @@ function AppRoutes() {
             <Route path="/loginMobile" element={<LoginForm LoginData={LoginData} UserLoginValidation={UserLoginValidation}/>} />
             <Route path="/login" element={<LoginForm LoginData={LoginEmailData} UserLoginValidation={UserLoginEmailValidation}/>}/>
             <Route path="/RegisterUser" element={<RegisterForm RegisterData={UserData} UserRegisterValidation={UserRegisterValidationSchema}/>}/>
-            <Route path="/BecomeCreator" element={<RegisterForm RegisterData={MakeCreator} UserRegisterValidation={UserRegisterValidationSchema}/>}/>
+            <Route path="/BecomeCreator" element={<RegisterForm RegisterData={MakeCreator} UserRegisterValidation={UserCreatorValidationSchema}/>}/>
            {/*  <Route path="/subscription" component={}/>
             <Route path="/watchLater" component={} />
             <Route path="/History" component={}/>
