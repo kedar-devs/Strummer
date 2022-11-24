@@ -4,7 +4,12 @@ import Navbar from '../Components/Navbar/Navbar'
 import Home from '../Components/Home/Home'
 import SearchBar from '../Components/SearchBar/SearchBar'
 import LoginForm from '../Components/Forms/LoginForm'
-
+//Form Related data
+import LoginData from '../Components/FormData/LoginUserMobile'
+import LoginEmailData from '../Components/FormData/LoginUser'
+//Validation
+import UserLoginEmailValidation from '../Components/FormValidation/UserLoginValidation'
+import UserLoginValidation from '../Components/FormValidation/UserLoginMobileValidation'
 function AppRoutes() {
   return (
     <Router>
@@ -12,7 +17,8 @@ function AppRoutes() {
         <SearchBar />
         <Routes>
             <Route path="/" element={<Home/>} />
-            <Route path="/login" element={<LoginForm/>} />
+            <Route path="/loginMobile" element={<LoginForm LoginData={LoginData} UserLoginValidation={UserLoginValidation}/>} />
+            <Route path="/login" element={<LoginForm LoginData={LoginEmailData} UserLoginValidation={UserLoginEmailValidation}/>}/>
            {/*  <Route path="/subscription" component={}/>
             <Route path="/watchLater" component={} />
             <Route path="/History" component={}/>

@@ -1,14 +1,16 @@
 import React,{useState,useEffect} from 'react'
 import { Formik, Form, Field } from 'formik'
-import LoginData from './../FormData/LoginUserMobile'
-import UserLoginValidation from '../FormValidation/UserLoginMobileValidation'
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
-// import { set } from 'mongoose'
-function LoginForm() {
+function LoginForm(props) {
     const [initialVal,setInitialVal]=useState({})
     const [FormEleArray,setFormElement]=useState([])
     const [otherDetails,setOtherDetails]=useState({})
+    const [UserLoginValidation,setValidationSchema]=useState({})
     useEffect(()=>{
+        console.log(props,{...props})
+        let LoginData=props.LoginData
+        setValidationSchema(props.UserLoginMobileValidation)
+
         console.log('In here',LoginData)
         var ele=[]
         var init={}
