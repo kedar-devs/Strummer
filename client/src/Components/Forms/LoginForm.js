@@ -63,7 +63,7 @@ function LoginForm(props) {
                     {FormEleArray.map((ele)=>{
                         return(
                         <>
-                       <div className='mb-6'>
+                       <div className='c'>
                         <Field
                         type={ele.config.elementConfig.type}
                         placeholder={ele.config.elementConfig.placeholder}

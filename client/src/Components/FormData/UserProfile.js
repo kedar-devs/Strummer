@@ -1,9 +1,9 @@
-state={
+let state={
     orderForm:{
         name:{
             elementType:"input",
             elementConfig:{
-                type:"name",
+                type:"text",
                 placeholder:"Name"
             },
             value:"",
@@ -60,6 +60,7 @@ state={
             },
             value:null
         }
-    }
+    },
+    submitText:'REGISTER NOW'
 }
 module.exports=state

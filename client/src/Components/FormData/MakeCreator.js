@@ -1,4 +1,4 @@
-state={
+let state={
     orderForm:{
         name:{
             elementType:"input",
@@ -39,6 +39,7 @@ state={
             valid:true,
             touched:true
         }
-    }
+    },
+    submitText:'Become Creator'
 }
 module.exports=state

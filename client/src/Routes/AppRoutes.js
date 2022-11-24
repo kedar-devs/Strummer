@@ -4,12 +4,16 @@ import Navbar from '../Components/Navbar/Navbar'
 import Home from '../Components/Home/Home'
 import SearchBar from '../Components/SearchBar/SearchBar'
 import LoginForm from '../Components/Forms/LoginForm'
+import RegisterForm from '../Components/Forms/RegisterForm'
 //Form Related data
 import LoginData from '../Components/FormData/LoginUserMobile'
 import LoginEmailData from '../Components/FormData/LoginUser'
+import UserData from '../Components/FormData/UserProfile'
+import MakeCreator from'../Components/FormData/MakeCreator'
 //Validation
 import UserLoginEmailValidation from '../Components/FormValidation/UserLoginValidation'
 import UserLoginValidation from '../Components/FormValidation/UserLoginMobileValidation'
+import UserRegisterValidationSchema from '../Components/FormValidation/UserRegisterValidation'
 function AppRoutes() {
   return (
     <Router>
@@ -19,6 +23,8 @@ function AppRoutes() {
             <Route path="/" element={<Home/>} />
             <Route path="/loginMobile" element={<LoginForm LoginData={LoginData} UserLoginValidation={UserLoginValidation}/>} />
             <Route path="/login" element={<LoginForm LoginData={LoginEmailData} UserLoginValidation={UserLoginEmailValidation}/>}/>
+            <Route path="/RegisterUser" element={<RegisterForm RegisterData={UserData} UserRegisterValidation={UserRegisterValidationSchema}/>}/>
+            <Route path="/BecomeCreator" element={<RegisterForm RegisterData={MakeCreator} UserRegisterValidation={UserRegisterValidationSchema}/>}/>
            {/*  <Route path="/subscription" component={}/>
             <Route path="/watchLater" component={} />
             <Route path="/History" component={}/>
