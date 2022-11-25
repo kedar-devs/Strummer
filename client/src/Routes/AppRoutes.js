@@ -5,6 +5,7 @@ import Home from '../Components/Home/Home'
 import SearchBar from '../Components/SearchBar/SearchBar'
 import LoginForm from '../Components/Forms/LoginForm'
 import RegisterForm from '../Components/Forms/RegisterForm'
+import VideoPlayer from '../Components/VideoPlayer/VideoPlayer'
 //Form Related data
 import LoginData from '../Components/FormData/LoginUserMobile'
 import LoginEmailData from '../Components/FormData/LoginUser'
@@ -26,6 +27,7 @@ function AppRoutes() {
             <Route path="/login" element={<LoginForm LoginData={LoginEmailData} UserLoginValidation={UserLoginEmailValidation}/>}/>
             <Route path="/RegisterUser" element={<RegisterForm RegisterData={UserData} UserRegisterValidation={UserRegisterValidationSchema}/>}/>
             <Route path="/BecomeCreator" element={<RegisterForm RegisterData={MakeCreator} UserRegisterValidation={UserCreatorValidationSchema}/>}/>
+            <Route path="/VideoPlayer" element={<VideoPlayer />}/>
            {/*  <Route path="/subscription" component={}/>
             <Route path="/watchLater" component={} />
             <Route path="/History" component={}/>
