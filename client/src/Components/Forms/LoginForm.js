@@ -30,7 +30,7 @@ function LoginForm(props) {
         console.log(init)
         setFormElement(ele)
         setInitialVal(init)
-    },[])
+    },[props])
   return (
     <section className="h-screen">
     <div className="container px-6 py-12 h-full">
