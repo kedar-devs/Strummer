@@ -12,9 +12,18 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
+/*import {useSelector} from 'react-redux'
+import {actionCreator} from '../../State/index'
+import {useDispatch} from 'react-redux'
+import {bindActionCreators} from 'redux' */
 function Navbar() {
     const pages=["Home","Subscription","History","Watch Later","Liked Video"]
     const Profile=["Your Channel","Setting","Sign Out"]
+    /*const token=useSelector(STATE=>STATE.accessToken)
+    const dispatch=useDispatch()
+    const action=bindActionCreators(actionCreator,dispatch)
+    action.AssignAccessToken("Belinchi Naghin nighali")*/
+    
     const [anchorPages,setPages]=useState(null)
     const [anchorProfile,setProfile]=useState(null)
     const setPagesOpen=(event)=>{
