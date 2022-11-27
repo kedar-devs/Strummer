@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Formik, Form, Field } from 'formik'
+import axios from 'axios'
 //import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 function RegisterForm(props) {
     const [FormEleArray, setFormElement] = useState([])
     const [initialVal, setInitialVal] = useState({})
     const [SumbitText,setSubmitText]=useState('')
+    const [ServerUrl,setServerUrl]=useState('')
     //const [otherDetails,setOtherDetails]=useState([])
     const [UserRegisterValidation, setValidationSchema] = useState({})
 
@@ -12,6 +14,7 @@ function RegisterForm(props) {
         let RegisterData = props.RegisterData
         let ele = []
         let init = {}
+        setServerUrl(RegisterData.axiosRequest)
         setValidationSchema(props.UserRegisterValidation)
         for (let key in RegisterData.orderForm) {
             ele.push({
@@ -39,12 +42,32 @@ function RegisterForm(props) {
                             validationSchema={UserRegisterValidation}
                             onSubmit={(values, { setSubmitting }) => {
                                 setTimeout(() => {
-                                    alert(JSON.stringify(values, null, 2));
                                     setSubmitting(false);
+                                    
+                                    const data=new FormData()
+                                    for(let key in values){
+                                        console.log(key)
+                                        if(key!=='undefined'){
+                                        data.append(key,values[key])
+                                        }
+                                        else{
+                                        
+                                            data.append('Pp',values['undefined'])
+                                        }
+                                    }
+                                    console.log(data.get('undefined'))
+                                    axios.post(ServerUrl,data)
+                                    .then(result=>{
+                                        alert(result)
+                                    })
+                                    .catch(err=>{
+                                        console.log(err)
+                                        alert(err)
+                                    })
                                 }, 400);
                             }}
                         >
-                            {({ values, errors, touched, handleChange, isSubmitting }) => (
+                            {({ values, errors, touched, handleChange,setFieldValue, isSubmitting }) => (
                                 <Form >
                                     {FormEleArray.map((ele) => {
                                         return (
@@ -52,6 +75,8 @@ function RegisterForm(props) {
                                                 <div className="w-full px-3 mb-5">
                                                     {/*<label for={ele.id} class="text-xs font-semibold px-1">{ele.id}</label>*/}
                                                     <div className="flex">
+                                                        {ele.config.elementConfig.type!=='file'?
+                                                        <>
                                                         <Field
                                                             type={ele.config.elementConfig.type}
                                                             placeholder={ele.config.elementConfig.placeholder}
@@ -61,7 +86,21 @@ function RegisterForm(props) {
                                                             name={ele.id}
                                                         />
                                                         {errors[ele.id] && touched[ele.id] ? <div className='text-red-500 text-xs italic'>{errors[ele.id]} </div> : null}
-                                                    </div>
+                                                        </>:<>
+                                                        <Field
+                                                            type={ele.config.elementConfig.type}
+                                                            placeholder={ele.config.elementConfig.placeholder}
+                                                            className="w-full -ml-10 pl-10 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none focus:border-indigo-500"
+                                                            value={values[ele]}
+                                                            onChange={(event) => {
+                                                                setFieldValue(ele.id, event.currentTarget.files[0]);
+                                                              }}
+                                                            name={ele.id}
+                                                        />
+                                                        {errors[ele.id] && touched[ele.id] ? <div className='text-red-500 text-xs italic'>{errors[ele.id]} </div> : null}
+                                                        </>
+                                                        }
+                                                        </div>
                                                 </div>
                                             </div>
                                         )

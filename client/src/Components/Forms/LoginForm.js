@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import { Formik, Form, Field } from 'formik'
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
+//import axios from 'axios'
 function LoginForm(props) {
     const [initialVal,setInitialVal]=useState({})
     const [FormEleArray,setFormElement]=useState([])
@@ -47,8 +48,9 @@ function LoginForm(props) {
         validationSchema={UserLoginValidation}
         onSubmit={(values,{setSubmitting})=>{
             setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
+                
                 setSubmitting(false);
+                
               }, 400);
         }}
         >
