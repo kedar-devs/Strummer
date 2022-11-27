@@ -1,4 +1,4 @@
-const reducer=(state='',action)=>{
+const reducer=(state='None',action)=>{
     if(action.type==='assignToken'){
         state=action.payload
         return state 
