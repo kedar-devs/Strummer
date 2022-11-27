@@ -28,6 +28,9 @@ let state={
         }
     },
     resetMessage:'Forgot Password',
-    resetLink:'/ResetPassword'
+    resetLink:'/ResetPassword',
+    additionMessage:'Login With Mobile',
+    additionLink:'/loginMobile',
+    axiosRequest:"http://localhost:5000/User/Login"
 }
 module.exports=state

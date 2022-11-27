@@ -40,6 +40,7 @@ let state={
             touched:true
         }
     },
-    submitText:'BECOME CREATOR'
+    submitText:'BECOME CREATOR',
+    axiosRequest:"http://localhost:5000/User/MakeCreator"
 }
 module.exports=state

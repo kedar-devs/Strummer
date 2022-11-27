@@ -28,7 +28,10 @@ let state={
         }
     },
     resetMessage:'Resend Otp',
-    resetLink:'/resendOtp'
+    resetLink:'/resendOtp',
+    additionMessage:'Login With Email',
+    additionLink:'/login',
+    axiosRequest:"http://localhost:5000/User/LoginMobile"
 
 }
 module.exports=state
