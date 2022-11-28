@@ -1,17 +1,19 @@
 import React,{useState,useEffect} from 'react'
 import { Formik, Form, Field } from 'formik'
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
+import axios from 'axios'
 //import axios from 'axios'
 function LoginForm(props) {
     const [initialVal,setInitialVal]=useState({})
     const [FormEleArray,setFormElement]=useState([])
     const [otherDetails,setOtherDetails]=useState({})
+    const [serverUrl,setUrl]=useState('')
     const [UserLoginValidation,setValidationSchema]=useState({})
     useEffect(()=>{
         console.log(props,{...props})
         let LoginData=props.LoginData
         setValidationSchema(props.UserLoginMobileValidation)
-
+        setUrl(LoginData.axiosRequest)
         console.log('In here',LoginData)
         var ele=[]
         var init={}
@@ -48,9 +50,15 @@ function LoginForm(props) {
         validationSchema={UserLoginValidation}
         onSubmit={(values,{setSubmitting})=>{
             setTimeout(() => {
-                
+                console.log(serverUrl,values)
                 setSubmitting(false);
-                
+                axios.post(serverUrl,values)
+                .then(result=>{
+                  alert('Login done ')
+                })
+                .catch(err=>{
+                  alert(err)
+                })
               }, 400);
         }}
         >
