@@ -2,6 +2,9 @@ import React,{useState,useEffect} from 'react'
 import { Formik, Form, Field } from 'formik'
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 import axios from 'axios'
+import {actionCreator} from '../../State/index'
+import {useDispatch} from 'react-redux'
+import {bindActionCreators} from 'redux' 
 //import axios from 'axios'
 function LoginForm(props) {
     const [initialVal,setInitialVal]=useState({})
@@ -9,6 +12,9 @@ function LoginForm(props) {
     const [otherDetails,setOtherDetails]=useState({})
     const [serverUrl,setUrl]=useState('')
     const [UserLoginValidation,setValidationSchema]=useState({})
+    const dispatch=useDispatch()
+    const action=bindActionCreators(actionCreator,dispatch)
+    
     useEffect(()=>{
         console.log(props,{...props})
         let LoginData=props.LoginData
@@ -54,7 +60,7 @@ function LoginForm(props) {
                 setSubmitting(false);
                 axios.post(serverUrl,values)
                 .then(result=>{
-                  alert('Login done ')
+                  action.AssignAccessToken(result.data.token)
                 })
                 .catch(err=>{
                   alert(err)
