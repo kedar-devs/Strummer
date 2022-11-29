@@ -21,7 +21,7 @@ function Navbar() {
   const pages = ["Home", "Subscription", "History", "Watch Later", "Liked Video"]
   const Profile = ["Your Channel", "Setting", "Sign Out"]
   const navigate = useNavigate()
-  const selectorData = useSelector(STATE => STATE.accessToken);
+  const selectorData = useSelector(STATE => STATE.user);
   /*const dispatch=useDispatch()
   const action=bindActionCreators(actionCreator,dispatch)
   action.AssignAccessToken("Belinchi Naghin nighali")*/
@@ -30,7 +30,7 @@ function Navbar() {
   const [anchorProfile, setProfile] = useState(null)
   useEffect(() => {
     const State = selectorData
-    console.log(State.authToken)
+    console.log(State)
     setToken(State.authToken)
   }, [selectorData])
   const setPagesOpen = (event) => {

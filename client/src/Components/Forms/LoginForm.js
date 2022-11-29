@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from 'react'
+import { useNavigate } from "react-router-dom"
 import { Formik, Form, Field } from 'formik'
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 import axios from 'axios'
@@ -7,6 +8,7 @@ import {useDispatch} from 'react-redux'
 import {bindActionCreators} from 'redux' 
 //import axios from 'axios'
 function LoginForm(props) {
+    const navigate = useNavigate()
     const [initialVal,setInitialVal]=useState({})
     const [FormEleArray,setFormElement]=useState([])
     const [otherDetails,setOtherDetails]=useState({})
@@ -61,6 +63,7 @@ function LoginForm(props) {
                 axios.post(serverUrl,values)
                 .then(result=>{
                   action.AssignAccessToken(result.data.token)
+                  navigate('/')
                 })
                 .catch(err=>{
                   alert(err)
