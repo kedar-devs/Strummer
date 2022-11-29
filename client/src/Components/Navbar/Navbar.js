@@ -29,9 +29,9 @@ function Navbar() {
   const [anchorPages, setPages] = useState(null)
   const [anchorProfile, setProfile] = useState(null)
   useEffect(() => {
-    const token = selectorData
-    console.log(token)
-    setToken(token)
+    const State = selectorData
+    console.log(State.authToken)
+    setToken(State.authToken)
   }, [selectorData])
   const setPagesOpen = (event) => {
     setPages(event.currentTarget)

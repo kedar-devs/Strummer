@@ -6,11 +6,3 @@ export const AssignAccessToken=(accessToken)=>{
         })
     }
 }
-export const GetAccessToken=(accessToken)=>{
-    return (dispatch)=>{
-        dispatch({
-            type:'getToken',
-            payload:accessToken
-        })
-    }
-}

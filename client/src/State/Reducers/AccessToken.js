@@ -1,7 +1,16 @@
-const reducer=(state='None',action)=>{
+let initialState={
+    authToken:"None",
+    refreshToken:'None'
+}
+
+const reducer=(state=initialState,action)=>{
     if(action.type==='assignToken'){
-        state=action.payload
-        return state 
+        console.log(action.payload)
+        initialState.authToken=action.payload
+        return {
+            ...state,
+            authToken:action.payload
+        } 
     }
     else{
         return state
