@@ -6,3 +6,11 @@ export const AssignAccessToken=(accessToken)=>{
         })
     }
 }
+export const DeleteAccessToken=()=>{
+    return (dispatch)=>{
+        dispatch({
+            type:"SignOut",
+            payload:'None'
+        })
+    }
+}
