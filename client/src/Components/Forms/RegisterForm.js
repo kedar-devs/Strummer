@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { Formik, Form, Field } from 'formik'
 import axios from 'axios'
+import {actionCreator} from '../../State/index'
+import {useDispatch} from 'react-redux'
+import {bindActionCreators} from 'redux' 
+import { useNavigate } from 'react-router-dom'
 //import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 function RegisterForm(props) {
+    const navigator=useNavigate()
     const [FormEleArray, setFormElement] = useState([])
     const [initialVal, setInitialVal] = useState({})
     const [SumbitText,setSubmitText]=useState('')
     const [ServerUrl,setServerUrl]=useState('')
+    
+    const dispatch=useDispatch()
+    const action=bindActionCreators(actionCreator,dispatch)
     //const [otherDetails,setOtherDetails]=useState([])
     const [UserRegisterValidation, setValidationSchema] = useState({})
 
@@ -58,6 +66,8 @@ function RegisterForm(props) {
                                     console.log(data.get('undefined'))
                                     axios.post(ServerUrl,data)
                                     .then(result=>{
+                                        action.AssignAccessToken(result.data.token)
+                                        navigator('/')
                                         alert(result)
                                     })
                                     .catch(err=>{

@@ -14,17 +14,17 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 import { useSelector } from 'react-redux'
-/*import {actionCreator} from '../../State/index'
+import {actionCreator} from '../../State/index'
 import {useDispatch} from 'react-redux'
-import {bindActionCreators} from 'redux' */
+import {bindActionCreators} from 'redux'
 function Navbar() {
   const pages = ["Home", "Subscription", "History", "Watch Later", "Liked Video"]
   const Profile = ["Your Channel", "Setting", "Sign Out"]
   const navigate = useNavigate()
   const selectorData = useSelector(STATE => STATE.user);
-  /*const dispatch=useDispatch()
+  const dispatch=useDispatch()
   const action=bindActionCreators(actionCreator,dispatch)
-  action.AssignAccessToken("Belinchi Naghin nighali")*/
+ 
   const [token, setToken] = useState(selectorData)
   const [anchorPages, setPages] = useState(null)
   const [anchorProfile, setProfile] = useState(null)
@@ -42,8 +42,20 @@ function Navbar() {
   const setPageClose = (event) => {
     setPages(null)
   }
-  const setProfileClose = (event) => {
-    setProfile(null)
+  const setProfileClose = (setting) => {
+    console.log(setting)
+    switch(setting){
+      case 'Sign Out':
+        console.log('In here')
+        action.DeleteAccessToken()
+        navigate('/')
+        break
+
+      default:
+        console.log('In here')
+        setProfile(null)
+    }
+   
   }
 
   return (
@@ -194,7 +206,7 @@ function Navbar() {
                 onClose={setProfileClose}
               >
                 {Profile.map((setting) => (
-                  <MenuItem key={setting} onClick={setProfileClose}>
+                  <MenuItem key={setting} onClick={()=>setProfileClose(setting)}>
                     <Typography textAlign="center">{setting}</Typography>
                   </MenuItem>
                 ))}
