@@ -69,8 +69,6 @@ exports.RegisterUser = async (req, res) => {
         if (err) {
             return res.status(500).send({ err })
         }
-
-
         return res.status(200).send({ token: user.accessToken })
     })
 
