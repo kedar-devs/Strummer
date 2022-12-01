@@ -17,6 +17,7 @@ import UserLoginValidation from '../Components/FormValidation/UserLoginMobileVal
 import UserRegisterValidationSchema from '../Components/FormValidation/UserRegisterValidation'
 import UserCreatorValidationSchema from '../Components/FormValidation/UserCreatorValidation'
 import Subscription from '../Components/Sbscription/Subscription'
+import Channel from '../Components/Channel/Channel'
 function AppRoutes() {
   return (
     <Router>
@@ -30,6 +31,7 @@ function AppRoutes() {
             <Route path="/BecomeCreator" element={<RegisterForm RegisterData={MakeCreator} UserRegisterValidation={UserCreatorValidationSchema}/>}/>
             <Route path="/VideoPlayer" element={<VideoPlayer />}/>
              <Route path="/subscription" element={<Subscription/>}/>
+             <Route path="/Channel" element={<Channel/>}/>
             {/*<Route path="/watchLater" component={} />
             <Route path="/History" component={}/>
             <Route path="/LikedVideo"component={} />
