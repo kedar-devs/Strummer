@@ -1,7 +1,8 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Grid } from '@mui/material'
-import DynamicCard from '../Card/DynamicCard'
+import DynamicCard from '../../Card/DynamicCard'
 function VideoPage() {
+  const [cardDetails,setCard]=useState(['1','2','3'])
   return (
     <div>
          <Grid container spacing={2}>
