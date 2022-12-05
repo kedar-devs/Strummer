@@ -53,12 +53,12 @@ let state={
             touched:false  
         },
         Tags:{
-            elementType:'input',
+            elementType:'multiOption',
             elementConfig:{
                 type:'text',
                 placeholder:"Tags"
             },
-            value:'',
+            value:[],
             validation:{
                 required:true
             },
