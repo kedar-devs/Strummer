@@ -11,9 +11,12 @@ import PlayListPage from '../Components/Channel/Pages/PlaylistPage'
 import CommunityPage from '../Components/Channel/Pages/CommunityPage'
 import ChannelPage from '../Components/Channel/Pages/ChannelPage'
 import AboutPage from '../Components/Channel/Pages/AboutPage'
+import Subscription from '../Components/Sbscription/Subscription'
+import Channel from '../Components/Channel/Channel'
 //Form Related data
 import LoginData from '../Components/FormData/LoginUserMobile'
 import LoginEmailData from '../Components/FormData/LoginUser'
+import RegisterMobile from '../Components/FormData/RegisterMobile'
 import UserData from '../Components/FormData/UserProfile'
 import MakeCreator from '../Components/FormData/MakeCreator'
 //Validation
@@ -21,8 +24,7 @@ import UserLoginEmailValidation from '../Components/FormValidation/UserLoginVali
 import UserLoginValidation from '../Components/FormValidation/UserLoginMobileValidation'
 import UserRegisterValidationSchema from '../Components/FormValidation/UserRegisterValidation'
 import UserCreatorValidationSchema from '../Components/FormValidation/UserCreatorValidation'
-import Subscription from '../Components/Sbscription/Subscription'
-import Channel from '../Components/Channel/Channel'
+import UserMobileNoValidation from '../Components/FormValidation/UserMobileNoValidation'
 function AppRoutes() {
   return (
     <Router>
@@ -32,6 +34,7 @@ function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/loginMobile" element={<LoginForm LoginData={LoginData} UserLoginValidation={UserLoginValidation} />} />
         <Route path="/login" element={<LoginForm LoginData={LoginEmailData} UserLoginValidation={UserLoginEmailValidation} />} />
+        <Route path='/RegisterMobile' element={<LoginForm LoginData={RegisterMobile} UserLoginValidation={UserMobileNoValidation} />} />
         <Route path="/RegisterUser" element={<RegisterForm RegisterData={UserData} UserRegisterValidation={UserRegisterValidationSchema} />} />
         <Route path="/BecomeCreator" element={<RegisterForm RegisterData={MakeCreator} UserRegisterValidation={UserCreatorValidationSchema} />} />
         <Route path="/VideoPlayer" element={<VideoPlayer />} />
