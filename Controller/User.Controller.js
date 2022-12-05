@@ -101,7 +101,8 @@ exports.LoginUser = async (req, res) => {
     }
 }
 exports.RegisterUserMobile = async (req, res) => {
-    const { contact, accessToken } = req.body
+    const { contact } = req.body
+    console.log(contact)
     const Otp = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
     const from = "Strummer"
     const to = 919763346848
@@ -111,7 +112,7 @@ exports.RegisterUserMobile = async (req, res) => {
             console.log(err);
         } else {
             if (responseData.messages[0]['status'] === "0") {
-                const FoundUser =await UserData.findOne({accessToken})
+                const FoundUser =await UserData.findOne({contact})
                 console.log(FoundUser)
                 FoundUser.otp = Otp
                 FoundUser.save((err, user) => {
@@ -203,8 +204,9 @@ exports.EditProfile = async (req, res) => {
     }
 }
 exports.SendOTP = async (req, res) => {
-    const { contact, accessToken } = req.body
-    const FoundUser = await UserData.findOne({ accessToken })
+    console.log(req.body)
+    const { contact } = req.body
+    const FoundUser = await UserData.findOne({ contact })
     if (FoundUser) {
         const Otp = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
         const from = "Strummer"

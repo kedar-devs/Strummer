@@ -3,8 +3,10 @@ const cloudinary = require('cloudinary').v2
 require('./../Helper/Cloudinary')
 
 exports.CreateNewContent=async(req,res)=>{
-    const {ContentCreator,length,channelId}=req.body
+    const {ContentCreator,length,channelId,Tags,Title,Description}=req.body
+    const createAt=new Date()
     const videoFile=req.files.video
+    const photo=req.files.photo
     cloudinary.uploader.upload_large(videoFile.tempFilePath, {
         chunk_size: 7000000
       },async (error, result) => {
@@ -12,17 +14,23 @@ exports.CreateNewContent=async(req,res)=>{
             return res.status(400).send({error})
         }
         else{
+            const urlThumbnail=await cloudinary.uploader.upload(photo.tempFilePath)
             console.log(result)
             const ContentUrl=result.url
             const Content={
                 ContentUrl:ContentUrl,
                 ContentCreator:ContentCreator,
+                ImageThumbnail:urlThumbnail,
+                Title:Title,
+                createAt:createAt,
+                Description:Description,
                 channelId:channelId,
                 length:length,
                 LikeCount:0,
                 DislikeCount:0,
                 viewCount:0,
                 isApproved:false,
+                Tags:Tags,
                 reportCount:0,
                 reportReason:' '
             }
@@ -163,4 +171,43 @@ exports.getChannel=async(req,res)=>{
         return res.status(200).send(Content)
     }
     return res.status(400).send({message:'Content not found'})
+}
+exports.AddTags=async(req,res)=>{
+    const {id}=req.params
+    const {tags}=req.body
+    const Content=await ContentData.find({channelId:id})
+    if(Content){
+        Content.Tags.append(tags)
+        Content.save()
+        .then(result=>{
+            return res.status(200).send({message:'Tags have been updated'})
+        })
+        .catch(err=>{
+            console.log(err)
+            return res.status(400).send({message:'An error has Occured'})
+        })
+       
+    }
+    else{
+        return res.status(400).send({message:'No user Found'})
+    }
+}
+exports.DeleteTags=async(req,res)=>{
+    const {id}=req.params
+    const {tag}=req.body
+    const Content=await ContentData.find({channelId:id})
+    if(Content){
+     Content.Tags.remove(tag)
+     Content.save()
+        .then(result=>{
+            return res.status(200).send({message:'Tags have been updated'})
+        })
+        .catch(err=>{
+            console.log(err)
+            return res.status(400).send({message:'An error has Occured'})
+        })
+    }
+    else{
+        return res.status(400).send({message:'No user Found'})
+    }
 }
