@@ -13,18 +13,21 @@ import ChannelPage from '../Components/Channel/Pages/ChannelPage'
 import AboutPage from '../Components/Channel/Pages/AboutPage'
 import Subscription from '../Components/Sbscription/Subscription'
 import Channel from '../Components/Channel/Channel'
+import ContentForm from '../Components/Forms/ContentForm'
 //Form Related data
 import LoginData from '../Components/FormData/LoginUserMobile'
 import LoginEmailData from '../Components/FormData/LoginUser'
 import RegisterMobile from '../Components/FormData/RegisterMobile'
 import UserData from '../Components/FormData/UserProfile'
 import MakeCreator from '../Components/FormData/MakeCreator'
+import ContentCreation from '../Components/FormData/ContentCreation'
 //Validation
 import UserLoginEmailValidation from '../Components/FormValidation/UserLoginValidation'
 import UserLoginValidation from '../Components/FormValidation/UserLoginMobileValidation'
 import UserRegisterValidationSchema from '../Components/FormValidation/UserRegisterValidation'
 import UserCreatorValidationSchema from '../Components/FormValidation/UserCreatorValidation'
 import UserMobileNoValidation from '../Components/FormValidation/UserMobileNoValidation'
+
 function AppRoutes() {
   return (
     <Router>
@@ -46,6 +49,7 @@ function AppRoutes() {
           <Route path="Channels" element={<ChannelPage />} />
           <Route path="About" element={<AboutPage />} />
         </Route>
+        <Route path='/AddContent' element={<ContentForm formData={ContentCreation} />} />
         {/*<Route path="/watchLater" component={} />
             <Route path="/History" component={}/>
             <Route path="/LikedVideo"component={} />
