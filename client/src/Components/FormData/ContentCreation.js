@@ -16,7 +16,7 @@ let state={
         Description:{
             elementType:'input',
             elementConfig:{
-                type:'textfield',
+                type:'textarea',
                 placeholder:"Description of the video"
             },
             value:'',
