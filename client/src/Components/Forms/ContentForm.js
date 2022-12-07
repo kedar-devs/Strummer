@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-// import axios from 'axios'
+import axios from 'axios'
 import { Formik, Form, Field, FieldArray } from 'formik'
 // import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 
 function ContentForm(props) {
     const [FormEleArray, setFormData] = useState([])
     const [initialVal, setInitialVal] = useState({})
+    const [uploaded, setUploaded] = useState(45)
     // const [serverUrl, setUrl] = useState('')
     useEffect(() => {
         let formData = props.formData
@@ -38,7 +39,18 @@ function ContentForm(props) {
                     initialValues={initialVal}
                     onSubmit={(values, { setSubmitting }) => {
                         setTimeout(() => {
-                            alert('submit was called')
+                            setSubmitting(false)
+                            const data=new FormData()
+                            for(let key in values){
+                                console.log(key,values[key])
+                                data.append(key,values[key])
+                            }
+                            // axios.post('', formData, {
+                            //     onUploadProgress: (data) => {
+                            //         console.log(data.loaded, data.total)
+                            //         setUploaded(Math.round((data.loaded / data.total) * 100))
+                            //     }
+                            // })
                         }, 400)
                     }}
                 >
@@ -59,90 +71,98 @@ function ContentForm(props) {
                                                     name={ele.id}
                                                     render={arrayHelpers => (
                                                         <>
-                                                        <div className="grid grid-cols-1 space-y-2">
-                                                            <label className="text-sm font-bold text-gray-500 tracking-wide">{ele.id}</label>
-                                                            {values[ele.id] && values[ele.id].length > 0 ? (
-                                                                values[ele.id].map((element, index) => (
-                                                                    <div key={index}>
-                                                                        <Field name={ele.id[index]}
-                                                                             className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
-                                                                        />
-                                                                        <button
-                                                                            type="button"
-                                                                            onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
-                                                                        >
-                                                                            -
+                                                            <div className="grid grid-cols-1 space-y-2">
+                                                                <label className="text-sm font-bold text-gray-500 tracking-wide">{ele.id}</label>
+                                                                {values[ele.id] && values[ele.id].length > 0 ? (
+                                                                    values[ele.id].map((element, index) => (
+                                                                        <div key={index}>
+                                                                            <Field name={ele.id[index]}
+                                                                                className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
+                                                                            />
+                                                                            <button
+                                                                                type="button"
+                                                                                onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
+                                                                            >
+                                                                                -
+                                                                            </button>
+                                                                            <button
+                                                                                type="button"
+                                                                                onClick={() => arrayHelpers.insert(index, "")} // insert an empty string at a position
+                                                                            >
+                                                                                +
+                                                                            </button>
+                                                                        </div>
+                                                                    ))
+                                                                ) :
+                                                                    (
+                                                                        <button type="button" onClick={() => arrayHelpers.push("")}>
+                                                                            Add Tags
                                                                         </button>
-                                                                        <button
-                                                                            type="button"
-                                                                            onClick={() => arrayHelpers.insert(index, "")} // insert an empty string at a position
-                                                                        >
-                                                                            +
-                                                                        </button>
-                                                                    </div>
-                                                                ))
-                                                            ) :
-                                                                (
-                                                                    <button type="button" onClick={() => arrayHelpers.push("")}>
-                                                                        Add Tags
-                                                                    </button>
-                                                                )
+                                                                    )
 
 
-                                                            }
+                                                                }
                                                             </div>
-                                                            </>
+                                                        </>
                                                     )}
                                                 />
 
                                             </> :
                                                 <>
-                                                <div className="grid grid-cols-1 space-y-2">
-                                                <label className="text-sm font-bold text-gray-500 tracking-wide">{ele.id}</label>
-                                                    <Field
-                                                        type={ele.config.elementConfig.type}
-                                                        placeholder={ele.config.elementConfig.placeholder}
-                                                        value={values[ele.id]}
-                                                        name={ele.id}
-                                                        onChange={handleChange}
-                                                        className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
-                                                    />
-                                                    {errors[ele.id] && touched[ele.id] ? <div className='text-red-500 text-xs italic'>{errors[ele.id]} </div> : null}
+                                                    <div className="grid grid-cols-1 space-y-2">
+                                                        <label className="text-sm font-bold text-gray-500 tracking-wide">{ele.id}</label>
+                                                        <Field
+                                                            type={ele.config.elementConfig.type}
+                                                            placeholder={ele.config.elementConfig.placeholder}
+                                                            value={values[ele.id]}
+                                                            name={ele.id}
+                                                            onChange={handleChange}
+                                                            className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
+                                                        />
+                                                        {errors[ele.id] && touched[ele.id] ? <div className='text-red-500 text-xs italic'>{errors[ele.id]} </div> : null}
                                                     </div>
                                                 </> : <>
                                                 <div className="grid grid-cols-1 space-y-2">
-                                                <label className="text-sm font-bold text-gray-500 tracking-wide">{ele.id}</label>
-                                                <div className="flex items-center justify-center w-full">
-                                                <label className="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
-                                                <div className="h-full w-full text-center flex flex-col item-center justify-center">
-                                                <div class="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10">
-                                    <img class="has-mask h-36 object-center" src="https://img.freepik.com/free-vector/image-upload-concept-landing-page_52683-27130.jpg?size=338&ext=jpg" alt="freepik" />
-                                    </div>
-                                    <p class="pointer-none text-gray-500 "><span class="text-sm">Drag and drop</span> files here <br /></p>
+                                                    <label className="text-sm font-bold text-gray-500 tracking-wide">{ele.id}</label>
+                                                    <div className="flex items-center justify-center w-full">
+                                                        <label className="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
+                                                            <div className="h-full w-full text-center flex flex-col item-center justify-center">
+                                                                <div class="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10">
+                                                                    <img class="has-mask h-36 object-center" src="https://img.freepik.com/free-vector/image-upload-concept-landing-page_52683-27130.jpg?size=338&ext=jpg" alt="freepik" />
+                                                                </div>
+                                                                <p class="pointer-none text-gray-500 "><span class="text-sm">Drag and drop</span> files here <br /></p>
+                                                            </div>
+                                                            <Field
+                                                                type={ele.config.elementConfig.type}
+                                                                placeholder={ele.config.elementConfig.placeholder}
+                                                                className="hidden"
+                                                                value={values[ele]}
+                                                                onChange={(event) => {
+                                                                    setFieldValue(ele.id, event.currentTarget.files[0]);
+                                                                }}
+                                                                name={ele.id}
+                                                            />
+                                                        </label>
                                                     </div>
-                                                <Field
-                                                    type={ele.config.elementConfig.type}
-                                                    placeholder={ele.config.elementConfig.placeholder}
-                                                    className="hidden"
-                                                    value={values[ele]}
-                                                    onChange={(event) => {
-                                                        setFieldValue(ele.id, event.currentTarget.files[0]);
-                                                    }}
-                                                    name={ele.id}
-                                                />
-                                                </label>
+                                                    {errors[ele.id] && touched[ele.id] ? <div className='text-red-500 text-xs italic'>{errors[ele.id]} </div> : null}
                                                 </div>
-                                                {errors[ele.id] && touched[ele.id] ? <div className='text-red-500 text-xs italic'>{errors[ele.id]} </div> : null}
-                                            </div>
                                             </>
                                             }
                                         </>
                                     )
                                 })}
+                                 <div class="flex -mx-3">
+                                        <div class="w-full px-3 mb-5">
+                                            <button class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-3 font-semibold">Submit</button>
+                                        </div>
+                                    </div>
                             </Form>
                         </>
                     )}
                 </Formik>
+                <div className="w-full h-6 bg-gray-200 rounded-full dark:bg-gray-700 mt-1">
+                    <div className="h-6 bg-blue-600 rounded-full dark:bg-blue-500 text-white" style={{width:`${uploaded}%`}}>Progress: {uploaded}%</div>
+                </div>
             </div>
         </div>
     )
