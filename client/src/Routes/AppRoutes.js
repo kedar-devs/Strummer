@@ -20,6 +20,7 @@ import LoginEmailData from '../Components/FormData/LoginUser'
 import RegisterMobile from '../Components/FormData/RegisterMobile'
 import UserData from '../Components/FormData/UserProfile'
 import MakeCreator from '../Components/FormData/MakeCreator'
+import MakeChannel from '../Components/FormData/MakeChannel'
 import ContentCreation from '../Components/FormData/ContentCreation'
 //Validation
 import UserLoginEmailValidation from '../Components/FormValidation/UserLoginValidation'
@@ -27,6 +28,7 @@ import UserLoginValidation from '../Components/FormValidation/UserLoginMobileVal
 import UserRegisterValidationSchema from '../Components/FormValidation/UserRegisterValidation'
 import UserCreatorValidationSchema from '../Components/FormValidation/UserCreatorValidation'
 import UserMobileNoValidation from '../Components/FormValidation/UserMobileNoValidation'
+import UserChannelValidation from '../Components/FormValidation/UserChannelValidation'
 
 function AppRoutes() {
   return (
@@ -40,6 +42,7 @@ function AppRoutes() {
         <Route path='/RegisterMobile' element={<LoginForm LoginData={RegisterMobile} UserLoginValidation={UserMobileNoValidation} />} />
         <Route path="/RegisterUser" element={<RegisterForm RegisterData={UserData} UserRegisterValidation={UserRegisterValidationSchema} />} />
         <Route path="/BecomeCreator" element={<RegisterForm RegisterData={MakeCreator} UserRegisterValidation={UserCreatorValidationSchema} />} />
+        <Route path="/CreateChannel" element={<RegisterForm RegisterData={MakeChannel} UserRegisterValidation={UserChannelValidation} />} />
         <Route path="/VideoPlayer" element={<VideoPlayer />} />
         <Route path="/subscription" element={<Subscription />} />
         <Route path="/Channel" element={<Channel />}>
