@@ -66,6 +66,8 @@ let state={
             touched: false,
         },
         
-    }
+    },
+    submitText:'Submit',
+    axiosRequest:'http://localhost:5000/Channel/AddChannel'
 }
 module.exports=state

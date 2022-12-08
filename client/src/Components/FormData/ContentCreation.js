@@ -65,20 +65,8 @@ let state={
             valid:true,
             touched:false 
         },
-        Playlist:{
-            elementType:'input',
-            elementConfig:{
-                type:'text',
-                placeholder:"Playlist"
-            },
-            value:'',
-            validation:{
-                required:true
-            },
-            valid:true,
-            touched:false 
-        }
 
-    }
+    },
+    axiosRequest:'http://localhost:5000/Content/NewContent'
 }
 module.exports=state
