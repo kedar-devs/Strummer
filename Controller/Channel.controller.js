@@ -1,8 +1,11 @@
 const ChannelData=require('./../Models/Channel.model')
+const cloudinary = require('cloudinary').v2
+require('./../Helper/Cloudinary')
 exports.AddChannel=async(req,res)=>{
     console.log(req.body)
     try{
     const {channelName,about,channelCreator}=req.body
+    const photo=req.files.channelImage
     const FoundChannel=await ChannelData.findOne({channelName})
     if(FoundChannel){
         return res.status(400).send({message:'A user with that Name Already exist'})
@@ -10,6 +13,7 @@ exports.AddChannel=async(req,res)=>{
     const channel={
         channelName:channelName,
         channelSubCount:0,
+        channelImage:photo,
         playlist:[],
         about:about,
         socialInsta:req.body.socialInsta?req.body.socialInsta:' ',
@@ -17,6 +21,7 @@ exports.AddChannel=async(req,res)=>{
         socialTwit:req.body.socialTwit?req.body.socialTwit:' ',
         channelCreator:channelCreator
     }
+    channel.channelImage=await cloudinary.uploader.update(channel.channelImage.tempFilePath)
     const NewChannel=new ChannelData(channel)
     NewChannel.save((err,user)=>{
         console.log(user)
@@ -29,6 +34,26 @@ exports.AddChannel=async(req,res)=>{
     })
 }catch{
     return res.status(400).send({message:err})
+}
+}
+exports.editChannelImage=async(req,res)=>{
+    const {id}=req.params
+    try{
+    const FoundChannel=await ChannelData.findOne({_id:id})
+    if(!FoundChannel){
+        return res.send(404,{message:'No channel was found'})
+    }
+    const photo=req.files.channelImage
+    FoundChannel.channelImage=await cloudinary.uploader.upload(photo.tempFilePath)
+    FoundChannel.save()
+    .then(res=>{
+        return res.status(200).send({message:'Edit was Successful'})
+    })
+    .catch(err=>{
+        return res.status(400).send({message:err})
+    })
+}catch(err){
+    return res.status(400).send({err})
 }
 }
 exports.editChannelName=async(req,res)=>{

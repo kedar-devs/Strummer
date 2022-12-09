@@ -211,3 +211,17 @@ exports.DeleteTags=async(req,res)=>{
         return res.status(400).send({message:'No user Found'})
     }
 }
+exports.searchTags=async(req,res)=>{
+    try{
+    const {tags}=req.body
+    const foundContent=await ContentData.find({Tags:{$regex:'.*'+tags+'.*'}})
+    if(foundContent){
+        return res.status(200).send({foundContent})
+    }
+    else{
+        return res.status(400).send({message:'No video with this tag was found'})
+    }
+    }catch(err){
+        return res.status(500).send(err)
+    }
+}
