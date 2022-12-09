@@ -14,5 +14,5 @@ const Coach=Schema({
     
 
 })
-const Creator=new mongoose.model("Creator",Coach)
+const Creator= mongoose.model("Creator",Coach)
 module.exports=Creator

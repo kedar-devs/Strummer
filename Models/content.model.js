@@ -21,5 +21,5 @@ const ContentSchema=Schema({
     reportCount:{type:Number},
     reportReason:{type:String}
 })
-const ContentData=new mongoose.model('Content',ContentSchema)
+const ContentData=mongoose.model('Content',ContentSchema)
 module.exports=ContentData

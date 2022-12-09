@@ -3,6 +3,7 @@ const Schema=mongoose.Schema
 const ChannelSchema=Schema({
     channelName:{type:String,reqired:true,unique:true},
     channelSubCount:{type:Number,required:true},
+    channelImage:{type:String},
     playlist:{type:[String]},
     about:{type:String,required:true},
     socialInsta:{type:String},
