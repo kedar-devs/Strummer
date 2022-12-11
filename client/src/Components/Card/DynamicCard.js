@@ -15,7 +15,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-function DynamicCard() {
+function DynamicCard(props) {
+  console.log(props)
   // const [expanded, setExpanded] = React.useState(false);
 
   // const handleExpandClick = () => {
@@ -27,7 +28,7 @@ function DynamicCard() {
        <CardMedia
         component="img"
         height="194"
-        image="/static/images/cards/paella.jpg"
+        image={props.cardDetail.ImageThumbnail}
         alt="Paella dish"
       />
        <CardHeader
@@ -41,8 +42,8 @@ function DynamicCard() {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title={props.cardDetail.Title}
+        subheader={props.cardDetail.Description}
       />
        <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
