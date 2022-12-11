@@ -3,6 +3,8 @@ const cloudinary = require('cloudinary').v2
 require('./../Helper/Cloudinary')
 
 exports.CreateNewContent=async(req,res)=>{
+    console.log(req.body)
+    try{
     const {ContentCreator,length,channelId,Tags,Title,Description}=req.body
     const createAt=new Date()
     const videoFile=req.files.video
@@ -20,7 +22,7 @@ exports.CreateNewContent=async(req,res)=>{
             const Content={
                 ContentUrl:ContentUrl,
                 ContentCreator:ContentCreator,
-                ImageThumbnail:urlThumbnail,
+                ImageThumbnail:urlThumbnail.url,
                 Title:Title,
                 createAt:createAt,
                 Description:Description,
@@ -45,6 +47,10 @@ exports.CreateNewContent=async(req,res)=>{
             })
         }
       });
+    }
+    catch(err){
+        console.log(err)
+    }
 }
 exports.AddLikes=async(req,res)=>{
     const _id=req.params.id
