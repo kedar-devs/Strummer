@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {useNavigate} from 'react-router-dom'
 // import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -16,17 +16,18 @@ import ShareIcon from '@mui/icons-material/Share';
 
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 function DynamicCard(props) {
-  console.log(props)
+  const navigator=useNavigate()
   // const [expanded, setExpanded] = React.useState(false);
 
   // const handleExpandClick = () => {
   //   setExpanded(!expanded);
   // }
   return (
-    <div className='App' >
-      <Card >
+    <div className='max-w-sm rounded-lg overflow-hidden shadow-md shadow-blue-300' >
+      <Card className='h-96' onClick={()=>{navigator(`/VideoPlayer/${props.cardDetail._id}`)}}>
        <CardMedia
         component="img"
+        className='rounded-t-lg h-60'
         height="194"
         image={props.cardDetail.ImageThumbnail}
         alt="Paella dish"
