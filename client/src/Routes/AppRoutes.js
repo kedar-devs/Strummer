@@ -43,7 +43,7 @@ function AppRoutes() {
         <Route path="/RegisterUser" element={<RegisterForm RegisterData={UserData} UserRegisterValidation={UserRegisterValidationSchema} />} />
         <Route path="/BecomeCreator" element={<RegisterForm RegisterData={MakeCreator} UserRegisterValidation={UserCreatorValidationSchema} />} />
         <Route path="/CreateChannel" element={<RegisterForm RegisterData={MakeChannel} UserRegisterValidation={UserChannelValidation} />} />
-        <Route path="/VideoPlayer" element={<VideoPlayer />} />
+        <Route path="/VideoPlayer/:id" element={<VideoPlayer />} />
         <Route path="/subscription" element={<Subscription />} />
         <Route path="/Channel" element={<Channel />}>
           <Route path="Videos" element={<VideoPage />} />

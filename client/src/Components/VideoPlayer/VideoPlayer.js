@@ -1,8 +1,23 @@
-import React from 'react'
+import axios from 'axios';
+import React,{useState,useEffect} from 'react'
 import { DefaultPlayer as Video } from 'react-html5video';
 import 'react-html5video/dist/styles.css';
+import { useParams } from 'react-router-dom';
 
-function VideoPlayer() {
+function VideoPlayer(props) {
+  const [videoUrl,setVideoUrl]=useState()
+  const {id}=useParams()
+  useEffect(()=>{
+    
+    axios.get(`http://localhost:5000/Content/GetOneContent/${id}`)
+    .then(result=>{
+      console.log(result.data.ContentUrl)
+      setVideoUrl(result.data.ContentUrl)
+    })
+    .catch(err=>{
+      console.log(err)
+    })
+  },[id])
   return (
     <div>
       <Video autoPlay loop muted
@@ -11,7 +26,7 @@ function VideoPlayer() {
             onCanPlayThrough={() => {
                 // Do stuff
             }}>
-            <source src="http://res.cloudinary.com/dwxxqd2zu/raw/upload/v1668663185/esrz9cgl9ussanmbsp5b" type="video/webm" />
+            <source src={videoUrl} type="video/webm" />
            
         </Video>
     </div>
