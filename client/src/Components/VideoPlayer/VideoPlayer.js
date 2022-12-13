@@ -5,30 +5,33 @@ import 'react-html5video/dist/styles.css';
 import { useParams } from 'react-router-dom';
 
 function VideoPlayer(props) {
-  const [videoUrl,setVideoUrl]=useState()
+  const [video,setVideoUrl]=useState()
+  const [loading,setLoading]=useState(false)
   const {id}=useParams()
   useEffect(()=>{
-    
     axios.get(`http://localhost:5000/Content/GetOneContent/${id}`)
     .then(result=>{
-      console.log(result.data.ContentUrl)
-      setVideoUrl(result.data.ContentUrl)
+      console.log(result.data)
+      setVideoUrl(result.data)
+      setLoading(true)
     })
     .catch(err=>{
       console.log(err)
     })
   },[id])
   return (
-    <div>
-      <Video autoPlay loop muted
+    <div >
+      {loading?<Video autoPlay
+            className='lg:w-4/5 h-96 lg:ml-32 md:ml-20 sm:w-full md:w-4/5'  
             controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}
-            poster="http://sourceposter.jpg"
+            poster={video.ImageThumbnail}
             onCanPlayThrough={() => {
                 // Do stuff
             }}>
-            <source src={videoUrl} type="video/webm" />
+             
+            <source src={video.ContentUrl} type="video/webm" />
            
-        </Video>
+        </Video>:<>Loading</>}
     </div>
   )
 }
