@@ -6,6 +6,7 @@ import SearchBar from '../Components/SearchBar/SearchBar'
 import LoginForm from '../Components/Forms/LoginForm'
 import RegisterForm from '../Components/Forms/RegisterForm'
 import VideoPlayer from '../Components/VideoPlayer/VideoPlayer'
+import VideoPlayerPage from '../Components/VideoPlayer/VideoPlayerPage'
 import VideoPage from '../Components/Channel/Pages/VideoPage'
 import PlayListPage from '../Components/Channel/Pages/PlaylistPage'
 import CommunityPage from '../Components/Channel/Pages/CommunityPage'
@@ -53,6 +54,7 @@ function AppRoutes() {
           <Route path="About" element={<AboutPage />} />
         </Route>
         <Route path='/AddContent' element={<ContentForm formData={ContentCreation} />} />
+        <Route path='/VideoPlayerPage' element={<VideoPlayerPage/>} />
         {/*<Route path="/watchLater" component={} />
             <Route path="/History" component={}/>
             <Route path="/LikedVideo"component={} />
