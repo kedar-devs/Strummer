@@ -13,6 +13,9 @@ function Comment() {
         <div className='col-span-2'>
             comment
         </div>
+
+
+        
         <div>
             <button>:</button>
         </div>
