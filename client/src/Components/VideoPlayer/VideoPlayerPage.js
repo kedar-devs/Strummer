@@ -35,6 +35,8 @@ function VideoPlayerPage() {
           <Comment />
         </div>
         <div>bye</div>
+
+        
       </div>
     </div>
   );
