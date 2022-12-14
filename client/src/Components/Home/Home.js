@@ -5,10 +5,12 @@ import axios from 'axios'
 
 function Home() {
   const [cards,setCard]=useState([])
+  const [loader,setLoader]=useState(false)
   useEffect(()=>{
     axios.get('http://localhost:5000/Content/GetContent')
     .then(result=>{
       setCard(result.data)
+      setLoader(true)
       console.log(result)
     })
     .catch(err=>{
@@ -17,8 +19,8 @@ function Home() {
     },[])
     // const cards=["1","2","3","3","3"]
   return (
- 
-    <div className='h-screen'>
+    <>
+    {loader?<div className='h-screen'>
         <Grid container spacing={2}>
         {cards.map((card)=>{
                 return  <Grid item xs={12} md={4} lg={3} sm={6}>
@@ -26,8 +28,10 @@ function Home() {
                   </Grid>
         })}
            </Grid>
+           
        
-    </div>
+    </div>:<div className='h-screen'> Loading.....</div>}
+    </>
   )
 }
 
