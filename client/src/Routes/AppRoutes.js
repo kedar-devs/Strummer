@@ -6,7 +6,6 @@ import SearchBar from '../Components/SearchBar/SearchBar'
 import LoginForm from '../Components/Forms/LoginForm'
 import RegisterForm from '../Components/Forms/RegisterForm'
 import VideoPlayer from '../Components/VideoPlayer/VideoPlayer'
-import VideoPlayerPage from '../Components/VideoPlayer/VideoPlayerPage'
 import VideoPage from '../Components/Channel/Pages/VideoPage'
 import PlayListPage from '../Components/Channel/Pages/PlaylistPage'
 import CommunityPage from '../Components/Channel/Pages/CommunityPage'
@@ -15,6 +14,7 @@ import AboutPage from '../Components/Channel/Pages/AboutPage'
 import Subscription from '../Components/Sbscription/Subscription'
 import Channel from '../Components/Channel/Channel'
 import ContentForm from '../Components/Forms/ContentForm'
+// import OtherVideosPage from '../Components/VideoPlayer/OtherVideosPage'
 //Form Related data
 import LoginData from '../Components/FormData/LoginUserMobile'
 import LoginEmailData from '../Components/FormData/LoginUser'
@@ -44,7 +44,11 @@ function AppRoutes() {
         <Route path="/RegisterUser" element={<RegisterForm RegisterData={UserData} UserRegisterValidation={UserRegisterValidationSchema} />} />
         <Route path="/BecomeCreator" element={<RegisterForm RegisterData={MakeCreator} UserRegisterValidation={UserCreatorValidationSchema} />} />
         <Route path="/CreateChannel" element={<RegisterForm RegisterData={MakeChannel} UserRegisterValidation={UserChannelValidation} />} />
-        <Route path="/VideoPlayer/:id" element={<VideoPlayer />} />
+        <Route path="/VideoPlayer/:id" element={<VideoPlayer />} >
+            {/* <Route path="" element={<OtherVideosPage />}/>
+            <Route path="Recommended" element={<OtherVideosPage />} />
+            <Route path="channel" element={<ChannelPage />} />   */}
+        </Route>
         <Route path="/subscription" element={<Subscription />} />
         <Route path="/Channel" element={<Channel />}>
           <Route path="Videos" element={<VideoPage />} />
@@ -54,7 +58,6 @@ function AppRoutes() {
           <Route path="About" element={<AboutPage />} />
         </Route>
         <Route path='/AddContent' element={<ContentForm formData={ContentCreation} />} />
-        <Route path='/VideoPlayerPage' element={<VideoPlayerPage/>} />
         {/*<Route path="/watchLater" component={} />
             <Route path="/History" component={}/>
             <Route path="/LikedVideo"component={} />

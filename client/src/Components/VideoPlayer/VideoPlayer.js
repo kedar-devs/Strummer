@@ -2,7 +2,8 @@ import axios from 'axios';
 import React,{useState,useEffect} from 'react'
 import { DefaultPlayer as Video } from 'react-html5video';
 import 'react-html5video/dist/styles.css';
-import { useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
+import ChannelNavbar from '../Channel/ChannelNavbar';
 import VideoPlayerPage from './VideoPlayerPage';
 
 function VideoPlayer(props) {
@@ -36,6 +37,8 @@ function VideoPlayer(props) {
            
         </Video>
         <VideoPlayerPage />
+        <ChannelNavbar />
+        <Outlet />
         </>
         :<>Loading</>}
     </div>
