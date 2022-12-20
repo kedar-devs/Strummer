@@ -36,3 +36,44 @@ exports.AddVideoToPlaylist=async(req,res)=>{
         }
     })
 }
+exports.GetAllPlaylist=async(req,res)=>{
+    try{
+    const AllPlaylist=await PlaylistData.find()
+    if(AllPlaylist){
+        return res.status(200).send({AllPlaylist})
+    }
+    else{
+        return res.status(404).send({message:'NO playlist was found'})
+    }
+    }catch(err){
+        console.log(err)
+    }
+}
+exports.getChannelPlaylist=async(req,res)=>{
+    try{
+        const {id}=req.params
+        const FoundPlaylist=await PlaylistData.find({channelId:id})
+        if(FoundPlaylist){
+            return res.status(200).send({FoundPlaylist})
+        }
+        else{
+            return res.status(404).send({message:'NO playlist was found'})
+        }
+    }catch(err){
+        console.log(err)
+    }
+}
+exports.getOnePlaylist=async(req,res)=>{
+    try{
+        const {id}=req.params
+        const FoundPlaylist=await PlaylistData.findOne({_id:id})
+        if(FoundPlaylist){
+            return res.status(200).send({FoundPlaylist})
+        }
+        else{
+            return res.status(404).send({message:'NO playlist was found'})
+        }
+    }catch(err){
+        console.log(err)
+    }
+}
