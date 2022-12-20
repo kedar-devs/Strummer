@@ -21,4 +21,7 @@ routes.get("/GetChannel/:id",ContentController.getChannel)
 routes.get("/GetContent",ContentController.GetContent)
 routes.get("/GetOneContent/:id",ContentController.getOneContent)
 routes.get("/GetCreator/:id",ContentController.getCreator)
+routes.get("/Playlist/GetOne/:id",PlayListController.getOnePlaylist)
+routes.get("/Playlist/GetChannelPlaylist/:id",PlayListController.getChannelPlaylist)
+routes.get("/Playlist/GetAllPlaylist",PlayListController.GetAllPlaylist)
 module.exports=routes
