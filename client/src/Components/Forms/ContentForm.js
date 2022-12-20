@@ -23,7 +23,7 @@ function ContentForm(props) {
                 init[key] = ''
             }
             else {
-                init[key] = ['Vong']
+                init[key] = []
             }
         }
         console.log(init)
@@ -37,6 +37,7 @@ function ContentForm(props) {
             <div class="sm:max-w-lg w-full p-10 bg-white rounded-xl z-10">
                 <Formik
                     initialValues={initialVal}
+                    enableReinitialize={true}
                     onSubmit={(values, { setSubmitting }) => {
                         setTimeout(() => {
                             setSubmitting(false)
@@ -66,36 +67,39 @@ function ContentForm(props) {
                                 {FormEleArray.map((ele) => {
                                     return (
                                         <>
+                                        
                                             {ele.config.elementConfig.type !== 'file' ? ele.config.elementType === 'multiOption' ? <>
                                                 <FieldArray
                                                     name={ele.id}
                                                     render={arrayHelpers => (
                                                         <>
+
                                                             <div className="grid grid-cols-1 space-y-2">
                                                                 <label className="text-sm font-bold text-gray-500 tracking-wide">{ele.id}</label>
                                                                 {values[ele.id] && values[ele.id].length > 0 ? (
                                                                     values[ele.id].map((element, index) => (
                                                                         <div key={index}>
-                                                                            <Field name={ele.id[index]}
+                                                                            {console.log(values[ele.id],index,values[ele.id][index],ele.id)}
+                                                                            <Field name={`${ele.id}.${index}`}
                                                                                 className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
                                                                             />
                                                                             <button
                                                                                 type="button"
                                                                                 onClick={() => arrayHelpers.remove(index)} // remove a friend from the list
                                                                             >
-                                                                                -
+                                                                             -
                                                                             </button>
                                                                             <button
                                                                                 type="button"
-                                                                                onClick={() => arrayHelpers.insert(index, "")} // insert an empty string at a position
+                                                                                onClick={() => arrayHelpers.insert(index, " ")} // insert an empty string at a position
                                                                             >
-                                                                                +
+                                                                               {index} +
                                                                             </button>
                                                                         </div>
                                                                     ))
                                                                 ) :
                                                                     (
-                                                                        <button type="button" onClick={() => arrayHelpers.push("")}>
+                                                                        <button type="button" onClick={() => arrayHelpers.push(" ")}>
                                                                             Add Tags
                                                                         </button>
                                                                     )
