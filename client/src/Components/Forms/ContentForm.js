@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Formik, Form, Field, FieldArray } from 'formik'
+import {Navigate, useNavigate} from 'react-router-dom'
 // import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 
 function ContentForm(props) {
     const [FormEleArray, setFormData] = useState([])
     const [initialVal, setInitialVal] = useState({})
-    const [uploaded, setUploaded] = useState(45)
+    const [uploaded, setUploaded] = useState(0)
+    const [axiosRequest,setAxiosRequest]=useState('')
+    const navigator=useNavigate()
     // const [serverUrl, setUrl] = useState('')
     useEffect(() => {
         let formData = props.formData
@@ -29,6 +32,7 @@ function ContentForm(props) {
         console.log(init)
         setFormData(ele)
         setInitialVal(init)
+        setAxiosRequest(formData.axiosRequest)
     }, [props])
     return (
         <div className="min-h-screen flex item-center justify-center bg-gray-500 py-12 px-4 sm:px-6 lg:px-8 bg-no-repeat bg-cover relative items-center"
@@ -41,17 +45,29 @@ function ContentForm(props) {
                     onSubmit={(values, { setSubmitting }) => {
                         setTimeout(() => {
                             setSubmitting(false)
+                            console.log(values)
                             const data=new FormData()
                             for(let key in values){
-                                console.log(key,values[key])
                                 data.append(key,values[key])
                             }
-                            // axios.post('', formData, {
-                            //     onUploadProgress: (data) => {
-                            //         console.log(data.loaded, data.total)
-                            //         setUploaded(Math.round((data.loaded / data.total) * 100))
-                            //     }
-                            // })
+                            //637325f56205a4745d11b212
+                            //637485098b1216a8d6c01ce3
+                            data.append('ContentCreator','637325f56205a4745d11b212')
+                            data.append('channelId','637485098b1216a8d6c01ce3')
+                             axios.post(axiosRequest, data, {
+                                onUploadProgress: (data) => {
+                                    console.log(data.loaded, data.total)
+                                    setUploaded(Math.round((data.loaded / data.total) * 100))
+                                }
+                            })
+                            .then(result=>{
+                                console.log(result)
+                                navigator('/')
+                            })
+                            .catch(err=>{
+                                console.log(err)
+                                alert(err)
+                            })
                         }, 400)
                     }}
                 >
@@ -79,7 +95,7 @@ function ContentForm(props) {
                                                                 {values[ele.id] && values[ele.id].length > 0 ? (
                                                                     values[ele.id].map((element, index) => (
                                                                         <div key={index}>
-                                                                            {console.log(values[ele.id],index,values[ele.id][index],ele.id)}
+                                                                            
                                                                             <Field name={`${ele.id}.${index}`}
                                                                                 className="text-base p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500"
                                                                             />
@@ -93,7 +109,7 @@ function ContentForm(props) {
                                                                                 type="button"
                                                                                 onClick={() => arrayHelpers.insert(index, " ")} // insert an empty string at a position
                                                                             >
-                                                                               {index} +
+                                                                               +
                                                                             </button>
                                                                         </div>
                                                                     ))
@@ -142,6 +158,7 @@ function ContentForm(props) {
                                                                 className="hidden"
                                                                 value={values[ele]}
                                                                 onChange={(event) => {
+                                                                    
                                                                     setFieldValue(ele.id, event.currentTarget.files[0]);
                                                                 }}
                                                                 name={ele.id}

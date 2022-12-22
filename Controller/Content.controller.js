@@ -3,11 +3,11 @@ const cloudinary = require('cloudinary').v2
 require('./../Helper/Cloudinary')
 
 exports.CreateNewContent=async(req,res)=>{
-    console.log(req.body)
+    console.log(req.files)
     try{
     const {ContentCreator,length,channelId,Tags,Title,Description}=req.body
     const createAt=new Date()
-    const videoFile=req.files.video
+    const videoFile=req.files.Video
     const photo=req.files.photo
     cloudinary.uploader.upload_large(videoFile.tempFilePath, {
         chunk_size: 7000000
@@ -39,9 +39,11 @@ exports.CreateNewContent=async(req,res)=>{
             const NewContent=new ContentData(Content)
             NewContent.save((err,result)=>{
                 if(err){
+                    console.log(err)
                     return res.status(400).send(err)
                 }
                 else{
+                    console.log(err)
                     return res.status(200).send({message:'Upload was successful'})
                 }
             })
