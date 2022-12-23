@@ -1,12 +1,14 @@
 import React from 'react'
-import ChannelHeading from './ChannelHeading'
-import ChannelNavbar from './ChannelNavbar'
+// import ChannelHeading from './ChannelHeading'
+// import ChannelNavbar from './ChannelNavbar'
+import BecomeCreator from './BecomeCreator';
 import { Outlet } from "react-router-dom";
 function Channel() {
   return (
     <div>
-      <ChannelHeading />
-      <ChannelNavbar />
+      <BecomeCreator/>
+      {/* <ChannelHeading />
+      <ChannelNavbar /> */}
       <Outlet />
     </div>
   )

@@ -50,7 +50,10 @@ function Navbar() {
         action.DeleteAccessToken()
         navigate('/')
         break
-
+      case 'Your Channel':
+        navigate('/Channel')
+        setProfile(null)
+        break
       default:
         console.log('In here')
         setProfile(null)

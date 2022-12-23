@@ -72,15 +72,15 @@ function RegisterForm(props) {
                                         }
                                     })
                                         .then(result => {
-                                            action.AssignAccessToken(result.data.token)
-                                            navigator('/')
+                                            
+                                            // navigator('/')
                                             alert(result)
                                             
-                                            if(userType=='Creator'){
+                                            if(userType==='Creator'){
                                                 const action = bindActionCreators(channelActionCreator, dispatch)
                                                 action.AddCreatorId(result.data.id)
                                             }
-                                            else if(userType=='Channel'){
+                                            else if(userType==='Channel'){
                                                 const action = bindActionCreators(channelActionCreator, dispatch)
                                                 action.AddChannelId(result.data.id)
                                             }
@@ -88,6 +88,7 @@ function RegisterForm(props) {
                                                 localStorage.setItem('accessToken',result.data.token)
                                                 const action = bindActionCreators(actionCreator, dispatch) 
                                                 action.AssignAccessToken(result.data.token)
+                                                navigator('/')
                                             }
                                         })
                                         .catch(err => {
