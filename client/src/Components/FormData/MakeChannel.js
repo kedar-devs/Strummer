@@ -68,6 +68,7 @@ let state={
         
     },
     submitText:'Submit',
-    axiosRequest:'http://localhost:5000/Channel/AddChannel'
+    axiosRequest:'http://localhost:5000/Channel/AddChannel',
+    userType:"Channel"
 }
 module.exports=state
