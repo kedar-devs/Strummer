@@ -1,6 +1,8 @@
 let initialState={
     channelId:'None',
-    creatorId:'None'
+    isChannel:false,
+    creatorId:'None',
+    isCreator:false
 }
 const reducer=(state=initialState,action)=>{
     switch(action){
