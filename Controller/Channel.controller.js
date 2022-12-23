@@ -29,7 +29,8 @@ exports.AddChannel=async(req,res)=>{
             return res.status(200).send(err)
         }
         else{
-            return res.status(200).send({message:'Channel Added Succesfully'})
+            let id=NewChannel._id
+            return res.status(200).send({id})
         }
     })
 }catch{

@@ -175,7 +175,8 @@ exports.BecomeCreator = async (req, res) => {
                 if (err) {
                     return res.status(400).send({ err })
                 }
-                return res.status(200).send({ token })
+                let id=NewCoach._id
+                return res.status(200).send({id})
             })
 
         }
