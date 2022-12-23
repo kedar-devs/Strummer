@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Formik, Form, Field } from 'formik'
 import axios from 'axios'
 import { actionCreator } from '../../State/index'
+import { channelActionCreator } from '../../State/index'
 import { useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { useNavigate } from 'react-router-dom'
@@ -13,8 +14,9 @@ function RegisterForm(props) {
     const [SumbitText, setSubmitText] = useState('')
     const [ServerUrl, setServerUrl] = useState('')
     const [uploaded, setUploaded] = useState(0)
+    const [userType,setUserType]=useState('')
     const dispatch = useDispatch()
-    const action = bindActionCreators(actionCreator, dispatch)
+   
     //const [otherDetails,setOtherDetails]=useState([])
     const [UserRegisterValidation, setValidationSchema] = useState({})
 
@@ -35,7 +37,7 @@ function RegisterForm(props) {
         setSubmitText(RegisterData.submitText)
         setFormElement(ele)
         setInitialVal(init)
-
+        setUserType(RegisterData.userType)
     }, [props.RegisterData, props.UserRegisterValidation])
     return (
         <div className="min-w-screen min-h-screen bg-gray-900 flex items-center justify-center px-5 py-5">
@@ -67,13 +69,26 @@ function RegisterForm(props) {
                                     axios.post(ServerUrl, data, {
                                         onUploadProgress: (data) => {
                                             setUploaded(Math.round((data.loaded / data.total) * 100))
-
                                         }
                                     })
                                         .then(result => {
                                             action.AssignAccessToken(result.data.token)
                                             navigator('/')
                                             alert(result)
+                                            
+                                            if(userType=='Creator'){
+                                                const action = bindActionCreators(channelActionCreator, dispatch)
+                                                action.AddCreatorId(result.data.id)
+                                            }
+                                            else if(userType=='Channel'){
+                                                const action = bindActionCreators(channelActionCreator, dispatch)
+                                                action.AddChannelId(result.data.id)
+                                            }
+                                            else{
+                                                localStorage.setItem('accessToken',result.data.token)
+                                                const action = bindActionCreators(actionCreator, dispatch) 
+                                                action.AssignAccessToken(result.data.token)
+                                            }
                                         })
                                         .catch(err => {
                                             console.log(err)
