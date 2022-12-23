@@ -25,7 +25,6 @@ const transporter = nodemailer.createTransport({
 })
 
 exports.RegisterUser = async (req, res) => {
-    const uri=req.protocol+':\\'+req.get('host')
     const User = {
         name: req.body.name,
         email: req.body.email,
@@ -67,7 +66,8 @@ exports.RegisterUser = async (req, res) => {
     NewUser.refreshToken = token
     NewUser.save((err, user) => {
         if (err) {
-            return res.status(500).send({ err })
+            console.log(err)
+            return res.status(400).send({ err })
         }
         return res.status(200).send({ token: user.accessToken })
     })
