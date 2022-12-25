@@ -63,6 +63,7 @@ function LoginForm(props) {
                 axios.post(serverUrl,values)
                 .then(result=>{
                   action.AssignAccessToken(result.data.token)
+                  localStorage.setItem('Token',result.data.token)
                   navigate('/')
                 })
                 .catch(err=>{

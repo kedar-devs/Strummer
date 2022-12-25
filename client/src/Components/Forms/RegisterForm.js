@@ -65,6 +65,11 @@ function RegisterForm(props) {
                                             data.append('Pp', values['undefined'])
                                         }
                                     }
+                                    if(userType==='Creator'){
+                                        let token=localStorage.getItem('Token')
+                                        console.log(token)
+                                        data.append('accessToken',token)
+                                    }
                                     console.log(data.get('undefined'))
                                     axios.post(ServerUrl, data, {
                                         onUploadProgress: (data) => {
@@ -79,6 +84,7 @@ function RegisterForm(props) {
                                             if(userType==='Creator'){
                                                 const action = bindActionCreators(channelActionCreator, dispatch)
                                                 action.AddCreatorId(result.data.id)
+                                                navigator('/Channel')
                                             }
                                             else if(userType==='Channel'){
                                                 const action = bindActionCreators(channelActionCreator, dispatch)
