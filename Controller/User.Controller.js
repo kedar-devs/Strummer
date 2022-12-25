@@ -154,7 +154,7 @@ exports.BecomeCreator = async (req, res) => {
         creatorName: req.body.name ? req.body.name : FoundUser.name,
         followers: 0,
         earned: 0.0,
-        email: FoundUser.email,
+        email: req.body.email?req.body.email:FoundUser.email,
         parentId:FoundUser._id,
         password: req.body.password ? req.body.password : FoundUser.password,
         channel: [],

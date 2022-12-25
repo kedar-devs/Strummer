@@ -5,5 +5,6 @@ routes.put("/AddChannel",CoachController.AddChannel)
 routes.get("/DecreaseFollower/:accessToken",CoachController.decreaseFollowers)
 routes.get("/IncreaseFollower/:accessToken",CoachController.increaseFollowers)
 routes.get("/GetAllCreator",CoachController.getAllCreator)
-routes.get("/GetOneUser/:accessToken")
+routes.get("/GetOneUser/:accessToken",CoachController.GetOneCreator)
+routes.get("/GetFromParent/:accessToken",CoachController.getFromParent)
 module.exports=routes

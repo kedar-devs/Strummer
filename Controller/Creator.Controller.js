@@ -1,4 +1,5 @@
 const Creator = require("../Models/Coach.model")
+const UserData = require("../Models/User.model")
 
 exports.changeName=async(req,res)=>{
     const {accessToken,newName}=req.body
@@ -81,4 +82,27 @@ exports.GetOneCreator=async(req,res)=>{
     else{
         return res.status(400).send({message:'No user found'})
     }
+}
+exports.getFromParent=async(req,res)=>{
+    
+    try{
+    const {accessToken}=req.params
+    
+    const FoundUser=await UserData.findOne({accessToken})
+    if(FoundUser){
+    const FoundCreator=await Creator.find({parentId:FoundUser._id})
+    if(FoundCreator){
+        return res.status(200).send({FoundCreator,isFound:true})
+    }
+    else{
+        return res.status(400).send({isFound:false})
+    }
+}
+else{
+    return res.status(400).send({isFound:false})
+}
+}catch(err){
+    console.log(err)
+    return res.status(400).send({err})   
+}
 }
