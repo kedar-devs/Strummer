@@ -14,6 +14,7 @@ import AboutPage from '../Components/Channel/Pages/AboutPage'
 import Subscription from '../Components/Sbscription/Subscription'
 import Channel from '../Components/Channel/Channel'
 import ContentForm from '../Components/Forms/ContentForm'
+import ShowChannels from '../Components/Channel/ShowChannels'
 // import OtherVideosPage from '../Components/VideoPlayer/OtherVideosPage'
 //Form Related data
 import LoginData from '../Components/FormData/LoginUserMobile'
@@ -30,6 +31,7 @@ import UserRegisterValidationSchema from '../Components/FormValidation/UserRegis
 import UserCreatorValidationSchema from '../Components/FormValidation/UserCreatorValidation'
 import UserMobileNoValidation from '../Components/FormValidation/UserMobileNoValidation'
 import UserChannelValidation from '../Components/FormValidation/UserChannelValidation'
+
 
 function AppRoutes() {
   return (
@@ -58,6 +60,7 @@ function AppRoutes() {
           <Route path="About" element={<AboutPage />} />
         </Route>
         <Route path='/AddContent' element={<ContentForm formData={ContentCreation} />} />
+        <Route path='/c' element={<ShowChannels />} />
         {/*<Route path="/watchLater" component={} />
             <Route path="/History" component={}/>
             <Route path="/LikedVideo"component={} />
