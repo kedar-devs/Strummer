@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react'
-import ChannelHeading from './ChannelHeading'
+import CreatorHeading from './CreatorHeading';
+import ShowChannel from './ShowChannels'
 // import ChannelNavbar from './ChannelNavbar'
 import BecomeCreator from './BecomeCreator';
 
@@ -24,7 +25,8 @@ function Channel() {
     <div>
       {isNotCreator?
       <div>
-      <ChannelHeading />
+      <CreatorHeading />
+      <ShowChannel />
       </div>:
       <BecomeCreator/>
     }
