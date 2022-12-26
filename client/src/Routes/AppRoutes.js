@@ -60,7 +60,7 @@ function AppRoutes() {
           <Route path="About" element={<AboutPage />} />
         </Route>
         <Route path='/AddContent' element={<ContentForm formData={ContentCreation} />} />
-        <Route path='/c' element={<ShowChannels />} />
+        <Route path='/ShowChannel' element={<ShowChannels />} />
         {/*<Route path="/watchLater" component={} />
             <Route path="/History" component={}/>
             <Route path="/LikedVideo"component={} />
