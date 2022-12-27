@@ -5,7 +5,8 @@ let initialState={
     isCreator:false
 }
 const reducer=(state=initialState,action)=>{
-    switch(action){
+    
+    switch(action.type){
         case 'AssignChannelId':
             initialState.channelId=action.payload
             return {
