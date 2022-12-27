@@ -6,6 +6,7 @@ import { channelActionCreator } from '../../State/index'
 import { useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 //import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 function RegisterForm(props) {
     const navigator = useNavigate()
@@ -16,6 +17,7 @@ function RegisterForm(props) {
     const [uploaded, setUploaded] = useState(0)
     const [userType,setUserType]=useState('')
     const dispatch = useDispatch()
+    const selectorData=useSelector(STATE=>STATE.channel)
    
     //const [otherDetails,setOtherDetails]=useState([])
     const [UserRegisterValidation, setValidationSchema] = useState({})
@@ -65,6 +67,11 @@ function RegisterForm(props) {
                                             data.append('Pp', values['undefined'])
                                         }
                                     }
+                                    if(userType==='Channel'){
+                                        let creator=selectorData.creatorId
+                                        console.log(creator)
+                                        data.append('channelCreator',creator)
+                                    }
                                     if(userType==='Creator'){
                                         let token=localStorage.getItem('Token')
                                         console.log(token)
@@ -88,7 +95,8 @@ function RegisterForm(props) {
                                             }
                                             else if(userType==='Channel'){
                                                 const action = bindActionCreators(channelActionCreator, dispatch)
-                                                action.AddChannelId(result.data.id)
+                                                action.AddChannelId(result.data._id)
+                                                navigator('/Channel')
                                             }
                                             else{
                                                 localStorage.setItem('accessToken',result.data.token)
