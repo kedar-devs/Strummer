@@ -16,7 +16,6 @@ function Channel() {
     const Token=localStorage.getItem('Token')
     axios.get(`http://localhost:5000/Creator/GetFromParent/${Token}`)
     .then(result=>{
-      console.log(result)
         setCreator(result.data.FoundCreator)
         action.AddCreatorId(result.data.FoundCreator[0]._id)
         setCreatorBool(result.data.isFound)
