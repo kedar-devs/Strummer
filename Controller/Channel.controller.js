@@ -26,7 +26,8 @@ exports.AddChannel=async(req,res)=>{
         channelCreator:channelCreator
     }
     if(req.files){
-    channel.channelImage=await cloudinary.uploader.update(channel.channelImage.tempFilePath)
+    channel.channelImage=await cloudinary.uploader.upload(channel.channelImage.tempFilePath)
+    channel.channelImage=channel.channelImage.url
     }
     const NewChannel=new ChannelData(channel)
     NewChannel.save((err,user)=>{
