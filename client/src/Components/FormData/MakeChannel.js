@@ -26,6 +26,19 @@ let state={
             valid: true,
             touched: false,
         },
+        channelImage:{
+            elementType:"input",
+            elementConfig:{
+                type:"file",
+                placeholder:"Your Channel Pic"
+            },
+            value:null,
+            validation:{
+                required:true
+            },
+            valid: true,
+            touched: false,
+        },
         socialInsta:{
             elementType:"input",
             elementConfig:{
