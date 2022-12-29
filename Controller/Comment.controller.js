@@ -2,10 +2,12 @@ const UserData = require("../Models/User.model")
 const CommentData = require("../Models/VideoRelatedStuff/Comment.model")
 
 exports.AddComment=async(req,res)=>{
-    const {comment,commentorID}=req.body
+    try{
+    const {comment,commentorID,contentId}=req.body
     const FoundUser=await UserData.findOne({_id:commentorID})
     const Comment={
         comment:comment,
+        contentId:contentId,
         commentorName:FoundUser.name,
         commmentDp:FoundUser.ProfilePic,
         likeCount:0,
@@ -21,7 +23,9 @@ exports.AddComment=async(req,res)=>{
             return res.status(200).send({message:'Comment Added Sucessfully'})
         }
     })
-
+    }catch(err){
+        console.log(err)
+    }
 }
 exports.IncreaseCount=async(req,res)=>{
     const {id}=req.body
