@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Formik, Form, Field, FieldArray } from 'formik'
-import {Navigate, useNavigate} from 'react-router-dom'
+import { useNavigate} from 'react-router-dom'
+import {useSelector} from 'react-redux'
 // import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 
 function ContentForm(props) {
@@ -9,6 +10,7 @@ function ContentForm(props) {
     const [initialVal, setInitialVal] = useState({})
     const [uploaded, setUploaded] = useState(0)
     const [axiosRequest,setAxiosRequest]=useState('')
+    const selectorData=useSelector(STATE=>STATE.channel)
     const navigator=useNavigate()
     // const [serverUrl, setUrl] = useState('')
     useEffect(() => {
@@ -52,8 +54,10 @@ function ContentForm(props) {
                             }
                             //637325f56205a4745d11b212
                             //637485098b1216a8d6c01ce3
-                            data.append('ContentCreator','637325f56205a4745d11b212')
-                            data.append('channelId','637485098b1216a8d6c01ce3')
+                            let contentCreator=selectorData.creatorId
+                            let channelId=selectorData.channelId
+                            data.append('ContentCreator',contentCreator)
+                            data.append('channelId',channelId)
                              axios.post(axiosRequest, data, {
                                 onUploadProgress: (data) => {
                                     console.log(data.loaded, data.total)
