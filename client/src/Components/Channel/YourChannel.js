@@ -7,6 +7,7 @@ import axios from "axios";
 
 function YourChannel() {
   const [channelDetail,setChannel]=useState()
+  const [loading,setLoader]=useState(true)
   const selectorData=useSelector(STATE=>STATE.channel)
   useEffect(()=>{
     const channelId=selectorData.channelId
@@ -15,6 +16,7 @@ function YourChannel() {
     .then(result=>{
       console.log(result.data)
       setChannel(result.data)
+      setLoader(false)
 
     })
     .catch(err=>{
@@ -23,11 +25,15 @@ function YourChannel() {
     })
   },[selectorData])
   return (
+    <>
+    {loading?<>Loading</>:
     <div>
       <YourChannelHeading channelInfo={channelDetail} />
       <ChannelNavbar />
       <Outlet />
     </div>
+  }
+  </>
   );
 }
 
