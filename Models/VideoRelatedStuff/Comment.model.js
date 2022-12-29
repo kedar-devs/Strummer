@@ -2,6 +2,7 @@ const mongoose=require('mongoose')
 const Schema=mongoose.Schema
 const CommentSchema=Schema({
     comment:{type:String,required:true},
+    contentId:{type:mongoose.Schema.Types.ObjectId,required:true},
     commentorName:{type:String},
     commentorID:{type:String},
     commentDp:{type:String},
