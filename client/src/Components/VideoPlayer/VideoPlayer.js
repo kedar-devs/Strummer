@@ -36,7 +36,7 @@ function VideoPlayer(props) {
             <source src={video.ContentUrl} type="video/webm" />
            
         </Video>
-        <VideoPlayerPage />
+        <VideoPlayerPage videoInfo={video}/>
         <ChannelNavbar />
         <Outlet />
         </>

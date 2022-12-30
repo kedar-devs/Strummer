@@ -5,7 +5,8 @@ import { AiFillHeart, AiOutlineMenu } from "react-icons/ai";
 import { FaHeartBroken, FaShare } from "react-icons/fa";
 import { ImDownload3 } from "react-icons/im";
 
-function VideoPlayerPage() {
+function VideoPlayerPage(props) {
+  console.log('From Video',props)
   return (
     <div className="h-80">
       <div className="grid grid-cols-3 gap-2 items-left">
@@ -71,7 +72,7 @@ function VideoPlayerPage() {
         </div>
         <div className="text-white">
           {" "}
-          <AddComment />
+          <AddComment id={props.videoInfo._id}/>
           <Comment />
         </div>
       </div>
