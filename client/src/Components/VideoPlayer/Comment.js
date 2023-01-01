@@ -1,21 +1,38 @@
-import React,{useState} from 'react'
+import axios from 'axios'
+import React,{useState,useEffect} from 'react'
 
-function Comment() {
-  const[comments,setComment]=useState(['Comment1 svfdfbdbgfgfgfhnfhnmm','Comment2','Comment1','Comment2','Comment1','Comment2','Comment1','Comment2','Comment1','Comment2',])
+function Comment(props) {
+  const[comments,setComment]=useState()
+  const [isLoading,setLoading]=useState(true)
+  useEffect(()=>{
+    console.log(props)
+    axios.get(`http://localhost:5000/Content/video/Comment/getComment/${props.id}`)
+    .then(result=>{
+      if(result.data.length>0){
+        console.log(result.data)
+        setComment(result.data)
+        setLoading(false)
+      }
+    })
+    .catch(err=>{
+      console.log(err)
+    })
+
+  },[props])
   return (
-    <div className='overflow-y-scroll h-64 scrollbar-hide'>
-    {comments.map((comment)=>{
+    <div className='overflow-y-scroll h-64 scrollbar-hide mt-5'>
+    {isLoading?<>No Comments Available</>:<>{comments.map((comment)=>{
       return(
        <div className='grid grid-cols-4 my-2 '>
-       <div className="w-2/6">
+       <div className="w-12">
                <img
-                 src="https://www.creative-tim.com/learning-lab/tailwind-starter-kit/img/team-2-800x800.jpg"
+                 src={comment.commentDp}
                  alt="..."
-                 className="shadow rounded-full max-w-full h-auto align-middle border-none"
+                 className="shadow rounded-full h-12 align-middle border-none"
                />
              </div>
        <div className='col-span-2'>
-           {comment}
+           {comment.comment}
        </div>
        <div>
            <button>:</button>
@@ -23,7 +40,7 @@ function Comment() {
    </div>
       )
     })
-  }
+  }</>}
    
     </div>
   )
