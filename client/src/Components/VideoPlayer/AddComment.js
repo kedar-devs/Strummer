@@ -6,7 +6,7 @@ function AddComment(props) {
   const [comment,setComment]=useState('')
   const handleChange=(event)=>{
     setComment(event.target.value)
-    setAddButton(!addButton)
+    setAddButton(true)
   }
   const PublishComment=()=>{
     console.log(comment)
@@ -19,7 +19,7 @@ function AddComment(props) {
     data.append('commentorID',token)
     data.append('contentId',props.id)
     data.append('comment',comment)
-    axios.post('http://localhost:5000/Content//video/Comment',data)
+    axios.post('http://localhost:5000/Content/video/Comment',data)
     .then((result)=>{
       console.log(result)
     })
