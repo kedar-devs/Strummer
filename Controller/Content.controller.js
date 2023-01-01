@@ -55,6 +55,7 @@ exports.CreateNewContent=async(req,res)=>{
     }
 }
 exports.AddLikes=async(req,res)=>{
+    try{
     const _id=req.params.id
     const FoundContent=await ContentData.findOne({_id})
     FoundContent.LikeCount+=1
@@ -66,8 +67,13 @@ exports.AddLikes=async(req,res)=>{
             return res.status(200).send({newLikeCount:user.LikeCount})
         }
     })
+}catch(err){
+    console.log(err)
+    return res.status(400).send(err)
+}
 }
 exports.RemoveLikes=async(req,res)=>{
+    try{
     const _id=req.params.id
     const FoundContent=await ContentData.findOne({_id})
     if(!FoundContent){
@@ -84,8 +90,13 @@ exports.RemoveLikes=async(req,res)=>{
             return res.status(200).send({newLikeCount:user.LikeCount})
         }
     })
+}catch(err){
+    console.log(err)
+    return res.status(400).send(err)
+}
 }
 exports.AddDislike=async(req,res)=>{
+    try{
     const _id=req.params.id
     const FoundContent=await ContentData.findOne({_id})
     FoundContent.DislikeCount+=1
@@ -97,8 +108,13 @@ exports.AddDislike=async(req,res)=>{
             return res.status(200).send({newDisLikeCount:user.DislikeCount})
         }
     })
+}catch(err){
+    console.log(err)
+    return res.status(400).send(err)
+}
 }
 exports.RemoveDislike=async(req,res)=>{
+    try{
     const _id=req.params.id
     const FoundContent=await ContentData.findOne({_id})
     if(!FoundContent){
@@ -112,11 +128,16 @@ exports.RemoveDislike=async(req,res)=>{
             return res.status(400).send(err)
         }
         else{
-            return res.status(200).send({newLikeCount:user.DislikeCount})
+            return res.status(200).send({newDisLikeCount:user.DislikeCount})
         }
     })
+}catch(err){
+    console.log(err)
+    return res.status(400).send(err)
+}
 }
 exports.AddReportCount=async(req,res)=>{
+    try{
     const _id=req.params.id
     const FoundContent=await ContentData.findOne({_id})
     FoundContent.reportCount+=1
@@ -129,6 +150,10 @@ exports.AddReportCount=async(req,res)=>{
             return res.status(200).send({newReportCount:user.reportCount})
         }
     })
+}catch(err){
+    console.log(err)
+    return res.status(400).send(err)
+}
 }
 exports.ChangeApproval=async(req,res)=>{
     const _id=req.body.id

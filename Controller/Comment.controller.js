@@ -10,12 +10,12 @@ exports.AddComment=async(req,res)=>{
         comment:comment,
         contentId:contentId,
         commentorName:FoundUser.name,
-        commmentDp:FoundUser.ProfilePic,
+        commentDp:FoundUser.ProfilePic,
         likeCount:0,
         disLikeCount:0,
         replyCount:0
     }
-
+    console.log(Comment)
     const NewComment=new CommentData(Comment)
     NewComment.save((err,user)=>{
         if(err){
@@ -100,4 +100,18 @@ exports.RemoveDisLike=async(req,res)=>{
             return res.status(200).send({message:'Count decreased Succesfully'})
         }
     })
+}
+exports.GetComment=async(req,res)=>{
+    try{
+    const {id}=req.params
+    const FoundComment=await CommentData.find({contentId:id})
+    if(FoundComment){
+        return res.status(200).send(FoundComment)
+    }
+    else{
+        return res.status(404).send({message:'No Comment Found'})
+    }
+    }catch(err){
+        console.log(err)
+    }
 }
