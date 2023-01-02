@@ -121,7 +121,7 @@ exports.RemoveDislike=async(req,res)=>{
         return res.status(404).send({message:'No User Found'})
     }
     if(FoundContent.DislikeCount>=1){
-    FoundContent.DislikeCount+=1
+    FoundContent.DislikeCount-=1
     }
     FoundContent.save((err,user)=>{
         if(err){
@@ -257,4 +257,21 @@ exports.searchTags=async(req,res)=>{
     }catch(err){
         return res.status(500).send(err)
     }
+}
+exports.IncreaseViewCount=async(req,res)=>{
+try{
+    
+    const {id}=req.params
+    console.log(id)
+    const FoundVideo=await ContentData.findOne({_id:id})
+    if(FoundVideo){
+        return res.status(200).send({viewCount:FoundVideo.viewCount})
+    }
+    else{
+        return res.status(404).send({message:'No Video Found'})
+    }
+
+}catch(err){
+    console.log(err)
+}
 }
