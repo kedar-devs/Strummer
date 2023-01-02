@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import AddComment from "./AddComment";
 import Comment from "./Comment";
 import { AiFillHeart, AiOutlineMenu } from "react-icons/ai";
@@ -7,66 +7,80 @@ import { ImDownload3 } from "react-icons/im";
 import axios from "axios";
 
 function VideoPlayerPage(props) {
-  console.log(props)
-  const [videoInfo,setVideoInfo]=useState(props.videoInfo)
+  const [videoInfo,setVideoInfo]=useState({})
+  const [isLoading,setLoading]=useState(true)
   const [isLiked,setisLiked]=useState(false)
   const [isDisLiked,setIsDisliked]=useState(false)
+
+  useEffect(()=>{
+    setVideoInfo(props.videoInfo)
+    setLoading(false)
+  },[videoInfo,props])
+  
   const AddLike=(id)=>{
     if(!isLiked){
     axios.get(`http://localhost:5000/Content/AddLike/${id}`)
     .then(result=>{
-      console.log(result.data)
       let newVideoInfo=videoInfo
       newVideoInfo.LikeCount=result.data.newLikeCount
-      setVideoInfo(newVideoInfo)
+      setVideoInfo({...videoInfo,LikeCount:result.data.newLikeCount})
     })
     .catch(err=>{
       console.log(err)
     })
     setisLiked(!isLiked)
+ 
   }
   else{
+    console.log('From Likes Else')
     axios.get(`http://localhost:5000/Content/RemoveLike/${id}`)
     .then(result=>{
-      console.log(result.data)
       let newVideoInfo=videoInfo
       newVideoInfo.LikeCount=result.data.newLikeCount
-      setVideoInfo(newVideoInfo)
+      setVideoInfo({...videoInfo,LikeCount:result.data.newLikeCount})
     })
     .catch(err=>{
       console.log(err)
     })
     setisLiked(!isLiked)
+   
+  }
   }
 
-  }
+  
   const AddDisLike=(id)=>{
     if(!isDisLiked){
     axios.get(`http://localhost:5000/Content/AddDislikes/${id}`)
     .then(result=>{
-      console.log(result)
+    
       let newVideoInfo=videoInfo
       newVideoInfo.DislikeCount=result.data.newDisLikeCount
-      setVideoInfo(newVideoInfo)
+      setVideoInfo({...videoInfo,DislikeCount:result.data.newDisLikeCount})
       console.log(videoInfo)
     })
     .catch(err=>{
       console.log(err)
     })
     setIsDisliked(!isDisLiked)
+  
   }
   else{
+
+
     axios.get(`http://localhost:5000/Content/RemoveDisLike/${id}`)
     .then(result=>{
-      console.log(result)
+
       let newVideoInfo=videoInfo
       newVideoInfo.DislikeCount=result.data.newDisLikeCount
-      setVideoInfo(newVideoInfo)
+      setVideoInfo({...videoInfo,DislikeCount:result.data.newDisLikeCount})
     })
     .catch(err=>{
       console.log(err)
     })
+
     setIsDisliked(!isDisLiked)
+   
+
   }
   }
   const Share=()=>{
@@ -75,6 +89,8 @@ function VideoPlayerPage(props) {
     alert('URL has been Copied and ready to be shared')
   }
   return (
+    <>
+    {isLoading?<>Loading</>:
     <div className="h-80">
       <div className="grid grid-cols-3 gap-2 items-left">
         <div className="col-span-2 text-white justify-start ml-16">
@@ -102,14 +118,15 @@ function VideoPlayerPage(props) {
               </div>
             </div>
             <div className="col-span-2 items-center text-xl">
-              <button className="rounded-lg border text-sm bg-black">
-                <button className="ml-4  m-0 mt-0 text-red-700 " onClick={()=>{AddLike(videoInfo._id)}}>
+              <button className="rounded-lg border text-sm bg-black" style={{background:isLiked?'white':'black'}}>
+                <button className="ml-4  m-0 mt-0 text-red-700"  onClick={()=>{AddLike(videoInfo._id)}}>
                   <AiFillHeart size={14}/>
                   <p className="text-xs">
                   {videoInfo.LikeCount}
                   </p>
                 </button>
-                <button className="ml-3  m-0 mt-0 text-red-700 p-3 border-l-2" onClick={()=>{AddDisLike(videoInfo._id)}}>
+                
+                <button className="ml-3  m-0 mt-0 text-red-700 p-3 border-l-2" style={{background:isDisLiked?'white':'black'}} onClick={()=>{AddDisLike(videoInfo._id)}}>
                   <FaHeartBroken size={14}/>
                   <p className="text-xs">
                   {videoInfo.DislikeCount}
@@ -127,6 +144,9 @@ function VideoPlayerPage(props) {
               </button>
             </div>
           </div>
+          
+          {videoInfo.viewCount}
+          <br/>
           {videoInfo.Description}
         </div>
         <div className="text-white mt-10">
@@ -136,6 +156,8 @@ function VideoPlayerPage(props) {
         </div>
       </div>
     </div>
+}
+    </>
   );
 }
 
