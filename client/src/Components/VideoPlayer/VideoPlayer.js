@@ -21,32 +21,25 @@ function VideoPlayer(props) {
     .catch(err=>{
       console.log(err)
     })
-  },[id,video])
-  // if(loading){
-  // const $video=document.getElementById('videos')
-  // console.log($video)
-  // if($video){
-  //   console.log('In here')
-  // $video.addEventListener('ended',(e)=>{
-  //   console.log(e)
-  //   if(!isSent){
-  //   axios.get(`http://localhost:5000/Content/IncreaseCount/${id}`)
-  //   .then(result=>{
-  //     setVideoUrl({...video,viewCount:result.data.viewCount})
-  //   })
-  //   .catch(err=>{
-  //     console.log(err)
-  //   })
-  //   setSent(true)
-  // }
-  // },{once : true})
-  // }
-  // }
+  },[id])
+  const Handler=()=>{
+    console.log('Ended')
+    axios.get(`http://localhost:5000/Content/IncreaseCount/${id}`)
+    .then(result=>{
+      setVideoUrl({...video,viewCount:result.data.viewCount})
+    })
+    .catch(err=>{
+      console.log(err)
+    })
+  
+
+  }
   return (
     <div >
       {loading?
       <>
       <Video autoPlay
+            onEnded={()=>{Handler()}}
             id="videos"
             className='lg:w-4/5 h-96 lg:ml-32 md:ml-20 sm:w-full md:w-4/5'  
             controls={['PlayPause', 'Seek', 'Time', 'Volume', 'Fullscreen']}
