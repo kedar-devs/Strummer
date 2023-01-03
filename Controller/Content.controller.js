@@ -265,7 +265,16 @@ try{
     console.log(id)
     const FoundVideo=await ContentData.findOne({_id:id})
     if(FoundVideo){
-        return res.status(200).send({viewCount:FoundVideo.viewCount})
+        FoundVideo.viewCount=FoundVideo.viewCount+1
+        FoundVideo.save()
+        .then(user=>{
+            return res.status(200).send({viewCount:user.viewCount})
+        })
+        .catch(err=>{
+            console.log(err)
+            return res.status(400).send({message:err})
+        })
+      
     }
     else{
         return res.status(404).send({message:'No Video Found'})
