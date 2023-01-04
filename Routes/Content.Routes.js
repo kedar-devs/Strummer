@@ -19,6 +19,7 @@ routes.post("/CreatePlaylist",PlayListController.AddPlayist)
 routes.post("/Playlist/Video",PlayListController.AddVideoToPlaylist)
 routes.post("/video/Comment",CommentController.AddComment)
 routes.post("/Video/AddReply/:id",ReplyController.AddReply)
+routes.post("/Video/AddHistory",HistoryController.AddHistory)
 
 routes.get("/Video/Reply/Like/:id",ReplyController.AddLike)
 routes.get('/video/Comment/getComment/:id',CommentController.GetComment)
@@ -38,4 +39,5 @@ routes.get("/Playlist/GetOne/:id",PlayListController.getOnePlaylist)
 routes.get("/Playlist/GetChannelPlaylist/:id",PlayListController.getChannelPlaylist)
 routes.get("/Playlist/GetAllPlaylist",PlayListController.GetAllPlaylist)
 routes.get("/history/delete",HistoryController.deleteHistory)
+routes.get("/history/getAll/:id",HistoryController.GetHistory)
 module.exports=routes

@@ -12,4 +12,5 @@ routes.put("/EditContact",UserController.EditContact)
 routes.post("/MakeCreator",UserController.BecomeCreator)
 routes.get("/GetAll",UserController.getAlluser)
 routes.get("/GetOne/:token",UserController.getOneUser)
+routes.get('/GetUserId/:token',UserController.getUserId)
 module.exports=routes
