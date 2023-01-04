@@ -16,6 +16,7 @@ import Channel from '../Components/Channel/Channel'
 import ContentForm from '../Components/Forms/ContentForm'
 import ShowChannels from '../Components/Channel/ShowChannels'
 import YourChannel from '../Components/Channel/YourChannel'
+import History from '../Components/History/History'
 // import OtherVideosPage from '../Components/VideoPlayer/OtherVideosPage'
 //Form Related data
 import LoginData from '../Components/FormData/LoginUserMobile'
@@ -47,7 +48,9 @@ function AppRoutes() {
         <Route path="/RegisterUser" element={<RegisterForm RegisterData={UserData} UserRegisterValidation={UserRegisterValidationSchema} />} />
         <Route path="/BecomeCreator" element={<RegisterForm RegisterData={MakeCreator} UserRegisterValidation={UserCreatorValidationSchema} />} />
         <Route path="/CreateChannel" element={<RegisterForm RegisterData={MakeChannel} UserRegisterValidation={UserChannelValidation} />} />
+        <Route path='/History' element={<History />} />
         <Route path="/VideoPlayer/:id" element={<VideoPlayer />} >
+        
             {/* <Route path="" element={<OtherVideosPage />}/>
             <Route path="Recommended" element={<OtherVideosPage />} />
             <Route path="channel" element={<ChannelPage />} />   */}
