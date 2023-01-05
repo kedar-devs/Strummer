@@ -1,4 +1,4 @@
-const ChannelData = require("../Models/Channel.model")
+const ContentData = require("../Models/content.model");
 const HistoryData = require("../Models/VideoRelatedStuff/History.model")
 
 exports.AddHistory=async(req,res)=>{
@@ -52,11 +52,12 @@ exports.GetHistory=async(req,res)=>{
          if(FoundVideos){
             let content
             for(let i=0;i<FoundVideos.length;i++){
-                content=await ChannelData.findOne({_id:FoundVideos[i].ContentId})
+                
+                content=await ContentData.findOne({_id:FoundVideos[i].ContentId})
                 if(content)
                 result.push(content)
             }
-            console.log(result)
+            result.reverse()
             return res.status(200).send({result})
          }
          else{

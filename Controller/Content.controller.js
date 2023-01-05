@@ -1,3 +1,4 @@
+const ChannelData = require("../Models/Channel.model");
 const ContentData = require("../Models/content.model");
 const cloudinary = require('cloudinary').v2
 require('./../Helper/Cloudinary')
@@ -178,14 +179,24 @@ exports.GetContent=async(req,res)=>{
     }
 }
 exports.getOneContent=async(req,res)=>{
+    try{
     const _id=req.params.id
     const Content=await ContentData.findOne({_id})
     if(Content){
-        return res.status(200).send(Content)
+        let ChannelDetail=await ChannelData.findOne({_id:Content.channelId})
+        if(ChannelDetail){
+        return res.status(200).send({Content,ChannelDetail})
+        }
+        else{
+            return res.status(400).send({message:'No channel was found'})
+        }
     }
     else{
         return res.status(400).send({message:"No Content Found"})
     }
+}catch(err){
+    return res.status(404).send({message:err})
+}
 }
 exports.getCreator=async(req,res)=>{
     const {id}=req.params
