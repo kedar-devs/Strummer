@@ -8,14 +8,40 @@ import axios from "axios";
 
 function VideoPlayerPage(props) {
   const [videoInfo,setVideoInfo]=useState({})
+  const [channelInfo,setChannelInfo]=useState({})
   const [isLoading,setLoading]=useState(true)
   const [isLiked,setisLiked]=useState(false)
   const [isDisLiked,setIsDisliked]=useState(false)
+  const [isFollowing,setFollowing]=useState(false)
 
   useEffect(()=>{
     setVideoInfo(props.videoInfo)
+    setChannelInfo(props.channelInfo)
     setLoading(false)
   },[videoInfo,props])
+
+
+  const FollowChannel=(id)=>{
+    const Token=localStorage.getItem('Token')
+    if(Token){
+      axios.get(`http://localhost:5000/User/GetUserId/${Token}`)
+      .then(result=>{
+        console.log(result.data)
+        const userId=result.data
+        const channelId=id
+        axios.post('http://localhost:5000/Channel/AddSubscription',{userId,channelId})
+        .then(result=>{
+          console.log(result.data)
+          setFollowing(true)
+        }).catch(err=>{
+          console.log(err)
+        })
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+    }
+  }
   
   const AddLike=(id)=>{
     if(!isLiked){
@@ -107,13 +133,13 @@ function VideoPlayerPage(props) {
                 </div>
               </div>
               <div className="justify-items-start text-xl col-span-2">
-                <h2>channel Name</h2>
-                <p className="text-sm">Subscriber 0</p>
+                <h2>{channelInfo.channelName}</h2>
+                <p className="text-sm">Subscriber {channelInfo.channelSubCount}</p>
               </div>
 
               <div className="text-xl">
-                <button className="rounded-full border bg-black px-5 py-1">
-                  Follow
+                <button className="rounded-full border bg-black px-5 py-1" onClick={()=>{FollowChannel(channelInfo._id)}}>
+                  {isFollowing?<>Following</>:<>Follow</>}
                 </button>
               </div>
             </div>

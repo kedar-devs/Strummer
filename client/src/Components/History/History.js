@@ -3,8 +3,9 @@ import { Grid } from "@mui/material";
 import DynamicCard from "../Card/DynamicCard";
 import axios from "axios";
 function History() {
-  const [cardDetails, setCard] = useState();
+  const [cardDetails, setCard] = useState([]);
   const [loading,setLoader]=useState(true)
+  const [isData,setIsData]=useState(false)
   useEffect(()=>{
     const Token=localStorage.getItem('Token')
     if(Token){
@@ -14,9 +15,9 @@ function History() {
             const id=result.data
             axios.get(`http://localhost:5000/Content/history/getAll/${id}`)
             .then(result=>{
-                console.log(result.data)
+                console.log(result.data.result)
                 setCard(result.data.result)
-                
+                setIsData(true)
             })
             .catch(err=>{
                 console.log(err)
@@ -29,17 +30,19 @@ function History() {
     }
   },[])
   return (
-    <div>
+    <div className="h-screen">
         {loading?<>Loading</>:
+        <>
+        {isData?
       <Grid container spacing={2}>
-        {cardDetails.map((ele) => {
+        {cardDetails.map((card) => {
           return (
             <Grid item xs={12} md={4} lg={3} sm={6}>
-              <DynamicCard />
+              <DynamicCard cardDetail={card}/>
             </Grid>
           );
         })}
-      </Grid>}
+      </Grid>:<></>}</>}
     </div>
   );
 }

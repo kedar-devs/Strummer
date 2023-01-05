@@ -18,7 +18,7 @@ import {actionCreator} from '../../State/index'
 import {useDispatch} from 'react-redux'
 import {bindActionCreators} from 'redux'
 function Navbar() {
-  const pages = ["Home", "Subscription", "History", "Watch Later", "Liked Video"]
+  const pages = ["Home", "Subscription", "History", "Liked Video"]
   const Profile = ["Your Channel", "Setting", "Sign Out"]
   const navigate = useNavigate()
   const selectorData = useSelector(STATE => STATE.user);
@@ -39,7 +39,23 @@ function Navbar() {
   const setProfileOpen = (event) => {
     setProfile(event.currentTarget)
   }
-  const setPageClose = (event) => {
+  const setPageClose = (page) => {
+    switch(page){
+      case 'Home':
+        navigate('/')
+        break
+      case 'Subscription':
+        navigate('/Subscription')
+        break
+      case 'History':
+        navigate('/History')
+        break
+      case 'Liked Video':
+        navigate('/LikedVideos')
+        break
+      default:
+        break
+    }
     setPages(null)
   }
   const setProfileClose = (setting) => {
@@ -159,7 +175,7 @@ function Navbar() {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={setPageClose}
+                onClick={()=>{setPageClose(page)}}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page}

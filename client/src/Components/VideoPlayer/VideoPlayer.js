@@ -8,13 +8,15 @@ import VideoPlayerPage from './VideoPlayerPage';
 
 function VideoPlayer(props) {
   const [video,setVideoUrl]=useState()
+  const [channel,setChannelDetail]=useState()
   const [loading,setLoading]=useState(false)
   const {id}=useParams()
   useEffect(()=>{
     axios.get(`http://localhost:5000/Content/GetOneContent/${id}`)
     .then(result=>{
       console.log(result.data)
-      setVideoUrl(result.data)
+      setVideoUrl(result.data.Content)
+      setChannelDetail(result.data.ChannelDetail)
       setLoading(true)
     })
     .catch(err=>{
@@ -52,7 +54,7 @@ function VideoPlayer(props) {
             <source src={video.ContentUrl} type="video/webm" />
            
         </Video>
-        <VideoPlayerPage videoInfo={video}/>
+        <VideoPlayerPage videoInfo={video} channelInfo={channel}/>
         <ChannelNavbar />
         <Outlet />
         </>
