@@ -17,6 +17,25 @@ function VideoPlayerPage(props) {
   useEffect(()=>{
     setVideoInfo(props.videoInfo)
     setChannelInfo(props.channelInfo)
+    let Token=localStorage.getItem('Token')
+      if(Token){
+        axios.get(`http://localhost:5000/User/GetUserId/${Token}`)
+        .then(user=>{
+          console.log(user.data)
+          const userId=user.data
+          const channelId=props.channelInfo._id
+          axios.post('http://localhost:5000/Channel/CheckSubscription',{userId,channelId})
+          .then(subStatus=>{
+            setFollowing(true)
+          })
+          .catch(err=>{
+            setFollowing(false)
+          })
+        })
+        .catch(err=>{
+          console.log(err)
+        })
+      }
     setLoading(false)
   },[videoInfo,props])
 
