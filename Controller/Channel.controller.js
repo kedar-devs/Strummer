@@ -82,33 +82,64 @@ exports.editChannelName=async(req,res)=>{
     return res.status(400).send(err)
 }
 }
-exports.AddSubscriber=async(req,res)=>{
-    const {_id}=req.params
+exports.AddSubscriber=async(channelId)=>{
+    try{
+    const _id=channelId
     const FoundChannel=await ChannelData.findOne({_id})
+    let Flag=0
+    if(FoundChannel){
     FoundChannel.channelSubCount+=1
-    FoundChannel.save((err,user)=>{
-        if(err){
-            return res.status(200).send(err)
-        }
-        else{
-            return res.status(200).send({message:'Subscriber Added Succesfully'})
-        }
-    })
+    const status=await FoundChannel.save()
+    if(status.channelSubCount){
+    return true
+    }
+    else{
+        return false
+    }
+        // if(err){
+        //     console.log(err)
+            
+        // }
+        // else{
+        //     console.log(user)
+        //     Flag=1
+        // }
+  
+    // if(Flag==1){
+    //     return true
+    // }
+    // else{
+    //     return false
+    // }
 }
-exports.removeSubscriber=async(req,res)=>{
-    const {_id}=req.params
+else{
+    return false
+}
+}catch(err){
+    console.log(err)
+    return false
+}
+}
+exports.removeSubscriber=async(channelId)=>{
+    try{
+    const _id=channelId
     const FoundChannel=await ChannelData.findOne({_id})
     if(FoundChannel.channelSubCount>0){
     FoundChannel.channelSubCount-=1
     }
-    FoundChannel.save((err,user)=>{
+    return FoundChannel.save((err,user)=>{
         if(err){
-            return res.status(200).send(err)
+            console.log(err)
+            return false
         }
         else{
-            return res.status(200).send({message:'Subscriber Removed Succesfully'})
+            return true
         }
     })
+}catch(err){
+    console.log(err)
+    return false
+}
 }
 exports.editSocial=async(req,res)=>{
     const {_id}=req.body
