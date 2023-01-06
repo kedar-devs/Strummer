@@ -3,6 +3,7 @@ const SubscriptionController=require('./../Controller/SubScription.controller')
 const routes=require('express').Router()
 routes.post("/AddChannel",ChannelController.AddChannel)
 routes.post("/AddSubscription",SubscriptionController.AddSubscription)
+routes.post("/CheckSubscription",SubscriptionController.checkSubscribers)
 routes.put("/editImage/:id",ChannelController.editChannelImage)
 routes.get("/AddSubscriber/:_id",ChannelController.AddSubscriber)
 routes.put("/EditChannelName",ChannelController.editChannelName)
@@ -13,4 +14,5 @@ routes.get("/GetCreatorsCahnnel/:creator",ChannelController.getCreatorChannel)
 routes.get("/GetOneChannel/:id",ChannelController.getOneChannel)
 routes.get('/RemoveSubscription/:id',SubscriptionController.RemoveSubscription)
 routes.get('/GetSubscription/:id',SubscriptionController.getSubscription)
+
 module.exports=routes
