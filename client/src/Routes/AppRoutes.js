@@ -17,6 +17,7 @@ import ContentForm from '../Components/Forms/ContentForm'
 import ShowChannels from '../Components/Channel/ShowChannels'
 import YourChannel from '../Components/Channel/YourChannel'
 import History from '../Components/History/History'
+import PublicChannel from '../Components/PublicChannel/PublicChannel'
 // import OtherVideosPage from '../Components/VideoPlayer/OtherVideosPage'
 //Form Related data
 import LoginData from '../Components/FormData/LoginUserMobile'
@@ -59,6 +60,13 @@ function AppRoutes() {
         <Route path="/Channel" element={<Channel />} />
         <Route path="/YourChannel/:id" element={<YourChannel />} >
           <Route path="Videos" element={<VideoPage />} />
+          <Route path="Playlist" element={<PlayListPage />} />
+          <Route path="Community" element={<CommunityPage />} />
+          <Route path="Channels" element={<ChannelPage />} />
+          <Route path="About" element={<AboutPage />} />
+        </Route>
+        <Route path="/PublicChannel/:id" element={<PublicChannel />} >
+          <Route path="" element={<VideoPage />} />
           <Route path="Playlist" element={<PlayListPage />} />
           <Route path="Community" element={<CommunityPage />} />
           <Route path="Channels" element={<ChannelPage />} />
