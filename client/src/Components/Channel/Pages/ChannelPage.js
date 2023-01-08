@@ -1,15 +1,16 @@
 import React,{useState,useEffect} from 'react'
 import { Grid } from '@mui/material'
 import DynamicCard from '../../Card/DynamicCard'
-import { useParams } from 'react-router-dom'
+
 import axios from 'axios'
+import { useOutletContext } from 'react-router-dom'
 function ChannelPage() {
   const [cardDetails,setCard]=useState(['1','2','3'])
   const [loader,setLoader]=useState(false)
-  const {id}=useParams()
+  const [channelDetails]=useOutletContext()
   useEffect(()=>{
       
-      axios.get(`http://localhost:5000/Channel/GetOneChannel/${id}`)
+      axios.get(`http://localhost:5000/Channel/GetAllCreatorChannel/${channelDetails._id}`)
       .then(result=>{
         console.log(result.data)
         setCard(result.data)
@@ -18,7 +19,7 @@ function ChannelPage() {
       .catch(err=>{
         console.log(err)
       })
-  },[id])
+  },[channelDetails])
   return (
     <div>
          {loader?<Grid container spacing={2}>
