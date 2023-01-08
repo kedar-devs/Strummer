@@ -1,3 +1,4 @@
+const Creator = require('../Models/Coach.model')
 const ChannelData=require('./../Models/Channel.model')
 const cloudinary = require('cloudinary').v2
 require('./../Helper/Cloudinary')
@@ -126,16 +127,12 @@ exports.removeSubscriber=async(channelId)=>{
     const FoundChannel=await ChannelData.findOne({_id})
     if(FoundChannel.channelSubCount>0){
     FoundChannel.channelSubCount-=1
+    const status=await FoundChannel.save()
+    console.log(status)
+    return true
     }
-    return FoundChannel.save((err,user)=>{
-        if(err){
-            console.log(err)
-            return false
-        }
-        else{
-            return true
-        }
-    })
+    
+
 }catch(err){
     console.log(err)
     return false
@@ -184,4 +181,26 @@ exports.getCreatorChannel=async(req,res)=>{
     else{
         return res.status(400).send({message:'User no found'})
     }
+}
+exports.getAllCreatorChannel=async(req,res)=>{
+    try{
+    const {id}=req.params
+    const FoundChannel=await ChannelData.findOne({_id:id})
+    if(FoundChannel){
+        const AllChannel=await ChannelData.find({channelCreator:FoundChannel.channelCreator})
+        if(AllChannel){
+            return res.status(200).send({AllChannel})
+        }
+        else{
+            return res.status(400).send({message:'NO Additional videos Found'})
+        }
+    }
+    else{
+        return res.status(400).send({message:'NO Additional videos Found'})   
+    }
+
+    }catch(err){
+        console.log(err)
+    }
+    
 }
