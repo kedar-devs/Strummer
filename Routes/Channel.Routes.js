@@ -13,6 +13,7 @@ routes.get("/getAllChannel",ChannelController.GetAllChannel)
 routes.get("/GetCreatorsCahnnel/:creator",ChannelController.getCreatorChannel)
 routes.get("/GetOneChannel/:id",ChannelController.getOneChannel)
 routes.get('/RemoveSubscription/:id',SubscriptionController.RemoveSubscription)
+routes.get('/GetAllCreatorChannel/:id',ChannelController.getAllCreatorChannel)
 routes.get('/GetSubscription/:id',SubscriptionController.getSubscription)
 
 module.exports=routes
