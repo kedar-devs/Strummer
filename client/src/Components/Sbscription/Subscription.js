@@ -1,20 +1,42 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { Grid } from '@mui/material'
-import DynamicCard from '../Card/DynamicCard'
+import ChannelCard from '../Channel/ChannelCard'
+import axios from 'axios'
+
+
 function Subscription() {
-    const [cardDetails,setCard]=useState(['1','2','3'])
+    const [channelDetails,setCard]=useState({})
+    const [loading,setLoading]=useState(false)
+    useEffect(()=>{
+      const Token=localStorage.getItem('Token')
+      if(Token){
+      axios.get(`http://localhost:5000/User/GetUserId/${Token}`)
+      .then(user=>{
+        const userId=user.data
+        axios.get(`http://localhost:5000/Channel/GetSubscription/${userId}`)
+        .then(Channel=>{
+            console.log(Channel.data)
+            setCard(Channel.data)
+            setLoading(true)
+        })
+      })
+      .catch(err=>{
+          console.log(err)
+      })
+      }
+    },[])
   return (
     <div>
-      
+      {loading?
         <Grid container spacing={2}>
-        {cardDetails.map((ele)=>{
+        {channelDetails.map((channel)=>{
             return(
                 <Grid item xs={12} md={4} lg={3} sm={6}>
-                  <DynamicCard/>
+                  <ChannelCard channel={channel} id={channel._id} key={channel._id} showSubs={true}/>
                   </Grid>
             )
         })}
-        </Grid>
+        </Grid>:<></>}
     </div>
   )
 }
