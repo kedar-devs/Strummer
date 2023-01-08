@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from "react-router-dom";
 import {AiOutlinePlus} from 'react-icons/ai'
 import axios from "axios";
+import ChannelCard from "./ChannelCard";
 
 //BsPlusCircleDotted
 function ShowChannels(props) {
@@ -26,10 +27,6 @@ function ShowChannels(props) {
       }
     })
   },[creatorId])
-  const gotoChannel=(id)=>{
-    action.AddChannelId(id)
-    navigation(`/YourChannel/${id}`)
-  }
   const navigate=()=>{
     console.log(props)
     action.AddCreatorId(props.creators[0]._id)
@@ -38,20 +35,9 @@ function ShowChannels(props) {
   return (
     <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-12 text-white h-screen" >
       {loading?<>{channels.map((channel) => {
-        return (
-          <div className="max-w-sm rounded overflow-hidden shadow-lg m-5 h-60" style={{backgroundColor:'#282c34'}} onClick={()=>{gotoChannel(channel._id)}}>
-      
-            <img
-              className="h-44 rounded-full w-44 object-center"
-              src={channel.channelImage}
-              alt="Sunset in the mountains"
-            />
-          
-            <div className="px-6 py-4">
-              <div className="font-bold text-xl mb-2">{channel.channelName}</div>
-            </div>
-          </div>
-        );
+        return(
+        <ChannelCard channel={channel} id={channel._id} key={channel._id} showSubs={false} />
+        )
       })}</>:<></>}
       <div className="max-w-sm rounded overflow-hidden shadow-lg m-5 h-60 " style={{backgroundColor:'#282c34'}} onClick={()=>{navigate()}}>
       <AiOutlinePlus size={120} className='border-2 rounded-full border-dashed'/>
