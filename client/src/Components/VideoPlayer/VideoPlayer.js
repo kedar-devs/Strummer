@@ -9,6 +9,7 @@ import VideoPlayerPage from './VideoPlayerPage';
 function VideoPlayer(props) {
   const [video,setVideoUrl]=useState()
   const [channel,setChannelDetail]=useState()
+  const [channelDetails,setChannelDetails]=useState({})
   const [loading,setLoading]=useState(false)
   const {id}=useParams()
   useEffect(()=>{
@@ -17,6 +18,7 @@ function VideoPlayer(props) {
       console.log(result.data)
       setVideoUrl(result.data.Content)
       setChannelDetail(result.data.ChannelDetail)
+      setChannelDetails(result.data.ChannelDetail)
       setLoading(true)
     })
     .catch(err=>{
@@ -56,7 +58,7 @@ function VideoPlayer(props) {
         </Video>
         <VideoPlayerPage videoInfo={video} channelInfo={channel}/>
         <ChannelNavbar />
-        <Outlet />
+        <Outlet context={[channelDetails]}/>
         </>
         :<>Loading</>}
     </div>
