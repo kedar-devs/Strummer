@@ -67,7 +67,7 @@ function AppRoutes() {
         </Route>
         <Route path="/PublicChannel/:id" element={<PublicChannel />} >
           <Route path="" element={<VideoPage />} />
-          <Route path="Playlist" element={<PlayListPage />} />
+          <Route path="c" element={<PlayListPage />} />
           <Route path="Community" element={<CommunityPage />} />
           <Route path="Channels" element={<ChannelPage />} />
           <Route path="About" element={<AboutPage />} />
