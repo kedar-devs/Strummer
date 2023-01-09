@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Navbar from '../Components/Navbar/Navbar'
 import Home from '../Components/Home/Home'
 import SearchBar from '../Components/SearchBar/SearchBar'
+import SeachPage from '../Components/SearchBar/SeachPage'
 import LoginForm from '../Components/Forms/LoginForm'
 import RegisterForm from '../Components/Forms/RegisterForm'
 import VideoPlayer from '../Components/VideoPlayer/VideoPlayer'
@@ -51,10 +52,10 @@ function AppRoutes() {
         <Route path="/CreateChannel" element={<RegisterForm RegisterData={MakeChannel} UserRegisterValidation={UserChannelValidation} />} />
         <Route path='/History' element={<History />} />
         <Route path="/VideoPlayer/:id" element={<VideoPlayer />} >
-        
-            {/* <Route path="" element={<OtherVideosPage />}/>
-            <Route path="Recommended" element={<OtherVideosPage />} />
-            <Route path="channel" element={<ChannelPage />} />   */}
+        <Route path="" element={<VideoPage />} />
+          <Route path="Playlist" element={<PlayListPage />} />
+          <Route path="Channels" element={<ChannelPage />} />
+          <Route path="About" element={<AboutPage />} />
         </Route>
         <Route path="/subscription" element={<Subscription />} />
         <Route path="/Channel" element={<Channel />} />
@@ -67,13 +68,14 @@ function AppRoutes() {
         </Route>
         <Route path="/PublicChannel/:id" element={<PublicChannel />} >
           <Route path="" element={<VideoPage />} />
-          <Route path="c" element={<PlayListPage />} />
+          <Route path="Playlist" element={<PlayListPage />} />
           <Route path="Community" element={<CommunityPage />} />
           <Route path="Channels" element={<ChannelPage />} />
           <Route path="About" element={<AboutPage />} />
         </Route>
         <Route path='/AddContent' element={<ContentForm formData={ContentCreation} />} />
         <Route path='/ShowChannel' element={<ShowChannels />} />
+        <Route path='/SearchPage' element={<SeachPage />} />
         {/*<Route path="/watchLater" component={} />
             <Route path="/History" component={}/>
             <Route path="/LikedVideo"component={} />
