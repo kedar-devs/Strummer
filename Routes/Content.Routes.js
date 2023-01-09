@@ -40,4 +40,5 @@ routes.get("/Playlist/GetChannelPlaylist/:id",PlayListController.getChannelPlayl
 routes.get("/Playlist/GetAllPlaylist",PlayListController.GetAllPlaylist)
 routes.get("/history/delete",HistoryController.deleteHistory)
 routes.get("/history/getAll/:id",HistoryController.GetHistory)
+routes.get("/search/:key",ContentController.ContentSearch)
 module.exports=routes

@@ -295,3 +295,36 @@ try{
     console.log(err)
 }
 }
+exports.ContentSearch=async(req,res)=>{
+    try{
+        const {key}=req.params
+        const FoundContent=await ContentData.find({
+            "$or":[
+                {Title:{$regex:key}},
+                {Description:{$regex:key}},
+                {Tags:{$regex:key}}
+            ]
+        })
+        const FoundChannel=await ChannelData.find({
+            "$or":[
+                {channelName:{$regex:key}}
+            ]
+        })
+        if(FoundContent && FoundChannel){
+            return res.status(200).send({FoundChannel,FoundContent})
+        }
+        else{
+            if(FoundChannel){
+                return res.status(200).send({FoundChannel,FoundContent:[]})
+            }
+            if(FoundContent){
+                return res.status(200).send({FoundChannel:[],FoundContent})
+            }
+            else{
+                return res.status(400).send({message:'No Content Found'})
+            }
+        }
+    }catch(err){
+            console.log(err)
+    }
+}
