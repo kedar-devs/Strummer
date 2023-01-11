@@ -1,32 +1,24 @@
 import { Grid } from '@mui/material';
-import axios from 'axios';
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import { useNavigate } from 'react-router-dom';
 import "./../../App.css";
 function SearchBar() {
+  const [key,setKey]=useState('')
   const navigate=useNavigate()
   useEffect(()=>{
     const search=document.getElementById('search').addEventListener("keypress",(e)=>{
       if(e.key==='Enter'){
-        navigate(`/searchPage/${e.target.value}`)
+        navigate(`/searchPage/${key}`)
       }
     })
     console.log(search)
-  },[])
+  },[navigate,key])
   let item=''
   
    const handleOnSearch=(item)=>{
     console.log(item)
-    axios.get(`http://localhost:5000/Content/search/${item}`)
-    .then(result=>{
-      console.log(result.data)
-      const event=document.getElementById('search')
-      console.log(event)
-    })
-    .catch(err=>{
-      console.log(err)
-    })
+    setKey(item)
    }
   return (
     <div className='App'>

@@ -75,7 +75,7 @@ function AppRoutes() {
         </Route>
         <Route path='/AddContent' element={<ContentForm formData={ContentCreation} />} />
         <Route path='/ShowChannel' element={<ShowChannels />} />
-        <Route path='/SearchPage' element={<SeachPage />} />
+        <Route path='/SearchPage/:key' element={<SeachPage />} />
         {/*<Route path="/watchLater" component={} />
             <Route path="/History" component={}/>
             <Route path="/LikedVideo"component={} />
