@@ -1,5 +1,6 @@
 const routes=require('express').Router()
 const UserController=require('./../Controller/User.Controller')
+const StripeController=require('./../Helper/Stripe')
 routes.post("/AddNewUser",UserController.RegisterUser)
 routes.post("/VerifyMobile",UserController.RegisterUserMobile)
 routes.post("/Login",UserController.LoginUser)
@@ -13,4 +14,5 @@ routes.post("/MakeCreator",UserController.BecomeCreator)
 routes.get("/GetAll",UserController.getAlluser)
 routes.get("/GetOne/:token",UserController.getOneUser)
 routes.get('/GetUserId/:token',UserController.getUserId)
+routes.post('/payment',StripeController.chargeNewuser)
 module.exports=routes

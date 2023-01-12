@@ -14,7 +14,8 @@
     "nodemailer": "^6.8.0",
     "nodemon": "^2.0.20",
     "otp-generator": "^4.0.0",
-    "stripe": "^11.6.0"
+    "stripe": "^11.6.0",
+    "uuid": "^9.0.0"
   },
   "name": "strummer",
   "version": "1.0.0",
