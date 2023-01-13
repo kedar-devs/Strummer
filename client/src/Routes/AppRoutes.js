@@ -35,6 +35,7 @@ import UserRegisterValidationSchema from '../Components/FormValidation/UserRegis
 import UserCreatorValidationSchema from '../Components/FormValidation/UserCreatorValidation'
 import UserMobileNoValidation from '../Components/FormValidation/UserMobileNoValidation'
 import UserChannelValidation from '../Components/FormValidation/UserChannelValidation'
+import StripePaymentPage from '../Components/Stripe/StripePaymentPage'
 
 
 function AppRoutes() {
@@ -73,6 +74,7 @@ function AppRoutes() {
           <Route path="Channels" element={<ChannelPage />} />
           <Route path="About" element={<AboutPage />} />
         </Route>
+        <Route path='/payment' element={<StripePaymentPage />} />
         <Route path='/AddContent' element={<ContentForm formData={ContentCreation} />} />
         <Route path='/ShowChannel' element={<ShowChannels />} />
         <Route path='/SearchPage/:key' element={<SeachPage />} />
