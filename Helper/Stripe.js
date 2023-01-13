@@ -16,7 +16,7 @@ exports.chargeNewuser=async(req,res)=>{
       );
     const Transaction=await Stripe.charges.create({
         amount:amount*100,
-        currency:'usd',
+        currency:'INR',
         customer:customer.id
     },{idempotencyKey})
     if(Transaction){
