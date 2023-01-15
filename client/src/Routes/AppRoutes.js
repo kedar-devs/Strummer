@@ -19,6 +19,8 @@ import ShowChannels from '../Components/Channel/ShowChannels'
 import YourChannel from '../Components/Channel/YourChannel'
 import History from '../Components/History/History'
 import PublicChannel from '../Components/PublicChannel/PublicChannel'
+import StripePaymentPage from '../Components/Stripe/StripePaymentPage'
+import LikedVideo from '../Components/LikedVideo/LikedVideo'
 // import OtherVideosPage from '../Components/VideoPlayer/OtherVideosPage'
 //Form Related data
 import LoginData from '../Components/FormData/LoginUserMobile'
@@ -35,7 +37,7 @@ import UserRegisterValidationSchema from '../Components/FormValidation/UserRegis
 import UserCreatorValidationSchema from '../Components/FormValidation/UserCreatorValidation'
 import UserMobileNoValidation from '../Components/FormValidation/UserMobileNoValidation'
 import UserChannelValidation from '../Components/FormValidation/UserChannelValidation'
-import StripePaymentPage from '../Components/Stripe/StripePaymentPage'
+
 
 
 function AppRoutes() {
@@ -78,6 +80,7 @@ function AppRoutes() {
         <Route path='/AddContent' element={<ContentForm formData={ContentCreation} />} />
         <Route path='/ShowChannel' element={<ShowChannels />} />
         <Route path='/SearchPage/:key' element={<SeachPage />} />
+        <Route path='/LikedVideo' element={<LikedVideo />} />
         {/*<Route path="/watchLater" component={} />
             <Route path="/History" component={}/>
             <Route path="/LikedVideo"component={} />
