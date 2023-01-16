@@ -27,28 +27,37 @@ function SeachPage() {
         })   
     },[key])
   return (
-    <div className='h-screen'>
+    <div className='min-h-screen'>
         {loading?<>
             {channelPresent?
+            <div>
+              <h1 className='text-4xl font-extrabold text-white'>Channels</h1>
             <Grid container spacing={2}>
         {channelDetails.map((channel)=>{
             return(
                 <Grid item xs={12} md={4} lg={3} sm={6}>
                   <ChannelCard channel={channel} id={channel._id} key={channel._id} showSubs={true}/>
                   </Grid>
+                  
             )
         })}
-        </Grid>:<>No channel Found</>}
+        </Grid>
+        </div>:<h1 className='text-4xl font-extrabold text-white text-center'>No channel Found</h1>}
         <hr />
         <>
         {contentPresent?
+        <div className='mt-4'>
+          <h1 className='text-4xl font-extrabold text-white '>Videos</h1>
+          <div className='mt-4'>
         <Grid container spacing={2}>
         {cards.map((card)=>{
                 return  <Grid item xs={12} md={4} lg={3} sm={6}>
                   <DynamicCard cardDetail={card}/>
                   </Grid>
         })}
-           </Grid>:<>No Content Found</>}
+           </Grid>
+           </div>
+           </div>:<h1 className='text-4xl font-extrabold text-white text-center'>No Content Found</h1>}
            </>
         </>:<>Loading</>
 
