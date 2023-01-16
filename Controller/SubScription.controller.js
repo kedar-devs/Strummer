@@ -32,8 +32,9 @@ exports.AddSubscription=async(req,res)=>{
 }
 exports.RemoveSubscription=async(req,res)=>{
     try{
-        const {id}=req.params
-        const FoundSubscription=await Subscriber.findOneAndDelete({ChannelId:id})
+        console.log(req.body)
+        const {id,userId}=req.body
+        const FoundSubscription=await Subscriber.findOneAndDelete({ChannelId:id,UserId:userId})
         if(FoundSubscription){
             const UpdatedStatus=await ChannelController.removeSubscriber(id)
             console.log(UpdatedStatus)
