@@ -51,7 +51,7 @@ function Navbar() {
         navigate('/History')
         break
       case 'Liked Video':
-        navigate('/LikedVideos')
+        navigate('/LikedVideo')
         break
       default:
         break
