@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from "react";
 import AddComment from "./AddComment";
 import Comment from "./Comment";
-import { AiFillHeart, AiOutlineMenu } from "react-icons/ai";
+import { AiFillHeart } from "react-icons/ai";
 import { FaHeartBroken, FaShare } from "react-icons/fa";
 import { BiDollar } from "react-icons/bi";
 import StripeCheckout from 'react-stripe-checkout';
@@ -60,6 +60,7 @@ function VideoPlayerPage(props) {
     })
 }
   const FollowChannel=(id)=>{
+    if(!isFollowing){
     const Token=localStorage.getItem('Token')
     if(Token){
       axios.get(`http://localhost:5000/User/GetUserId/${Token}`)
@@ -79,6 +80,29 @@ function VideoPlayerPage(props) {
         console.log(err)
       })
     }
+  }
+  else{
+    const Token=localStorage.getItem('Token')
+    if(Token){
+      axios.get(`http://localhost:5000/User/GetUserId/${Token}`)
+      .then(result=>{
+        console.log(result.data)
+        const userId=result.data
+    
+        axios.delete(`http://localhost:5000/Channel/RemoveSubscription`,{data:{userId,id}})
+        .then(result=>{
+          console.log(result.data)
+
+          setFollowing(false)
+        }).catch(err=>{
+          console.log(err)
+        })
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+    }
+  }
   }
   
   const AddLike=(id)=>{
@@ -179,11 +203,11 @@ function VideoPlayerPage(props) {
     <>
     {isLoading?<>Loading</>:
     <div className="h-80">
-      <div className="grid grid-cols-3 gap-2 items-left">
+      <div className="grid lg:grid-cols-3 md:grid-cols-1 sm:flex-col gap-2 items-left">
         <div className="col-span-2 text-white justify-start ml-16">
           <h1 className="text-2xl ">{videoInfo.Title}</h1>
-          <div className="grid grid-cols-4 mt-3">
-            <div className="grid grid-cols-4 col-span-2">
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-3">
+            <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 col-span-2">
               <div className="justify-end object-right ">
                 <div className="w-2/6">
                   <img
@@ -199,22 +223,22 @@ function VideoPlayerPage(props) {
               </div>
 
               <div className="text-xl">
-                <button className="rounded-full border bg-black px-5 py-1" onClick={()=>{FollowChannel(channelInfo._id)}}>
-                  {isFollowing?<>Following</>:<>Follow</>}
+                <button className="rounded-full border bg-black px-5 py-1 sm:pt-1 sm:pb-4 " onClick={()=>{FollowChannel(channelInfo._id)}}>
+                  {isFollowing?<p className="text-base">Following</p>:<>Follow</>}
                 </button>
               </div>
             </div>
             <div className="col-span-2 items-center text-xl">
               <button className="rounded-lg border text-sm bg-black" style={{background:isLiked?'white':'black'}}>
-                <button className="ml-4  m-0 mt-0 text-red-700"  onClick={()=>{AddLike(videoInfo._id)}}>
-                  <AiFillHeart size={14}/>
+                <button className="ml-2 m-0 mt-0 flex-none inline-block p-1  text-red-700"  onClick={()=>{AddLike(videoInfo._id)}}>
+                  <AiFillHeart size={18} />
                   <p className="text-xs">
                   {videoInfo.LikeCount}
                   </p>
                 </button>
                 
-                <button className="ml-3  m-0 mt-0 text-red-700 p-3 border-l-2" style={{background:isDisLiked?'white':'black'}} onClick={()=>{AddDisLike(videoInfo._id)}}>
-                  <FaHeartBroken size={14}/>
+                <button className="ml-3 m-0 mt-0 flex-none inline-block p-1 pr-3 text-red-700  border-l-2" style={{background:isDisLiked?'white':'black'}} onClick={()=>{AddDisLike(videoInfo._id)}}>
+                  <FaHeartBroken size={18}/>
                   <p className="text-xs">
                   {videoInfo.DislikeCount}
                   </p>
@@ -233,9 +257,6 @@ function VideoPlayerPage(props) {
                 >
                   <BiDollar />
                   </StripeCheckout>
-              </button>
-              <button className="ml-3 text-white rounded-lg border p-3 bg-black">
-                <AiOutlineMenu />
               </button>
             </div>
           </div>
