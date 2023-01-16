@@ -20,7 +20,7 @@ function Home() {
     // const cards=["1","2","3","3","3"]
   return (
     <>
-    {loader?<div className='h-screen'>
+    {loader?<div className='min-h-screen'>
         <Grid container spacing={2}>
         {cards.map((card)=>{
                 return  <Grid item xs={12} md={4} lg={3} sm={6}>
