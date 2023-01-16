@@ -30,7 +30,7 @@ function History() {
     }
   },[])
   return (
-    <div className="h-screen">
+    <div className="min-h-screen">
         {loading?<>Loading</>:
         <>
         {isData?
