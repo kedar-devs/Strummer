@@ -13,6 +13,7 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
+import axios from 'axios'
 import { useSelector } from 'react-redux'
 import {actionCreator} from '../../State/index'
 import {useDispatch} from 'react-redux'
@@ -24,7 +25,7 @@ function Navbar() {
   const selectorData = useSelector(STATE => STATE.user);
   const dispatch=useDispatch()
   const action=bindActionCreators(actionCreator,dispatch)
- 
+  const [Pp,setImg]=useState('')
   const [token, setToken] = useState(selectorData)
   const [anchorPages, setPages] = useState(null)
   const [anchorProfile, setProfile] = useState(null)
@@ -33,9 +34,17 @@ function Navbar() {
     const token=localStorage.getItem('Token')
     if(token){
     setToken(token)
+    axios.get(`http://localhost:5000/User/GetUserImage/${token}`)
+    .then(result=>{
+      setImg(result.data)
+    })
+    .catch(err=>{
+      console.log(err)
+    })
     }
     else{
     setToken(State.authToken)
+  
     }
   }, [selectorData])
   const setPagesOpen = (event) => {
@@ -210,7 +219,7 @@ function Navbar() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={setProfileOpen} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                    {Pp!==''?<Avatar alt="Remy Sharp" src={Pp} />:<Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />}
                 </IconButton>
               </Tooltip>
               <Menu

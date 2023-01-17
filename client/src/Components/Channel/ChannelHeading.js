@@ -61,9 +61,9 @@ function ChannelHeading(props) {
         <>
         {loading?
         <div className='grid grid-col-6 mt-10'>
-            <div className='grid grid-cols-6'>
-                <div className='w-6/12 sm:w-4/12 px-4 ml-40'>
-                    <img src={channel.channelImage} alt='channel profile' className='shadow rounded-full max-w-full h-15 align-middle border-none' />
+            <div className='grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-1'>
+                <div className=' shrink-0 px-4 ml-40'>
+                    <img src={channel.channelImage} alt='channel profile' className='shadow avatar aspect-square shrink-0 lg:h-16 sm:h-24 rounded-full  align-middle border-none' />
                 </div>
                 <div className='col-span-2'>
                     <h1 className="text-2xl">{channel.channelName}</h1>
