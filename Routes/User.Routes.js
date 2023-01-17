@@ -14,5 +14,6 @@ routes.post("/MakeCreator",UserController.BecomeCreator)
 routes.get("/GetAll",UserController.getAlluser)
 routes.get("/GetOne/:token",UserController.getOneUser)
 routes.get('/GetUserId/:token',UserController.getUserId)
+routes.get('/GetUserImage/:token',UserController.getUserImage)
 routes.post('/payment',StripeController.chargeNewuser)
 module.exports=routes

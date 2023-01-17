@@ -361,3 +361,17 @@ exports.getUserId=async(req,res)=>{
         return res.status(400).send({message:err})
     }
 }
+exports.getUserImage=async(req,res)=>{
+    try{
+        const accessToken=req.params.token
+        const FoundUser=await UserData.findOne({accessToken})
+        if(FoundUser){
+            return res.status(200).send(FoundUser.ProfilePic)
+        }
+        else{
+            return res.status(400).send({message:'No User Found'})
+        }
+    }catch(err){
+        return res.status(400).send({err})
+    }
+}
