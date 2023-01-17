@@ -26,7 +26,7 @@ function Subscription() {
       }
     },[])
   return (
-    <div>
+    <div className='min-h-screen'>
       {loading?
         <Grid container spacing={2}>
         {channelDetails.map((channel)=>{
