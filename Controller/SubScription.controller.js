@@ -9,6 +9,11 @@ exports.AddSubscription=async(req,res)=>{
         ChannelId:channelId,
         UserId:userId
     }
+    const FoundSubscription=await Subscriber.findOne({ChannelId:channelId,UserId:userId})
+    if(FoundSubscription){
+        return res.status(200).send({message:'Already Subscribed'})
+    }
+    else{
     const NewSubScription=new Subscriber(Subscription)
     NewSubScription.save(async(err,result)=>{
         if(err){
@@ -24,7 +29,7 @@ exports.AddSubscription=async(req,res)=>{
             return res.status(400).send({message:'Channel Sub Count Increase fail'})
         }
     })
-
+    }
     }catch(err){
         console.log(err)
         return res.status(501).send({err})

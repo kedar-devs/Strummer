@@ -9,6 +9,11 @@ exports.AddLikes=async(req,res)=>{
             userId:userId,
             DateTime:new Date()
         }
+        const FoundLike=await Likes.findOne({ContentId:ContentId,userId:userId})
+        if(FoundLike){
+            return res.status(200).send({message:'Already Liked'})
+        }
+        else{
         const newLike=new Likes(Like)
         newLike.save((err,result)=>{
             if(err){
@@ -17,6 +22,7 @@ exports.AddLikes=async(req,res)=>{
             }
             return res.status(200).send(result)
         }) 
+    }
     }
     catch(err){
         console.log(err)

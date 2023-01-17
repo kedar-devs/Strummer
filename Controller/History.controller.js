@@ -1,3 +1,4 @@
+
 const ContentData = require("../Models/content.model");
 const HistoryData = require("../Models/VideoRelatedStuff/History.model")
 
@@ -6,6 +7,20 @@ exports.AddHistory=async(req,res)=>{
 
         console.log(req.body)
         const {contentId,userId}=req.body
+        const FoundHistory=await HistoryData.findOne({ContentId:contentId,viewerId:userId})
+        if(FoundHistory){
+            FoundHistory.DateTime=new Date()
+            FoundHistory.save((err,result)=>{
+                if(err){
+                    return res.status(400).send(err)
+                }
+                else{
+                return res.status(200).send({message:'Update Sucessfully'})
+                }
+            })
+            
+        }
+        else{
         const History={
             ContentId:contentId,
             viewerId:userId,
@@ -22,7 +37,7 @@ exports.AddHistory=async(req,res)=>{
             }
 
         })
-        
+    } 
     }
     catch(err){
         console.log(err)
