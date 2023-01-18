@@ -1,5 +1,6 @@
 const Creator = require('../Models/Coach.model')
 const ChannelData=require('./../Models/Channel.model')
+const ContentData=require('./../Models/content.model')
 const cloudinary = require('cloudinary').v2
 require('./../Helper/Cloudinary')
 exports.AddChannel=async(req,res)=>{
@@ -203,4 +204,30 @@ exports.getAllCreatorChannel=async(req,res)=>{
         console.log(err)
     }
     
+}
+exports.GetAboutChannel=async(req,res)=>{
+    const {id}=req.params
+    const FoundChannel=await ChannelData.findOne({_id:id})
+    const channelDetails={
+        channelDescr:'',
+        stat:{
+            subCount:0,
+            videoCount:0
+        }
+    }
+    if(FoundChannel){
+        channelDetails.channelDescr=FoundChannel.about
+        channelDetails.stat.subCount=FoundChannel.channelSubCount
+        const FoundContent=await ContentData.find({channelId:FoundChannel._id})
+        if(FoundContent){
+            channelDetails.stat.videoCount=FoundContent.length
+            return res.status(200).send({channelDetails})
+        }
+        else{
+            return res.status(200).send({channelDetails})  
+        }
+    }
+    else{
+        return res.status(400).send({message:'No Channel Found'})  
+    }
 }
