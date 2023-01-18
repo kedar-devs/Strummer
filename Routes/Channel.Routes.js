@@ -12,7 +12,7 @@ routes.put("/EditSocials",ChannelController.editSocial)
 routes.get("/getAllChannel",ChannelController.GetAllChannel)
 routes.get("/GetCreatorsCahnnel/:creator",ChannelController.getCreatorChannel)
 routes.get("/GetOneChannel/:id",ChannelController.getOneChannel)
-
+routes.get("/GetAboutChannel/:id",ChannelController.GetAboutChannel)
 routes.get('/GetAllCreatorChannel/:id',ChannelController.getAllCreatorChannel)
 routes.get('/GetSubscription/:id',SubscriptionController.getSubscription)
 routes.delete('/RemoveSubscription',SubscriptionController.RemoveSubscription)
