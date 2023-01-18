@@ -4,10 +4,12 @@ import Comment from "./Comment";
 import { AiFillHeart } from "react-icons/ai";
 import { FaHeartBroken, FaShare } from "react-icons/fa";
 import { BiDollar } from "react-icons/bi";
+import {useNavigate} from 'react-router-dom'
 import StripeCheckout from 'react-stripe-checkout';
 import axios from "axios";
 
 function VideoPlayerPage(props) {
+  const navigation=useNavigate()
   const [videoInfo,setVideoInfo]=useState({})
   const [channelInfo,setChannelInfo]=useState({})
   const [isLoading,setLoading]=useState(true)
@@ -15,6 +17,7 @@ function VideoPlayerPage(props) {
   const [isDisLiked,setIsDisliked]=useState(false)
   const [isFollowing,setFollowing]=useState(false)
   const [UsersId,setUserId]=useState('')
+  const [imgSrc,setImgSrc]=useState('https://www.creative-tim.com/learning-lab/tailwind-starter-kit/img/team-2-800x800.jpg')
   const prod={
     name:'creator',
     email:'kedard249.kd@gmail.com',
@@ -23,6 +26,10 @@ function VideoPlayerPage(props) {
   useEffect(()=>{
     setVideoInfo(props.videoInfo)
     setChannelInfo(props.channelInfo)
+    console.log(props.channelInfo)
+    if(props.channelInfo.channelImage){
+      setImgSrc(props.channelInfo.channelImage)
+    }
     let Token=localStorage.getItem('Token')
       if(Token){
         axios.get(`http://localhost:5000/User/GetUserId/${Token}`)
@@ -199,6 +206,9 @@ function VideoPlayerPage(props) {
     navigator.clipboard.writeText(url)
     alert('URL has been Copied and ready to be shared')
   }
+  const GoToChannel=(id)=>{
+    navigation(`/PublicChannel/${id}`)
+  }
   return (
     <>
     {isLoading?<>Loading</>:
@@ -209,15 +219,15 @@ function VideoPlayerPage(props) {
           <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 mt-3">
             <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 col-span-2">
               <div className="justify-end object-right ">
-                <div className="w-2/6">
+                <div className="w-2/6" onClick={()=>{GoToChannel(channelInfo._id)}} >
                   <img
-                    src="https://www.creative-tim.com/learning-lab/tailwind-starter-kit/img/team-2-800x800.jpg"
+                    src={imgSrc}
                     alt="..."
                     className="shadow rounded-full max-w-full h-auto align-middle border-none items-end lg:ml-16"
                   />
                 </div>
               </div>
-              <div className="justify-items-start text-xl col-span-2">
+              <div className="justify-items-start text-xl col-span-2" onClick={()=>{GoToChannel(channelInfo._id)}}>
                 <h2>{channelInfo.channelName}</h2>
                 <p className="text-sm">Subscriber {channelInfo.channelSubCount}</p>
               </div>
