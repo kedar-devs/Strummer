@@ -8,6 +8,8 @@ import {useSelector} from 'react-redux'
 function ContentForm(props) {
     const [FormEleArray, setFormData] = useState([])
     const [initialVal, setInitialVal] = useState({})
+    const [imgSrc,setimgSrc]=useState('https://img.freepik.com/free-vector/image-upload-concept-landing-page_52683-27130.jpg?size=338&ext=jpg')
+    const [videoSrc,setVideo]=useState('')
     const [uploaded, setUploaded] = useState(0)
     const [axiosRequest,setAxiosRequest]=useState('')
     const selectorData=useSelector(STATE=>STATE.channel)
@@ -152,7 +154,9 @@ function ContentForm(props) {
                                                         <label className="flex flex-col rounded-lg border-4 border-dashed w-full h-60 p-10 group text-center">
                                                             <div className="h-full w-full text-center flex flex-col item-center justify-center">
                                                                 <div class="flex flex-auto max-h-48 w-2/5 mx-auto -mt-10">
-                                                                    <img class="has-mask h-36 object-center" src="https://img.freepik.com/free-vector/image-upload-concept-landing-page_52683-27130.jpg?size=338&ext=jpg" alt="freepik" />
+                                                                    {ele.id==='photo'?<img className="has-mask h-36 object-center" src={imgSrc} alt="freepik" />:<>
+                                                                    {videoSrc!==''?<video width={400} height={400} controls> <source src={videoSrc}/></video>:<img class="has-mask h-36 object-center" src='https://img.freepik.com/free-vector/image-upload-concept-landing-page_52683-27130.jpg?size=338&ext=jpg' alt="freepik" />}
+                                                                    </>}
                                                                 </div>
                                                                 <p class="pointer-none text-gray-500 "><span class="text-sm">Drag and drop</span> files here <br /></p>
                                                             </div>
@@ -162,7 +166,12 @@ function ContentForm(props) {
                                                                 className="hidden"
                                                                 value={values[ele]}
                                                                 onChange={(event) => {
-                                                                    
+                                                                    if(ele.id==='photo'){
+                                                                        setimgSrc(URL.createObjectURL(event.currentTarget.files[0]))
+                                                                    }
+                                                                    else if(ele.id==='Video'){
+                                                                        setVideo(URL.createObjectURL(event.currentTarget.files[0]))
+                                                                    }
                                                                     setFieldValue(ele.id, event.currentTarget.files[0]);
                                                                 }}
                                                                 name={ele.id}

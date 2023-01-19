@@ -77,6 +77,7 @@ function Navbar() {
     switch(setting){
       case 'Sign Out':
         console.log('In here')
+        localStorage.removeItem('Token')
         action.DeleteAccessToken()
         navigate('/')
         break
@@ -90,6 +91,9 @@ function Navbar() {
     }
    
   }
+    
+
+
 
   return (
 
