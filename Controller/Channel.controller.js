@@ -140,6 +140,7 @@ exports.removeSubscriber=async(channelId)=>{
 }
 }
 exports.editSocial=async(req,res)=>{
+    try{
     const {_id}=req.body
     const FoundChannel=await ChannelData.findOne({_id})
     FoundChannel.socialFB=req.body.socialFB?req.body.socialFB:FoundChannel.socialFB
@@ -153,8 +154,12 @@ exports.editSocial=async(req,res)=>{
             return res.status(200).send({message:'Subscriber Removed Succesfully'})
         }
     })
+}catch(err){
+    return res.status(400).send(err)
+}
 } 
 exports.GetAllChannel=async(req,res)=>{
+    try{
     const AllChannel=await ChannelData.find()
     if(AllChannel){
         return res.status(200).send(AllChannel)
@@ -162,8 +167,12 @@ exports.GetAllChannel=async(req,res)=>{
     else{
         return res.status(400).send({message:'No User Found'})
     }
+}catch(err){
+    return res.status(400).send(err)
+}
 }  
 exports.getOneChannel=async(req,res)=>{
+    try{
     const _id=req.params.id
     const OneChannel=await ChannelData.findOne({_id})
     if (OneChannel){
@@ -172,8 +181,12 @@ exports.getOneChannel=async(req,res)=>{
     else{
         return res.status(400).send({message:'No user with that id found'})
     }
+}catch(err){
+    return res.status(400).send(err)
+}
 }
 exports.getCreatorChannel=async(req,res)=>{
+    try{
     const channelCreator=req.params.creator
     const FoundChannel=await ChannelData.find({channelCreator})
     if(FoundChannel){
@@ -182,6 +195,9 @@ exports.getCreatorChannel=async(req,res)=>{
     else{
         return res.status(400).send({message:'User no found'})
     }
+}catch(err){
+    return res.status(400).send(err)
+}
 }
 exports.getAllCreatorChannel=async(req,res)=>{
     try{
@@ -206,18 +222,23 @@ exports.getAllCreatorChannel=async(req,res)=>{
     
 }
 exports.GetAboutChannel=async(req,res)=>{
+    try{
     const {id}=req.params
     const FoundChannel=await ChannelData.findOne({_id:id})
     const channelDetails={
         channelDescr:'',
+        channelInfo:{
+        channelName:FoundChannel.channelName,
+        channelImg:FoundChannel.channelImage,
+        },
         stat:{
-            subCount:0,
+            channelSubCount:0,
             videoCount:0
         }
     }
     if(FoundChannel){
         channelDetails.channelDescr=FoundChannel.about
-        channelDetails.stat.subCount=FoundChannel.channelSubCount
+        channelDetails.stat.channelSubCount=FoundChannel.channelSubCount
         const FoundContent=await ContentData.find({channelId:FoundChannel._id})
         if(FoundContent){
             channelDetails.stat.videoCount=FoundContent.length
@@ -230,4 +251,7 @@ exports.GetAboutChannel=async(req,res)=>{
     else{
         return res.status(400).send({message:'No Channel Found'})  
     }
+}catch(err){
+    return res.status(400).send(err)
+}
 }

@@ -31,6 +31,7 @@ exports.AddComment=async(req,res)=>{
     }
 }
 exports.IncreaseCount=async(req,res)=>{
+    try{
     const {id}=req.body
     const FoundComment=await CommentData.findOne({_id:id})
     FoundComment.replyCount+=1
@@ -42,8 +43,12 @@ exports.IncreaseCount=async(req,res)=>{
             return res.status(200).send({message:'Count Increased Succesfully'})
         }
     })
+}catch(err){
+    console.log(err)
+}
 }
 exports.AddLike=async(req,res)=>{
+    try{
     const {id}=req.params
     const FoundComment=await CommentData.findOne({_id:id})
     FoundComment.likeCount+=1
@@ -55,8 +60,12 @@ exports.AddLike=async(req,res)=>{
             return res.status(200).send({message:'Count Increased Succesfully'})
         }
     })
+}catch(err){
+    console.log(err)
+}
 }
 exports.AddDislike=async(req,res)=>{
+    try{
     const {id}=req.params
     const FoundComment=await CommentData.findOne({_id:id})
     FoundComment.disLikeCount+=1
@@ -68,8 +77,12 @@ exports.AddDislike=async(req,res)=>{
             return res.status(200).send({message:'Count Increased Succesfully'})
         }
     })
+}catch(err){
+    console.log(err)
+}
 }
 exports.RemoveLike=async(req,res)=>{
+    try{
     const {id}=req.params
     const FoundComment=await CommentData.findOne({_id:id})
     if(FoundComment.likeCount==0){
@@ -84,8 +97,12 @@ exports.RemoveLike=async(req,res)=>{
             return res.status(200).send({message:'Count decreased Succesfully'})
         }
     })
+}catch(err){
+    console.log(err)
+}
 }
 exports.RemoveDisLike=async(req,res)=>{
+    try{
     const {id}=req.params
     const FoundComment=await CommentData.findOne({_id:id})
     if(FoundComment.disLikeCount==0){
@@ -100,6 +117,9 @@ exports.RemoveDisLike=async(req,res)=>{
             return res.status(200).send({message:'Count decreased Succesfully'})
         }
     })
+}catch(err){
+    console.log(err)
+}
 }
 exports.GetComment=async(req,res)=>{
     try{

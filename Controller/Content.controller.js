@@ -6,6 +6,7 @@ const cloudinary = require('cloudinary').v2
 require('./../Helper/Cloudinary')
 
 exports.CreateNewContent=async(req,res)=>{
+    
     console.log(req.files)
     try{
     const {ContentCreator,length,channelId,Tags,Title,Description}=req.body
@@ -159,6 +160,7 @@ exports.AddReportCount=async(req,res)=>{
 }
 }
 exports.ChangeApproval=async(req,res)=>{
+    try{
     const _id=req.body.id
     const FoundContent=await ContentData.findOne({_id})
     FoundContent.isApproved=!FoundContent.isApproved
@@ -170,8 +172,12 @@ exports.ChangeApproval=async(req,res)=>{
             return res.status(200).send({message:"Approval Status has changed"})
         }
     })
+}catch(err){
+    console.log(err)
+}
 }
 exports.GetContent=async(req,res)=>{
+    try{
     const Content=await ContentData.find()
     if(Content){
         return res.status(200).send(Content)
@@ -179,6 +185,9 @@ exports.GetContent=async(req,res)=>{
     else{
         return res.status(404).send({message:'No User Found'})
     }
+}catch(err){
+    console.log(err)
+}
 }
 exports.getOneContent=async(req,res)=>{
     try{
@@ -201,6 +210,7 @@ exports.getOneContent=async(req,res)=>{
 }
 }
 exports.getCreator=async(req,res)=>{
+    try{
     const {id}=req.params
     const Content=await ContentData.find({ContentCreator:id})
     if(Content){
@@ -209,16 +219,24 @@ exports.getCreator=async(req,res)=>{
     else{
         return res.status(400).send({message:"No Content Found"})
     }
+}catch(err){
+    console.log(err)
+}
 }
 exports.getChannel=async(req,res)=>{
+    try{
     const {id}=req.params
     const Content=await ContentData.find({channelId:id})
     if(Content){
         return res.status(200).send(Content)
     }
     return res.status(400).send({message:'Content not found'})
+}catch(err){
+    console.log(err)
+}
 }
 exports.AddTags=async(req,res)=>{
+    try{
     const {id}=req.params
     const {tags}=req.body
     const Content=await ContentData.find({channelId:id})
@@ -237,8 +255,12 @@ exports.AddTags=async(req,res)=>{
     else{
         return res.status(400).send({message:'No user Found'})
     }
+}catch(err){
+    console.log(err)
+}
 }
 exports.DeleteTags=async(req,res)=>{
+    try{
     const {id}=req.params
     const {tag}=req.body
     const Content=await ContentData.find({channelId:id})
@@ -256,6 +278,9 @@ exports.DeleteTags=async(req,res)=>{
     else{
         return res.status(400).send({message:'No user Found'})
     }
+}catch(err){
+    console.log(err)
+}
 }
 exports.searchTags=async(req,res)=>{
     try{

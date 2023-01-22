@@ -25,6 +25,7 @@ const transporter = nodemailer.createTransport({
 })
 
 exports.RegisterUser = async (req, res) => {
+    try{
     const User = {
         name: req.body.name,
         email: req.body.email,
@@ -71,10 +72,13 @@ exports.RegisterUser = async (req, res) => {
         }
         return res.status(200).send({ token: user.accessToken })
     })
-
+    }catch(err){
+        console.log(err)
+    }
 
 }
 exports.LoginUser = async (req, res) => {
+    try{
     const { email, password } = req.body
     const FoundUser = await UserData.findOne({ email })
     if (FoundUser) {
@@ -99,8 +103,12 @@ exports.LoginUser = async (req, res) => {
     else {
         return res.status(404).send({ message: 'User not found' })
     }
+    }catch(err){
+        console.log(err)
+    }
 }
 exports.RegisterUserMobile = async (req, res) => {
+    try{
     const { contact } = req.body
     console.log(contact)
     const Otp = otpGenerator.generate(6, { upperCaseAlphabets: false, specialChars: false });
@@ -129,8 +137,12 @@ exports.RegisterUserMobile = async (req, res) => {
             }
         }
     })
+}catch(err){
+    console.log(err)
+}
 }
 exports.LoginUserMobile = async (req, res) => {
+    try{
     const { contact, otp,accessToken } = req.body
     
     const FoundUser = await UserData.findOne({accessToken:accessToken,otp:otp})
@@ -146,9 +158,13 @@ exports.LoginUserMobile = async (req, res) => {
             return res.status(200).send({ token })
         }
     })
+}catch(err){
+    console.log(err)
+}
 }
 
 exports.BecomeCreator = async (req, res) => {
+    try{
     const FoundUser = await UserData.findOne({ accessToken: req.body.accessToken })
     const Coach = {
         creatorName: req.body.name ? req.body.name : FoundUser.name,
@@ -181,8 +197,12 @@ exports.BecomeCreator = async (req, res) => {
 
         }
     })
+}catch(err){
+    console.log(err)
+}
 }
 exports.EditProfile = async (req, res) => {
+    try{
     const { name, ProfilePic } = req.body
     const FoundUser = UserData.findOne({ accessToken: req.body.accessToken })
     if (FoundUser) {
@@ -203,8 +223,12 @@ exports.EditProfile = async (req, res) => {
     else {
         return res.status(401).send({ message: 'No user was found' })
     }
+}catch(err){
+    console.log(err)
+}
 }
 exports.SendOTP = async (req, res) => {
+    try{
     console.log(req.body)
     const { contact } = req.body
     const FoundUser = await UserData.findOne({ contact })
@@ -237,9 +261,13 @@ exports.SendOTP = async (req, res) => {
     else {
         return res.status(401).send({ message: 'No user was found' })
     }
+    }catch(err){
+        console.log(err)
+    }
 }
 
 exports.EditContact = async (req, res) => {
+    try{
     const { oldContact, newContact, otp, accessToken } = req.body
     const FoundUser = await UserData.findOne({accessToken}).where("otp").equals(otp)
     if (FoundUser) {
@@ -259,6 +287,9 @@ exports.EditContact = async (req, res) => {
     else {
         return res.status(401).send({ message: 'No user was found' })
     }
+}catch(err){
+    console.log(err)
+}
 
 }
 exports.generateResetLink = async (req, res) => {
@@ -311,6 +342,7 @@ exports.generateResetLink = async (req, res) => {
 
 }
 exports.ResetPassword=async(req,res)=>{
+    try{
     const {resetToken,password}=req.body
     const FoundUser=await UserData.findOne({resetToken})
     if(FoundUser){
@@ -327,8 +359,12 @@ exports.ResetPassword=async(req,res)=>{
     else{
         return res.status(401).send({ message: 'No user was found' })
     }
+}catch(err){
+    console.log(err)
+}
 }
 exports.getAlluser=async(req,res)=>{
+    try{
     const AllUser=await UserData.find()
     if(AllUser){
         return res.status(200).send(AllUser)
@@ -336,8 +372,12 @@ exports.getAlluser=async(req,res)=>{
     else{
         return res.status(400).send({message:'No User found'})
     }
+}catch(err){
+    console.log(err)
+}
 }
 exports.getOneUser=async(req,res)=>{
+    try{
     const accessToken=req.params.token
     const FoundUser=await UserData.findOne({accessToken})
     if(FoundUser){
@@ -346,6 +386,9 @@ exports.getOneUser=async(req,res)=>{
     else{
         return res.status(404).send({message:'No User Found'})
     }
+}catch(err){
+    console.log(err)
+}
 }
 exports.getUserId=async(req,res)=>{
     try{
