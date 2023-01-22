@@ -1,13 +1,13 @@
-import React,{useState} from 'react'
+import React from 'react'
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios'
 
 function StripePaymentPage() {
-    const [prod,setProd]=useState({
+    const prod={
         name:'creator',
         email:'kedard249.kd@gmail.com',
         price:100
-    })
+    }
     const makePayment=(token)=>{
         const body={
             token,

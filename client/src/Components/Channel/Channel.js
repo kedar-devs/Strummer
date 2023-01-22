@@ -23,7 +23,7 @@ function Channel() {
     .catch(err=>{
       console.log(err)
     })
-  },[])
+  },[action])
   return (
     <div>
       {isNotCreator?

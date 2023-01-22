@@ -7,6 +7,7 @@ import { BiDollar } from "react-icons/bi";
 import {useNavigate} from 'react-router-dom'
 import StripeCheckout from 'react-stripe-checkout';
 import axios from "axios";
+import { Bars } from 'react-loader-spinner'
 
 function VideoPlayerPage(props) {
   const navigation=useNavigate()
@@ -211,7 +212,15 @@ function VideoPlayerPage(props) {
   }
   return (
     <>
-    {isLoading?<>Loading</>:
+    {isLoading?<div className='flex h-screen w-screen justify-center items-center'><Bars
+  height="180"
+  width="180"
+  color="#4fa94d"
+  ariaLabel="bars-loading"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={isLoading}
+/></div>:
     <div className="h-80">
       <div className="grid lg:grid-cols-3 md:grid-cols-1 sm:flex-col gap-2 items-left">
         <div className="col-span-2 text-white justify-start ml-16">

@@ -21,7 +21,7 @@ function BecomeCreator() {
           <button class="bg-blue-500 mx-2 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onClick={()=>{navigator('/BecomeCreator')}}>
             Become Creator
           </button>
-          <button class="bg-green-700 mx-2 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-full">
+          <button class="bg-green-700 mx-2 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-full" onClick={()=>{navigator('/loginCreator')}}>
             Sign in
           </button>
           </div>

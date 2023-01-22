@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react'
 import { Grid } from '@mui/material'
 import DynamicCard from '../Card/DynamicCard'
 import axios from 'axios'
+import { Bars } from 'react-loader-spinner'
 
 function Home() {
   const [cards,setCard]=useState([])
@@ -30,7 +31,15 @@ function Home() {
            </Grid>
            
        
-    </div>:<div className='h-screen'> Loading.....</div>}
+    </div>:<div className='h-screen'> <div className='flex h-screen w-screen justify-center items-center'><Bars
+  height="180"
+  width="180"
+  color="#4fa94d"
+  ariaLabel="bars-loading"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={!loader}
+/></div></div>}
     </>
   )
 }

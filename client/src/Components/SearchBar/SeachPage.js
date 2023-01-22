@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Grid } from '@mui/material';
 import ChannelCard from '../Channel/ChannelCard';
 import DynamicCard from '../Card/DynamicCard';
+import { Bars } from 'react-loader-spinner'
 function SeachPage() {
     const [channelDetails,setChannelDetails]=useState({})
     const [channelPresent,setChannelPresent]=useState(false)
@@ -59,7 +60,15 @@ function SeachPage() {
            </div>
            </div>:<h1 className='text-4xl font-extrabold text-white text-center'>No Content Found</h1>}
            </>
-        </>:<>Loading</>
+        </>:<div className='flex h-screen w-screen justify-center items-center'><Bars
+  height="180"
+  width="180"
+  color="#4fa94d"
+  ariaLabel="bars-loading"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={!loading}
+/></div>
 
         }
     </div>

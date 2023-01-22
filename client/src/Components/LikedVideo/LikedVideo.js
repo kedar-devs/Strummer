@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react'
 import { Grid } from "@mui/material";
 import DynamicCard from "../Card/DynamicCard";
 import axios from "axios";
+import { Bars } from 'react-loader-spinner'
 function LikedVideo() {
     const [cardDetails, setCard] = useState([]);
     const [loading,setLoader]=useState(true)
@@ -31,7 +32,15 @@ function LikedVideo() {
       },[])
   return (
     <div className="h-screen">
-    {loading?<>Loading</>:
+    {loading?<div className='flex h-screen w-screen justify-center items-center'><Bars
+  height="180"
+  width="180"
+  color="#4fa94d"
+  ariaLabel="bars-loading"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={loading}
+/></div>:
     <>
     {isData?
   <Grid container spacing={2}>

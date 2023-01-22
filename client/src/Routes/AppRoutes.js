@@ -24,6 +24,7 @@ import LikedVideo from '../Components/LikedVideo/LikedVideo'
 // import OtherVideosPage from '../Components/VideoPlayer/OtherVideosPage'
 //Form Related data
 import LoginData from '../Components/FormData/LoginUserMobile'
+import LoginCreator from '../Components/FormData/LoginCreator'
 import LoginEmailData from '../Components/FormData/LoginUser'
 import RegisterMobile from '../Components/FormData/RegisterMobile'
 import UserData from '../Components/FormData/UserProfile'
@@ -49,6 +50,7 @@ function AppRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/loginMobile" element={<LoginForm LoginData={LoginData} UserLoginValidation={UserLoginValidation} />} />
         <Route path="/login" element={<LoginForm LoginData={LoginEmailData} UserLoginValidation={UserLoginEmailValidation} />} />
+        <Route path='/loginCreator' element={<LoginForm LoginData={LoginCreator} UserLoginValidation={UserLoginEmailValidation} />} />
         <Route path='/RegisterMobile' element={<LoginForm LoginData={RegisterMobile} UserLoginValidation={UserMobileNoValidation} />} />
         <Route path="/RegisterUser" element={<RegisterForm RegisterData={UserData} UserRegisterValidation={UserRegisterValidationSchema} />} />
         <Route path="/BecomeCreator" element={<RegisterForm RegisterData={MakeCreator} UserRegisterValidation={UserCreatorValidationSchema} />} />
@@ -63,7 +65,7 @@ function AppRoutes() {
         <Route path="/subscription" element={<Subscription />} />
         <Route path="/Channel" element={<Channel />} />
         <Route path="/YourChannel/:id" element={<YourChannel />} >
-          <Route path="Videos" element={<VideoPage />} />
+          <Route path="" element={<VideoPage />} />
           <Route path="Playlist" element={<PlayListPage />} />
           <Route path="Community" element={<CommunityPage />} />
           <Route path="Channels" element={<ChannelPage />} />

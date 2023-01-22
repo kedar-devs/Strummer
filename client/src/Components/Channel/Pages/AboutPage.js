@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React,{useState,useEffect} from 'react'
 import { useOutletContext } from 'react-router-dom'
+import { Bars } from 'react-loader-spinner'
 function AboutPage() {
   const [description,setDescription]=useState({})
   const [channelInfo,setchannelInfo]=useState({})
@@ -16,7 +17,7 @@ function AboutPage() {
       setDescription(result.data.channelDetails.channelDescr)
       setStats(result.data.channelDetails.stat)
     })
-  },[])
+  },[channelDetails])
   return (
     <>{loader?
     <div className='mt-4'>
@@ -37,7 +38,15 @@ function AboutPage() {
             </div>
         </div>
     </div>
-    </div>:<>Loading</>
+    </div>:<div className='flex h-screen w-screen justify-center items-center'><Bars
+  height="180"
+  width="180"
+  color="#4fa94d"
+  ariaLabel="bars-loading"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={!loader}
+/></div>
 }
     </>
   )

@@ -3,6 +3,7 @@ import YourChannelHeading from "./YourChannelHeading";
 import ChannelNavbar from "./ChannelNavbar";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Bars } from 'react-loader-spinner'
 import axios from "axios";
 
 function YourChannel() {
@@ -26,11 +27,19 @@ function YourChannel() {
   },[selectorData])
   return (
     <>
-    {loading?<>Loading</>:
+    {loading?<div className='flex h-screen w-screen justify-center items-center'><Bars
+  height="180"
+  width="180"
+  color="#4fa94d"
+  ariaLabel="bars-loading"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={loading}
+/></div>:
     <div>
       <YourChannelHeading channelInfo={channelDetail} />
       <ChannelNavbar />
-      <Outlet />
+      <Outlet context={[channelDetail]}/>
     </div>
   }
   </>

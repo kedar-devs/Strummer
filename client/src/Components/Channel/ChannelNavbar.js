@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 function ChannelNavbar() {
-    const slideText = ['Videos','Playlist','About','Channels']
+    const slideText = ['Videos','About','Channels']
     const navigate=useNavigate()
     let pathname=window.location.pathname
 

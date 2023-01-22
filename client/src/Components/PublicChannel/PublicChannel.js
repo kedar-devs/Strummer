@@ -3,6 +3,7 @@ import React,{useState,useEffect} from 'react'
 import { Outlet, useParams } from 'react-router-dom'
 import ChannelHeading from '../Channel/ChannelHeading'
 import ChannelNavbar from '../Channel/ChannelNavbar'
+import { Bars } from 'react-loader-spinner'
 function PublicChannel() {
     const [channelDetails,setChannelDetails]=useState({})
     const [loading,setLoading]=useState(false)
@@ -25,7 +26,15 @@ function PublicChannel() {
         <ChannelHeading channelInfo={channelDetails} />
         <ChannelNavbar />
         <Outlet context={[channelDetails]}/>
-        </>:<></>}
+        </>:<div className='flex h-screen w-screen justify-center items-center'><Bars
+  height="180"
+  width="180"
+  color="#4fa94d"
+  ariaLabel="bars-loading"
+  wrapperStyle={{}}
+  wrapperClass=""
+  visible={!loading}
+/></div>}
     </div>
   )
 }

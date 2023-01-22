@@ -28,12 +28,29 @@ function ChannelHeading(props) {
         }
       setLoading(true)
     },[props])
+    const Notify=()=>{
+      alert('You will be Notified when the new video will be appleied')
+    }
     const ChangeSubscriptionStatus=(id)=>{
         if(isFollowing){
-            axios.get(`http://localhost:5000/Channel/RemoveSubscription/${id}`)
+          const Token=localStorage.getItem('Token')
+          if(Token){
+            axios.get(`http://localhost:5000/User/GetUserId/${Token}`)
             .then(result=>{
+              console.log(result.data)
+              const userId=result.data
+              axios.delete('http://localhost:5000/Channel/RemoveSubscription',{data:{userId,id}})
+              .then(result=>{
+                console.log(result.data)
                 setFollowing(false)
+              }).catch(err=>{
+                console.log(err)
+              })
             })
+            .catch(err=>{
+              console.log(err)
+            })
+          }
         }
         else{
             const Token=localStorage.getItem('Token')
@@ -72,7 +89,7 @@ function ChannelHeading(props) {
             </div>
             <div className=" ml-24">
                 {isFollowing?<button className='bg-black rounded text-white m-2 p-2' onClick={()=>{ChangeSubscriptionStatus(channel._id)}}>Unsubscribe</button>:<button className='bg-black rounded text-white m-2 p-2' onClick={()=>{ChangeSubscriptionStatus(channel._id)}}>subscribe</button>}
-                <button className='bg-black rounded text-white m-2 p-2'>Notify</button>
+                <button className='bg-black rounded text-white m-2 p-2' onClick={()=>{Notify()}}>Notify</button>
             </div>
 
         </div>:<></>

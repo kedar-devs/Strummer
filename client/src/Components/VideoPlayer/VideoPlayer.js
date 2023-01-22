@@ -5,6 +5,7 @@ import 'react-html5video/dist/styles.css';
 import { Outlet, useParams } from 'react-router-dom';
 import ChannelNavbar from '../Channel/ChannelNavbar';
 import VideoPlayerPage from './VideoPlayerPage';
+import { Bars } from 'react-loader-spinner'
 
 function VideoPlayer(props) {
   const [video,setVideoUrl]=useState()
@@ -60,7 +61,15 @@ function VideoPlayer(props) {
         <ChannelNavbar />
         <Outlet context={[channelDetails]}/>
         </>
-        :<>Loading</>}
+        :<div className='flex h-screen w-screen justify-center items-center'><Bars
+        height="180"
+        width="180"
+        color="#4fa94d"
+        ariaLabel="bars-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        visible={!loading}
+      /></div>}
     </div>
   )
 }

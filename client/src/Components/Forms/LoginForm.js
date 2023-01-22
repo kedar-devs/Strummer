@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import { Formik, Form, Field } from 'formik'
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 import axios from 'axios'
-import {actionCreator} from '../../State/index'
+import {actionCreator,channelActionCreator} from '../../State/index'
 import {useDispatch} from 'react-redux'
 import {bindActionCreators} from 'redux' 
 //import axios from 'axios'
@@ -15,7 +15,7 @@ function LoginForm(props) {
     const [serverUrl,setUrl]=useState('')
     const [UserLoginValidation,setValidationSchema]=useState({})
     const dispatch=useDispatch()
-    const action=bindActionCreators(actionCreator,dispatch)
+
     
     useEffect(()=>{
         console.log(props,{...props})
@@ -27,7 +27,8 @@ function LoginForm(props) {
         var init={}
         var otherDetails={
             resetMessage:LoginData.resetMessage,
-            resetLink:LoginData.resetLink
+            resetLink:LoginData.resetLink,
+            userType:LoginData.userType
         }
         setOtherDetails(otherDetails)
         for(let key in LoginData.orderForm){
@@ -62,9 +63,17 @@ function LoginForm(props) {
                 setSubmitting(false);
                 axios.post(serverUrl,values)
                 .then(result=>{
+                  if(otherDetails.userType==='User'){
+                    const action=bindActionCreators(actionCreator,dispatch)
                   action.AssignAccessToken(result.data.token)
                   localStorage.setItem('Token',result.data.token)
                   navigate('/')
+                  }
+                  else if(otherDetails.userType==='Creator'){
+                    const action = bindActionCreators(channelActionCreator, dispatch)
+                    action.AddCreatorId(result.data.id)
+                    navigator('/Channel')
+                  }
                 })
                 .catch(err=>{
                   alert(err)
