@@ -12,7 +12,7 @@ app.use(cors())
 app.use(fileUpload({
     useTempFiles : true
 }))
-require('./DB/DbConnection')
+
 const ChannelRoute=require('./Routes/Channel.Routes')
 const CoachRoute=require('./Routes/Coach.Routes')
 const ContentRoute=require('./Routes/Content.Routes')
