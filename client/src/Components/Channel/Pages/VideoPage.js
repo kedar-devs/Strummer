@@ -9,7 +9,7 @@ function VideoPage() {
   const [cardDetails,setCard]=useState([])
   const [loader,setLoader]=useState(false)
   useEffect(()=>{
-    axios.get(`http://localhost:5000/Content/GetChannel/${channelDetails._id}`)
+    axios.get(`/Content/GetChannel/${channelDetails._id}`)
     .then(result=>{
       console.log(result.data)
       setCard(result.data)

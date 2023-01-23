@@ -31,7 +31,7 @@ let state={
     resetLink:'/resendOtp',
     additionMessage:'Login With Email',
     additionLink:'/login',
-    axiosRequest:"http://localhost:5000/User/LoginMobile",
+    axiosRequest:"/User/LoginMobile",
     userType:'User'
 
 }

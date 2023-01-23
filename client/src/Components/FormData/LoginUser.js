@@ -31,7 +31,7 @@ let state={
     resetLink:'/ResetPassword',
     additionMessage:'Login With Mobile',
     additionLink:'/loginMobile',
-    axiosRequest:"http://localhost:5000/User/Login",
+    axiosRequest:"/User/Login",
     userType:'User'
 }
 module.exports=state

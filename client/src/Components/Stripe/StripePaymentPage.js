@@ -13,7 +13,7 @@ function StripePaymentPage() {
             token,
             prod
         }
-        axios.post('http://localhost:5000/User/payment',body)
+        axios.post('/User/payment',body)
         .then(res=>{
             console.log(res)
         })

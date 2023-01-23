@@ -67,6 +67,6 @@ let state={
         },
 
     },
-    axiosRequest:'http://localhost:5000/Content/NewContent'
+    axiosRequest:'/Content/NewContent'
 }
 module.exports=state

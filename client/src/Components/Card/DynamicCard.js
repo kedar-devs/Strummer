@@ -22,13 +22,13 @@ function DynamicCard(props) {
   useEffect(()=>{
     let Token=localStorage.getItem('Token')
     if(Token){
-      axios.get(`http://localhost:5000/User/GetUserId/${Token}`)
+      axios.get(`/User/GetUserId/${Token}`)
       .then(result=>{
         console.log(result.data)
         const userId=result.data
         setUsersId(result.data)
         const contentId=props.cardDetail._id
-        axios.put('http://localhost:5000/Content/Likes/checkLikes',{userId,contentId})
+        axios.put('/Content/Likes/checkLikes',{userId,contentId})
         .then(result=>{
           setisLiked(true)
         })
@@ -45,12 +45,12 @@ function DynamicCard(props) {
     
     let Token=localStorage.getItem('Token')
     if(Token){
-      axios.get(`http://localhost:5000/User/GetUserId/${Token}`)
+      axios.get(`/User/GetUserId/${Token}`)
       .then(result=>{
         console.log(result.data)
         const userId=result.data
         const contentId=id
-        axios.post('http://localhost:5000/Content/Video/AddHistory',{userId,contentId})
+        axios.post('/Content/Video/AddHistory',{userId,contentId})
         .then(result=>{
           console.log(result.data)
         })
@@ -68,7 +68,7 @@ function DynamicCard(props) {
   
   const AddLike=(id)=>{
     if(!isLiked){
-    axios.get(`http://localhost:5000/Content/AddLike/${id}`)
+    axios.get(`/Content/AddLike/${id}`)
     .then(result=>{
       console.log(result)
     })
@@ -79,7 +79,7 @@ function DynamicCard(props) {
       ContentId:id,
       userId:UsersId
     }
-    axios.post('http://localhost:5000/Content/Likes/AddLikes',body)
+    axios.post('/Content/Likes/AddLikes',body)
     .then(result=>{
       console.log(result.data)
     })
@@ -91,7 +91,7 @@ function DynamicCard(props) {
   }
   else{
     console.log('From Likes Else')
-    axios.get(`http://localhost:5000/Content/RemoveLike/${id}`)
+    axios.get(`/Content/RemoveLike/${id}`)
     .then(result=>{
       console.log('Successful like removal')
     })
@@ -102,7 +102,7 @@ function DynamicCard(props) {
       ContentId:id,
       userId:UsersId
     }
-    axios.delete('http://localhost:5000/Content/Likes/DeleteLikes',{data:body})
+    axios.delete('/Content/Likes/DeleteLikes',{data:body})
     .then(result=>{
       console.log(result.data)
     })

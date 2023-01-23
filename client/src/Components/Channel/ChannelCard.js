@@ -31,11 +31,11 @@ function ChannelCard(props) {
         if(subStatus){
           const Token=localStorage.getItem('Token')
           if(Token){
-            axios.get(`http://localhost:5000/User/GetUserId/${Token}`)
+            axios.get(`/User/GetUserId/${Token}`)
             .then(result=>{
               console.log(result.data)
               const userId=result.data
-              axios.delete('http://localhost:5000/Channel/RemoveSubscription',{data:{userId,id}})
+              axios.delete('/ChannelRoute/RemoveSubscription',{data:{userId,id}})
               .then(result=>{
                 console.log(result.data)
                 setSubStatus(false)
@@ -52,12 +52,12 @@ function ChannelCard(props) {
         else{
             const Token=localStorage.getItem('Token')
             if(Token){
-              axios.get(`http://localhost:5000/User/GetUserId/${Token}`)
+              axios.get(`/User/GetUserId/${Token}`)
               .then(result=>{
                 console.log(result.data)
                 const userId=result.data
                 const channelId=id
-                axios.post('http://localhost:5000/Channel/AddSubscription',{userId,channelId})
+                axios.post('/ChannelRoute/AddSubscription',{userId,channelId})
                 .then(result=>{
                   console.log(result.data)
                   setSubStatus(true)

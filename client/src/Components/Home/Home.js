@@ -8,7 +8,7 @@ function Home() {
   const [cards,setCard]=useState([])
   const [loader,setLoader]=useState(false)
   useEffect(()=>{
-    axios.get('http://localhost:5000/Content/GetContent')
+    axios.get('/Content/GetContent')
     .then(result=>{
       setCard(result.data)
       setLoader(true)

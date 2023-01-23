@@ -13,7 +13,7 @@ function SeachPage() {
     const [cards,setCard]=useState([])
     const {key}=useParams()
     useEffect(()=>{
-        axios.get(`http://localhost:5000/Content/search/${key}`)
+        axios.get(`/Content/search/${key}`)
         .then(result=>{
           console.log(result.data)
           if(result.data.FoundChannel.length>0){

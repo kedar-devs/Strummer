@@ -14,7 +14,7 @@ function VideoPlayer(props) {
   const [loading,setLoading]=useState(false)
   const {id}=useParams()
   useEffect(()=>{
-    axios.get(`http://localhost:5000/Content/GetOneContent/${id}`)
+    axios.get(`/Content/GetOneContent/${id}`)
     .then(result=>{
       console.log(result.data)
       setVideoUrl(result.data.Content)
@@ -28,7 +28,7 @@ function VideoPlayer(props) {
   },[id])
   const Handler=()=>{
     console.log('Ended')
-    axios.get(`http://localhost:5000/Content/IncreaseCount/${id}`)
+    axios.get(`/Content/IncreaseCount/${id}`)
     .then(result=>{
       console.log(result.data)
       setVideoUrl({...video,viewCount:result.data.viewCount})

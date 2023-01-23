@@ -10,10 +10,10 @@ function Subscription() {
     useEffect(()=>{
       const Token=localStorage.getItem('Token')
       if(Token){
-      axios.get(`http://localhost:5000/User/GetUserId/${Token}`)
+      axios.get(`/User/GetUserId/${Token}`)
       .then(user=>{
         const userId=user.data
-        axios.get(`http://localhost:5000/Channel/GetSubscription/${userId}`)
+        axios.get(`/Channel/GetSubscription/${userId}`)
         .then(Channel=>{
             console.log(Channel.data)
             setCard(Channel.data)

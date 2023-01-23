@@ -10,7 +10,7 @@ function AboutPage() {
   const [channelDetails]=useOutletContext()
   useEffect(()=>{
 
-    axios.get(`http://localhost:5000/Channel/GetAboutChannel/${channelDetails._id}`)
+    axios.get(`/Channel/GetAboutChannel/${channelDetails._id}`)
     .then(result=>{
       setchannelInfo(result.data.channelDetails.channelInfo)
       setLoader(true)

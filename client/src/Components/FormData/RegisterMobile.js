@@ -18,7 +18,7 @@ let state={
     resetLink:'/resendOtp',
     additionMessage:'Login With Email',
     additionLink:'/login',
-    axiosRequest:"http://localhost:5000/User/VerifyMobile",
+    axiosRequest:"/User/VerifyMobile",
     userType:"User"
 }
 module.exports=state

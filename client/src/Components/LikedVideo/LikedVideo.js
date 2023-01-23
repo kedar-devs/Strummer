@@ -10,11 +10,11 @@ function LikedVideo() {
     useEffect(()=>{
         const Token=localStorage.getItem('Token')
         if(Token){
-            axios.get(`http://localhost:5000/User/GetUserId/${Token}`)
+            axios.get(`/User/GetUserId/${Token}`)
             .then(result=>{
                 console.log(result.data)
                 const id=result.data
-                axios.get(`http://localhost:5000/Content/likes/getLikedVideos/${id}`)
+                axios.get(`/Content/likes/getLikedVideos/${id}`)
                 .then(result=>{
                     console.log(result.data.result)
                     setCard(result.data.result)

@@ -72,7 +72,7 @@ function LoginForm(props) {
                   else if(otherDetails.userType==='Creator'){
                     const action = bindActionCreators(channelActionCreator, dispatch)
                     action.AddCreatorId(result.data.id)
-                    navigator('/Channel')
+                    navigator('/ChannelRoute')
                   }
                 })
                 .catch(err=>{

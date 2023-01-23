@@ -6,7 +6,7 @@ function Comment(props) {
   const [isLoading,setLoading]=useState(true)
   useEffect(()=>{
     console.log(props)
-    axios.get(`http://localhost:5000/Content/video/Comment/getComment/${props.id}`)
+    axios.get(`/Content/video/Comment/getComment/${props.id}`)
     .then(result=>{
       if(result.data.length>0){
         console.log(result.data)

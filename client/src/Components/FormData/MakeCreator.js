@@ -41,7 +41,7 @@ let state={
         }
     },
     submitText:'BECOME CREATOR',
-    axiosRequest:"http://localhost:5000/User/MakeCreator",
+    axiosRequest:"/User/MakeCreator",
     userType:"Creator"
 }
 module.exports=state

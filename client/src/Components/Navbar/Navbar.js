@@ -34,7 +34,7 @@ function Navbar() {
     const token=localStorage.getItem('Token')
     if(token){
     setToken(token)
-    axios.get(`http://localhost:5000/User/GetUserImage/${token}`)
+    axios.get(`/User/GetUserImage/${token}`)
     .then(result=>{
       setImg(result.data)
     })
@@ -82,7 +82,7 @@ function Navbar() {
         navigate('/')
         break
       case 'Your Channel':
-        navigate('/Channel')
+        navigate('/ChannelRoute')
         setProfile(null)
         break
       default:

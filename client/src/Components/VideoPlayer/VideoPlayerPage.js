@@ -33,13 +33,13 @@ function VideoPlayerPage(props) {
     }
     let Token=localStorage.getItem('Token')
       if(Token){
-        axios.get(`http://localhost:5000/User/GetUserId/${Token}`)
+        axios.get(`/User/GetUserId/${Token}`)
         .then(user=>{
           console.log(user.data)
           const userId=user.data
           setUserId(userId)
           const channelId=props.channelInfo._id
-          axios.post('http://localhost:5000/Channel/CheckSubscription',{userId,channelId})
+          axios.post('/ChannelRoute/CheckSubscription',{userId,channelId})
           .then(subStatus=>{
             setFollowing(true)
           })
@@ -59,7 +59,7 @@ function VideoPlayerPage(props) {
         token,
         prod
     }
-    axios.post('http://localhost:5000/User/payment',body)
+    axios.post('/User/payment',body)
     .then(res=>{
         console.log(res)
     })
@@ -71,12 +71,12 @@ function VideoPlayerPage(props) {
     if(!isFollowing){
     const Token=localStorage.getItem('Token')
     if(Token){
-      axios.get(`http://localhost:5000/User/GetUserId/${Token}`)
+      axios.get(`/User/GetUserId/${Token}`)
       .then(result=>{
         console.log(result.data)
         const userId=result.data
         const channelId=id
-        axios.post('http://localhost:5000/Channel/AddSubscription',{userId,channelId})
+        axios.post('/ChannelRoute/AddSubscription',{userId,channelId})
         .then(result=>{
           console.log(result.data)
           setFollowing(true)
@@ -92,12 +92,12 @@ function VideoPlayerPage(props) {
   else{
     const Token=localStorage.getItem('Token')
     if(Token){
-      axios.get(`http://localhost:5000/User/GetUserId/${Token}`)
+      axios.get(`/User/GetUserId/${Token}`)
       .then(result=>{
         console.log(result.data)
         const userId=result.data
     
-        axios.delete(`http://localhost:5000/Channel/RemoveSubscription`,{data:{userId,id}})
+        axios.delete(`/Channel/RemoveSubscription`,{data:{userId,id}})
         .then(result=>{
           console.log(result.data)
 
@@ -115,7 +115,7 @@ function VideoPlayerPage(props) {
   
   const AddLike=(id)=>{
     if(!isLiked){
-    axios.get(`http://localhost:5000/Content/AddLike/${id}`)
+    axios.get(`/Content/AddLike/${id}`)
     .then(result=>{
       let newVideoInfo=videoInfo
       newVideoInfo.LikeCount=result.data.newLikeCount
@@ -128,7 +128,7 @@ function VideoPlayerPage(props) {
       ContentId:id,
       userId:UsersId
     }
-    axios.post('http://localhost:5000/Content/Likes/AddLikes',body)
+    axios.post('/Content/Likes/AddLikes',body)
     .then(result=>{
       console.log(result.data)
     })
@@ -140,7 +140,7 @@ function VideoPlayerPage(props) {
   }
   else{
     console.log('From Likes Else')
-    axios.get(`http://localhost:5000/Content/RemoveLike/${id}`)
+    axios.get(`/Content/RemoveLike/${id}`)
     .then(result=>{
       let newVideoInfo=videoInfo
       newVideoInfo.LikeCount=result.data.newLikeCount
@@ -153,7 +153,7 @@ function VideoPlayerPage(props) {
       ContentId:id,
       userId:UsersId
     }
-    axios.delete('http://localhost:5000/Content/Likes/DeleteLikes',{data:body})
+    axios.delete('/Content/Likes/DeleteLikes',{data:body})
     .then(result=>{
       console.log(result.data)
     })
@@ -168,7 +168,7 @@ function VideoPlayerPage(props) {
   
   const AddDisLike=(id)=>{
     if(!isDisLiked){
-    axios.get(`http://localhost:5000/Content/AddDislikes/${id}`)
+    axios.get(`/Content/AddDislikes/${id}`)
     .then(result=>{
     
       let newVideoInfo=videoInfo
@@ -186,7 +186,7 @@ function VideoPlayerPage(props) {
   else{
 
 
-    axios.get(`http://localhost:5000/Content/RemoveDisLike/${id}`)
+    axios.get(`/Content/RemoveDisLike/${id}`)
     .then(result=>{
 
       let newVideoInfo=videoInfo

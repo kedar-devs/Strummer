@@ -9,7 +9,7 @@ function PlayListPage() {
     const {id}=useParams()
     useEffect(()=>{
       
-      axios.get(`http://localhost:5000/Content/Playlist/GetChannelPlaylist/${id}`)
+      axios.get(`/Content/Playlist/GetChannelPlaylist/${id}`)
       .then(result=>{
         console.log(result.data)
         setCard(result.data)

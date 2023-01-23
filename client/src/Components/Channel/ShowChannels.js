@@ -19,7 +19,7 @@ function ShowChannels(props) {
   const selectorData=useSelector(STATE=>STATE.channel)
   let creatorId=selectorData.creatorId
   useEffect(()=>{
-    axios.get(`http://localhost:5000/Channel/GetCreatorsCahnnel/${creatorId}`)
+    axios.get(`/Channel/GetCreatorsCahnnel/${creatorId}`)
     .then(result=>{
       console.log(result.data)
       if(result.data!==undefined || result.data!==null || result.data.length===0){

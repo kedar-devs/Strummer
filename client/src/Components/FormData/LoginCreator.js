@@ -29,7 +29,7 @@ let state={
     },
     resetMessage:'Forgot Password',
     resetLink:'/ResetPassword',
-    axiosRequest:"http://localhost:5000/User/LoginCreator",
+    axiosRequest:"/User/LoginCreator",
     userType:'Creator'
 }
 module.exports=state

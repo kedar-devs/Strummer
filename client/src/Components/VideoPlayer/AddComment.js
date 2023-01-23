@@ -19,7 +19,7 @@ function AddComment(props) {
     data.append('commentorID',token)
     data.append('contentId',props.id)
     data.append('comment',comment)
-    axios.post('http://localhost:5000/Content/video/Comment',data)
+    axios.post('/Content/video/Comment',data)
     .then((result)=>{
       console.log(result)
     })

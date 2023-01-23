@@ -14,7 +14,7 @@ function Channel() {
   const action=bindActionCreators(channelActionCreator,useDispatch())
   useEffect(()=>{
     const Token=localStorage.getItem('Token')
-    axios.get(`http://localhost:5000/Creator/GetFromParent/${Token}`)
+    axios.get(`/Creator/GetFromParent/${Token}`)
     .then(result=>{
         setCreator(result.data.FoundCreator)
         action.AddCreatorId(result.data.FoundCreator[0]._id)

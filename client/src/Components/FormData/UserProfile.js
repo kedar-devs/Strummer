@@ -62,6 +62,6 @@ let state={
         }
     },
     submitText:'REGISTER NOW',
-    axiosRequest:"http://localhost:5000/User/AddNewUser"
+    axiosRequest:"/User/AddNewUser"
 }
 module.exports=state

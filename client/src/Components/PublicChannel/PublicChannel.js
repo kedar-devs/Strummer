@@ -9,7 +9,7 @@ function PublicChannel() {
     const [loading,setLoading]=useState(false)
     const {id}=useParams()
     useEffect(()=>{ 
-        axios.get(`http://localhost:5000/Channel/GetOneChannel/${id}`)
+        axios.get(`/Channel/GetOneChannel/${id}`)
         .then(result=>{
             if(result.data!==undefined || result.data!==null || result.data.length===0){
                 setChannelDetails(result.data)
