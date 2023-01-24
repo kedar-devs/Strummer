@@ -22,6 +22,7 @@ app.use("/Content",ContentRoute)
 app.use("/User",UserRoute)
 app.use("/ChannelRoute",ChannelRoute)
 
+app.use(express.static(path.join(__dirname,"./tmp")))
 app.use(express.static(path.join(__dirname,"./client/build")))
 app.get("*",function(_,res){
     res.sendFile(
