@@ -43,7 +43,7 @@ exports.RegisterUser = async (req, res) => {
         resetToken: ' '
     }
     try{
-    User.ProfilePic=await streamifier.UploadImage(req)  
+    User.ProfilePic=await streamifier.UploadImage(req.files.Pp)  
     User.ProfilePic=User.ProfilePic.url
     //User.ProfilePic="http://res.cloudinary.com/dwxxqd2zu/image/upload/v1668406330/kh3jt9quputhrv95u14k.jpg"
     }catch(err){

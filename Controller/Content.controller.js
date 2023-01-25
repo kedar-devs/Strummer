@@ -1,26 +1,18 @@
 const ChannelData = require("../Models/Channel.model");
 const ContentData = require("../Models/content.model");
 const cloudinary = require('cloudinary').v2
-
+const streamifier=require('./../Helper/Streamifier')
 
 require('./../Helper/Cloudinary')
 
 exports.CreateNewContent=async(req,res)=>{
-    
-    console.log(req.files)
     try{
     const {ContentCreator,length,channelId,Tags,Title,Description}=req.body
     const createAt=new Date()
     const videoFile=req.files.Video
     const photo=req.files.photo
-    cloudinary.uploader.upload_large(videoFile.tempFilePath, {
-        chunk_size: 7000000
-      },async (error, result) => {
-        if(error){
-            return res.status(400).send({error})
-        }
-        else{
-            const urlThumbnail=await cloudinary.uploader.upload(photo.tempFilePath)
+            const result=await streamifier.UploadVideo(videoFile)
+            const urlThumbnail=await streamifier.UploadImage(photo)
             console.log(result)
             const ContentUrl=result.url
             const Content={
@@ -51,8 +43,8 @@ exports.CreateNewContent=async(req,res)=>{
                     return res.status(200).send({message:'Upload was successful'})
                 }
             })
-        }
-      });
+        
+      
     }
     catch(err){
         console.log(err)
