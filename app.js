@@ -9,9 +9,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors())
-app.use(fileUpload({
-    useTempFiles : true
-}))
+app.use(fileUpload())
 
 const ChannelRoute=require('./Routes/Channel.Routes')
 const CoachRoute=require('./Routes/Coach.Routes')

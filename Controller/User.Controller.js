@@ -7,6 +7,7 @@ const Vonage = require('@vonage/server-sdk')
 const otpGenerator = require('otp-generator')
 const nodemailer=require('nodemailer')
 const cloudinary = require('cloudinary').v2
+const streamifier=require('./../Helper/Streamifier')
 require('./../Helper/Cloudinary')
 const vonage = new Vonage({
     apiKey: process.env.VONAGE_API_KEY,
@@ -42,8 +43,7 @@ exports.RegisterUser = async (req, res) => {
         resetToken: ' '
     }
     try{
-        console.log('in here')
-    User.ProfilePic=await cloudinary.uploader.upload(User.ProfilePic.tempFilePath )
+    User.ProfilePic=await streamifier.UploadImage(req)  
     User.ProfilePic=User.ProfilePic.url
     //User.ProfilePic="http://res.cloudinary.com/dwxxqd2zu/image/upload/v1668406330/kh3jt9quputhrv95u14k.jpg"
     }catch(err){
@@ -76,6 +76,7 @@ exports.RegisterUser = async (req, res) => {
     })
     }catch(err){
         console.log(err)
+        return res.status(400).send({ err })
     }
 
 }
@@ -107,6 +108,7 @@ exports.LoginUser = async (req, res) => {
     }
     }catch(err){
         console.log(err)
+        return res.status(400).send({ err })
     }
 }
 exports.RegisterUserMobile = async (req, res) => {
@@ -141,6 +143,7 @@ exports.RegisterUserMobile = async (req, res) => {
     })
 }catch(err){
     console.log(err)
+    return res.status(400).send({ err })
 }
 }
 exports.LoginUserMobile = async (req, res) => {
@@ -162,6 +165,7 @@ exports.LoginUserMobile = async (req, res) => {
     })
 }catch(err){
     console.log(err)
+    return res.status(400).send({ err })
 }
 }
 
@@ -201,6 +205,7 @@ exports.BecomeCreator = async (req, res) => {
     })
 }catch(err){
     console.log(err)
+    return res.status(400).send({ err })
 }
 }
 exports.EditProfile = async (req, res) => {
@@ -227,6 +232,7 @@ exports.EditProfile = async (req, res) => {
     }
 }catch(err){
     console.log(err)
+    return res.status(400).send({ err })
 }
 }
 exports.SendOTP = async (req, res) => {
@@ -265,6 +271,7 @@ exports.SendOTP = async (req, res) => {
     }
     }catch(err){
         console.log(err)
+        return res.status(400).send({ err })
     }
 }
 
@@ -290,7 +297,9 @@ exports.EditContact = async (req, res) => {
         return res.status(401).send({ message: 'No user was found' })
     }
 }catch(err){
+    
     console.log(err)
+    return res.status(400).send({ err })
 }
 
 }
@@ -363,6 +372,7 @@ exports.ResetPassword=async(req,res)=>{
     }
 }catch(err){
     console.log(err)
+    return res.status(400).send({ err })
 }
 }
 exports.getAlluser=async(req,res)=>{
@@ -376,6 +386,7 @@ exports.getAlluser=async(req,res)=>{
     }
 }catch(err){
     console.log(err)
+    return res.status(400).send({ err })
 }
 }
 exports.getOneUser=async(req,res)=>{
