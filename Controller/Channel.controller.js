@@ -2,6 +2,7 @@ const Creator = require('../Models/Coach.model')
 const ChannelData=require('./../Models/Channel.model')
 const ContentData=require('./../Models/content.model')
 const cloudinary = require('cloudinary').v2
+const streamifier=require('./../Helper/Streamifier')
 require('./../Helper/Cloudinary')
 exports.AddChannel=async(req,res)=>{
     console.log(req.body,req.files)
@@ -28,7 +29,7 @@ exports.AddChannel=async(req,res)=>{
         channelCreator:channelCreator
     }
     if(req.files){
-    channel.channelImage=await cloudinary.uploader.upload(channel.channelImage.tempFilePath)
+    channel.channelImage=await await streamifier.UploadImage(channel.channelImage)
     channel.channelImage=channel.channelImage.url
     }
     const NewChannel=new ChannelData(channel)

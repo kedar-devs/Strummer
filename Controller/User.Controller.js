@@ -172,13 +172,14 @@ exports.LoginUserMobile = async (req, res) => {
 exports.BecomeCreator = async (req, res) => {
     try{
     const FoundUser = await UserData.findOne({ accessToken: req.body.accessToken })
+    console.log(FoundUser,req.body.accessToken)
     const Coach = {
         creatorName: req.body.name ? req.body.name : FoundUser.name,
         followers: 0,
         earned: 0.0,
         email: req.body.email?req.body.email:FoundUser.email,
         parentId:FoundUser._id,
-        password: req.body.password ? req.body.password : FoundUser.password,
+        password: req.body.password ? await bcrypt.hashSync(req.body.password,10) : FoundUser.password,
         channel: [],
         accessToken: ' '
     }
