@@ -82,7 +82,7 @@ function Navbar() {
         navigate('/')
         break
       case 'Your Channel':
-        navigate('/ChannelRoute')
+        navigate('/Channel')
         setProfile(null)
         break
       default:

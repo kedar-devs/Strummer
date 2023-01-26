@@ -13,7 +13,7 @@ function YourChannel() {
   useEffect(()=>{
     const channelId=selectorData.channelId
     console.log(channelId)
-    axios.get(`/Channel/GetOneChannel/${channelId}`)
+    axios.get(`/ChannelRoute/GetOneChannel/${channelId}`)
     .then(result=>{
       console.log(result.data)
       setChannel(result.data)

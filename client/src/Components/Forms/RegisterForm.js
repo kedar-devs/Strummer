@@ -94,15 +94,15 @@ function RegisterForm(props) {
                                             if(userType==='Creator'){
                                                 const action = bindActionCreators(channelActionCreator, dispatch)
                                                 action.AddCreatorId(result.data.id)
-                                                navigator('/ChannelRoute')
+                                                navigator('/Channel')
                                             }
                                             else if(userType==='Channel'){
                                                 const action = bindActionCreators(channelActionCreator, dispatch)
                                                 action.AddChannelId(result.data._id)
-                                                navigator('/ChannelRoute')
+                                                navigator('/Channel')
                                             }
                                             else{
-                                                localStorage.setItem('accessToken',result.data.token)
+                                                localStorage.setItem('Token',result.data.token)
                                                 const action = bindActionCreators(actionCreator, dispatch) 
                                                 action.AssignAccessToken(result.data.token)
                                                 navigator('/')

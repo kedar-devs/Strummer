@@ -10,7 +10,7 @@ function ChannelPage() {
   const [channelDetails]=useOutletContext()
   useEffect(()=>{
       
-      axios.get(`/Channel/GetAllCreatorChannel/${channelDetails._id}`)
+      axios.get(`/ChannelRoute/GetAllCreatorChannel/${channelDetails._id}`)
       .then(result=>{
         console.log(result.data)
         setCard(result.data.AllChannel)

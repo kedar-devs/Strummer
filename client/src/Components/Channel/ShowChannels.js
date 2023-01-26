@@ -11,7 +11,7 @@ import ChannelCard from "./ChannelCard";
 
 //BsPlusCircleDotted
 function ShowChannels(props) {
-  const [channels,setChannel] = useState({});
+  const [channels,setChannel] = useState([]);
   const [loading,setLoading]=useState(false)
   const dispatch=useDispatch()
   const action=bindActionCreators(channelActionCreator,dispatch)
@@ -19,10 +19,11 @@ function ShowChannels(props) {
   const selectorData=useSelector(STATE=>STATE.channel)
   let creatorId=selectorData.creatorId
   useEffect(()=>{
-    axios.get(`/Channel/GetCreatorsCahnnel/${creatorId}`)
+    axios.get(`/ChannelRoute/GetCreatorsCahnnel/${creatorId}`)
     .then(result=>{
       console.log(result.data)
-      if(result.data!==undefined || result.data!==null || result.data.length===0){
+      if(result.data!==undefined){
+      console.log('in here')
       setChannel(result.data)
       setLoading(true)
       }
@@ -35,6 +36,7 @@ function ShowChannels(props) {
   }
   return (
     <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-12 text-white h-screen" >
+      {console.log(channels)}
       {loading?<>{channels.map((channel) => {
         return(
         <ChannelCard channel={channel} id={channel._id} key={channel._id} showSubs={false} />

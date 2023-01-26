@@ -13,7 +13,7 @@ function Subscription() {
       axios.get(`/User/GetUserId/${Token}`)
       .then(user=>{
         const userId=user.data
-        axios.get(`/Channel/GetSubscription/${userId}`)
+        axios.get(`/ChannelRoute/GetSubscription/${userId}`)
         .then(Channel=>{
             console.log(Channel.data)
             setCard(Channel.data)
