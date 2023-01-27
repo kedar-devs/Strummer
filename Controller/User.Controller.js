@@ -20,8 +20,8 @@ const transporter = nodemailer.createTransport({
     secure: false,
     requireTLS: true,
     auth: {
-        user: 'StrummerForLife@gmail.com',
-        pass: 'naaxmbgcjmxctgmf'
+        user: 'strummerforlife@gmail.com',
+        pass: 'tnkjxsyzbdtzomwf'
     }
 })
 
@@ -307,6 +307,7 @@ exports.EditContact = async (req, res) => {
 exports.generateResetLink = async (req, res) => {
     const { email } = req.body
     try{
+        console.log(req.body)
     const FoundUser = await UserData.findOne({ email })
     if(!FoundUser){
         return res.status(404).send({message:'No user Find'})
@@ -320,12 +321,12 @@ exports.generateResetLink = async (req, res) => {
         }
         else {
             transporter.sendMail({
-                to: 'kedard249.kd@gmail.com',
-                from: "StrummerForLife@gmail.com",
+                to: email,
+                from: "strummerforlife@gmail.com",
                 subject: "Email Password Reset",
                 html: `
-                <p>Hi ${user.firstname}, forgot your password.<br/> Don't worry we got you covered</p>
-                <h5><a href="https://savishkar-webapp.herokuapp.com/update-password/${token}">click here</a></h5>
+                <p>Hi ${user.name}, forgot your password.<br/> Don't worry we got you covered</p>
+                <h5><a href="https://drab-red-bandicoot-vest.cyclic.app/GenerateResetPassword/${token}">click here</a></h5>
                 <p>link expires in one hour, thank you</p>
                 `
 
