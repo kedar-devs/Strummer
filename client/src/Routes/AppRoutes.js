@@ -31,6 +31,8 @@ import UserData from '../Components/FormData/UserProfile'
 import MakeCreator from '../Components/FormData/MakeCreator'
 import MakeChannel from '../Components/FormData/MakeChannel'
 import ContentCreation from '../Components/FormData/ContentCreation'
+import GenerateResetLink from '../Components/FormData/GenerateResetLink'
+import ResetPassword  from '../Components/FormData/RegisterMobile'
 //Validation
 import UserLoginEmailValidation from '../Components/FormValidation/UserLoginValidation'
 import UserLoginValidation from '../Components/FormValidation/UserLoginMobileValidation'
@@ -51,6 +53,8 @@ function AppRoutes() {
         <Route path="/loginMobile" element={<LoginForm LoginData={LoginData} UserLoginValidation={UserLoginValidation} />} />
         <Route path="/login" element={<LoginForm LoginData={LoginEmailData} UserLoginValidation={UserLoginEmailValidation} />} />
         <Route path='/loginCreator' element={<LoginForm LoginData={LoginCreator} UserLoginValidation={UserLoginEmailValidation} />} />
+        <Route path='/ResetPassword' element={<LoginForm LoginData={GenerateResetLink} UserLoginValidation={UserLoginEmailValidation} />} />
+        <Route path ='/GenerateResetPassword/:token' element={<LoginForm LoginData={ResetPassword} UserLoginValidation={UserLoginEmailValidation} />} />
         <Route path='/RegisterMobile' element={<LoginForm LoginData={RegisterMobile} UserLoginValidation={UserMobileNoValidation} />} />
         <Route path="/RegisterUser" element={<RegisterForm RegisterData={UserData} UserRegisterValidation={UserRegisterValidationSchema} />} />
         <Route path="/BecomeCreator" element={<RegisterForm RegisterData={MakeCreator} UserRegisterValidation={UserCreatorValidationSchema} />} />
