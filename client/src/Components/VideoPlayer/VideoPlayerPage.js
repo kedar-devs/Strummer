@@ -221,7 +221,7 @@ function VideoPlayerPage(props) {
   wrapperClass=""
   visible={isLoading}
 /></div>:
-    <div className="h-80">
+    <div className="lg:h-80 sm:min-h-full">
       <div className="grid lg:grid-cols-3 md:grid-cols-1 sm:flex-col gap-2 items-left">
         <div className="col-span-2 text-white justify-start ml-16">
           <h1 className="text-2xl ">{videoInfo.Title}</h1>
@@ -242,12 +242,12 @@ function VideoPlayerPage(props) {
               </div>
 
               <div className="text-xl">
-                <button className="rounded-full border bg-black px-5 py-1 sm:pt-1 sm:pb-4 " onClick={()=>{FollowChannel(channelInfo._id)}}>
+                <button className="rounded-full border bg-black px-5 sm:pt-1 mt-3" onClick={()=>{FollowChannel(channelInfo._id)}}>
                   {isFollowing?<p className="text-base">Following</p>:<>Follow</>}
                 </button>
               </div>
             </div>
-            <div className="col-span-2 items-center text-xl">
+            <div className="col-span-2 items-center text-xl mt-2">
               <button className="rounded-lg border text-sm bg-black" style={{background:isLiked?'white':'black'}}>
                 <button className="ml-2 m-0 mt-0 flex-none inline-block p-1  text-red-700"  onClick={()=>{AddLike(videoInfo._id)}}>
                   <AiFillHeart size={18} />

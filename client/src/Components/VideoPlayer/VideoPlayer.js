@@ -57,9 +57,11 @@ function VideoPlayer(props) {
             <source src={video.ContentUrl} type="video/webm" />
            
         </Video>
+        <div className='grid grid-cols-1'>
         <VideoPlayerPage videoInfo={video} channelInfo={channel}/>
         <ChannelNavbar />
         <Outlet context={[channelDetails]}/>
+        </div>
         </>
         :<div className='flex h-screen w-screen justify-center items-center'><Bars
         height="180"

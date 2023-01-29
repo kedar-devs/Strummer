@@ -63,6 +63,7 @@ function DynamicCard(props) {
       })
     }
     navigate(`/VideoPlayer/${id}`)
+    window.location.reload()
   }
  
   
