@@ -32,7 +32,7 @@ import MakeCreator from '../Components/FormData/MakeCreator'
 import MakeChannel from '../Components/FormData/MakeChannel'
 import ContentCreation from '../Components/FormData/ContentCreation'
 import GenerateResetLink from '../Components/FormData/GenerateResetLink'
-import ResetPassword  from '../Components/FormData/RegisterMobile'
+import ResetPassword  from '../Components/FormData/ResetPassword'
 //Validation
 import UserLoginEmailValidation from '../Components/FormValidation/UserLoginValidation'
 import UserLoginValidation from '../Components/FormValidation/UserLoginMobileValidation'

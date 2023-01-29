@@ -28,7 +28,6 @@ function YourChannelHeading(props) {
                 </div>
             </div>
             <div className=" ml-24">
-                <button className='bg-black rounded text-white m-2 p-2'>Manage Channel</button>
                 <button className='bg-black rounded text-white m-2 p-2' onClick={()=>{addVideo(channel._id)}}>Add Video</button>
             </div>
 

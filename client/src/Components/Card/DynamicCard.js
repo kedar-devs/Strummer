@@ -115,7 +115,7 @@ function DynamicCard(props) {
   }
 
   const ShareVideo=(id)=>{
-   const url=`http://localhost:3000/VideoPlayer/${id}`
+   const url=`https://drab-red-bandicoot-vest.cyclic.app/VideoPlayer/${id}`
    navigator.clipboard.writeText(url)
    alert('URL has been Copied and ready to be shared')
   }

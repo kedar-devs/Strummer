@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { useNavigate } from "react-router-dom"
+import { useNavigate,useParams } from "react-router-dom"
 import { Formik, Form, Field } from 'formik'
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 import axios from 'axios'
@@ -15,7 +15,7 @@ function LoginForm(props) {
     const [serverUrl,setUrl]=useState('')
     const [UserLoginValidation,setValidationSchema]=useState({})
     const dispatch=useDispatch()
-
+    const {token}=useParams()
     
     useEffect(()=>{
         console.log(props,{...props})
@@ -38,7 +38,6 @@ function LoginForm(props) {
             })
             init[key]=''
         }
-
         console.log(init)
         setFormElement(ele)
         setInitialVal(init)
@@ -59,6 +58,9 @@ function LoginForm(props) {
         validationSchema={UserLoginValidation}
         onSubmit={(values,{setSubmitting})=>{
             setTimeout(() => {
+                if(token){
+                  values['resetToken']=token
+                }
                 console.log(serverUrl,values)
                 setSubmitting(false);
                 axios.post(serverUrl,values)
@@ -72,7 +74,10 @@ function LoginForm(props) {
                   else if(otherDetails.userType==='Creator'){
                     const action = bindActionCreators(channelActionCreator, dispatch)
                     action.AddCreatorId(result.data.id)
-                    navigator('/Channel')
+                    navigate('/Channel')
+                  }
+                  else{
+                    navigate('/')
                   }
                 })
                 .catch(err=>{

@@ -18,7 +18,7 @@ let state={
     resetLink:'',
     additionMessage:'',
     additionLink:'',
-    axiosRequest:"/User/Login",
-    userType:'User'
+    axiosRequest:"/User/ResetPassWord",
+    userType:'Reset'
 }
 module.exports=state
