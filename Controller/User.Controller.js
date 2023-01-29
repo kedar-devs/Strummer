@@ -356,15 +356,19 @@ exports.generateResetLink = async (req, res) => {
 }
 exports.ResetPassword=async(req,res)=>{
     try{
-    const {resetToken,password}=req.body
+        console.log('in here',req.body)
+    const {password,resetToken}=req.body
     const FoundUser=await UserData.findOne({resetToken})
+    console.log(FoundUser)
     if(FoundUser){
-        FoundUser.password=password
+        FoundUser.password=await bcrypt.hashSync(password,10)
         FoundUser.save((err, user) => {
             if (err) {
+                console.log(err)
                 return res.status(400).send({ err })
             }
             else {
+                console.log('in here')
                 return res.status(200).send({ message: 'Password successfully Updated' })
             }
         })
