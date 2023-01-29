@@ -119,7 +119,7 @@ function RegisterForm(props) {
                                 <Form >
                                     {FormEleArray.map((ele) => {
                                         return (
-                                            <div className='flex -mx-3'>
+                                            <div className='flex mx-3'>
                                                 <div className="w-full px-3 mb-5">
                                                     {/*<label for={ele.id} class="text-xs font-semibold px-1">{ele.id}</label>*/}
                                                     <div className="flex">
