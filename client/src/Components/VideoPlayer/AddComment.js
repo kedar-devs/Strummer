@@ -16,6 +16,7 @@ function AddComment(props) {
     {
       alert('You are not signed in Sign in to comment')
     }
+    else{
     data.append('commentorID',token)
     data.append('contentId',props.id)
     data.append('comment',comment)
@@ -27,11 +28,12 @@ function AddComment(props) {
       console.log(err)
     })
   }
+}
   return (
     <div className='flex'>
         <input type='text' className='outline-none bg-transparent border-b-2 border-blue-600' placeholder='Add Comment' value={comment} onChange={(event)=>{handleChange(event)}}/>
         {addButton?<>
-        <button onClick={()=>{PublishComment()}}>comment</button>
+        <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full' onClick={()=>{PublishComment()}}>comment</button>
         </>:<></>}
     </div>
   )

@@ -88,6 +88,9 @@ function VideoPlayerPage(props) {
         console.log(err)
       })
     }
+    else{
+      alert('You need to login to follow ')
+    }
   }
   else{
     const Token=localStorage.getItem('Token')

@@ -20,7 +20,7 @@ import {useDispatch} from 'react-redux'
 import {bindActionCreators} from 'redux'
 function Navbar() {
   const pages = ["Home", "Subscription", "History", "Liked Video"]
-  const Profile = ["Your Channel", "Setting", "Sign Out"]
+  const Profile = ["Your Channel", "Sign Out"]
   const navigate = useNavigate()
   const selectorData = useSelector(STATE => STATE.user);
   const dispatch=useDispatch()
@@ -48,11 +48,10 @@ function Navbar() {
     }
   }, [selectorData])
   const setPagesOpen = (event) => {
-    console.log(event.currentTarget)
+    
     setPages(event.currentTarget)
   }
   const setProfileOpen = (event) => {
-    console.log(event.currentTarget)
     setProfile(event.currentTarget)
   }
   const setPageClose = (page) => {
@@ -152,7 +151,7 @@ function Navbar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page}
-                  onClick={setPageClose}
+                  onClick={()=>{setPageClose(page)}}
                 >
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
