@@ -48,9 +48,11 @@ function Navbar() {
     }
   }, [selectorData])
   const setPagesOpen = (event) => {
+    console.log(event.currentTarget)
     setPages(event.currentTarget)
   }
   const setProfileOpen = (event) => {
+    console.log(event.currentTarget)
     setProfile(event.currentTarget)
   }
   const setPageClose = (page) => {
