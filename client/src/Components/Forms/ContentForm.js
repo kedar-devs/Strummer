@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Formik, Form, Field, FieldArray } from 'formik'
 import { useNavigate} from 'react-router-dom'
 import {useSelector} from 'react-redux'
+import UserContentValidation from './../FormValidation/UserContentValidation'
 // import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 
 function ContentForm(props) {
@@ -45,6 +46,7 @@ function ContentForm(props) {
             <div class="sm:max-w-lg w-full p-10 bg-white rounded-xl z-10">
                 <Formik
                     initialValues={initialVal}
+                    validationSchema={UserContentValidation}
                     enableReinitialize={true}
                     onSubmit={(values, { setSubmitting }) => {
                         setTimeout(() => {
@@ -159,12 +161,14 @@ function ContentForm(props) {
                                                                     </>}
                                                                 </div>
                                                                 <p class="pointer-none text-gray-500 "><span class="text-sm">Drag and drop</span> files here <br /></p>
+                                                                
                                                             </div>
                                                             <Field
                                                                 type={ele.config.elementConfig.type}
                                                                 placeholder={ele.config.elementConfig.placeholder}
                                                                 className="hidden"
                                                                 value={values[ele]}
+                                                                name={ele.id}
                                                                 onChange={(event) => {
                                                                     if(ele.id==='photo'){
                                                                         setimgSrc(URL.createObjectURL(event.currentTarget.files[0]))
@@ -174,12 +178,17 @@ function ContentForm(props) {
                                                                     }
                                                                     setFieldValue(ele.id, event.currentTarget.files[0]);
                                                                 }}
-                                                                name={ele.id}
+                                                               
                                                             />
+                                                            {console.log(ele.id,errors[ele.id])}
+                                                             {errors[ele.id]? <div className='text-red-500 text-xs italic'>{errors[ele.id]} </div> : null} 
+                                                            {/* <div className='text-red-500 text-xs italic'>Error occured </div> */}
                                                         </label>
+                                                        
                                                     </div>
-                                                    {errors[ele.id] && touched[ele.id] ? <div className='text-red-500 text-xs italic'>{errors[ele.id]} </div> : null}
+                                                    
                                                 </div>
+                                                
                                             </>
                                             }
                                         </>
