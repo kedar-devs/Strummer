@@ -3,6 +3,7 @@ const ChannelData=require('./../Models/Channel.model')
 const ContentData=require('./../Models/content.model')
 const cloudinary = require('cloudinary').v2
 const streamifier=require('./../Helper/Streamifier')
+const {ErrorController}=require('./../Helper/ErrorHadler/ErrorController')
 require('./../Helper/Cloudinary')
 exports.AddChannel=async(req,res)=>{
     console.log(req.body,req.files)

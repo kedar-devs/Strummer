@@ -1,7 +1,7 @@
 const Creator = require("../Models/Coach.model")
 const UserData = require("../Models/User.model")
 const bcrypt = require('bcryptjs')
-
+const {ErrorController}=require('./../Helper/ErrorHadler/ErrorController')
 exports.changeName=async(req,res)=>{
     try{
     const {accessToken,newName}=req.body
