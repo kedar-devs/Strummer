@@ -35,8 +35,8 @@ exports.CreateNewContent=async(req,res)=>{
             const NewContent=new ContentData(Content)
             NewContent.save((err,result)=>{
                 if(err){
-                    console.log(err)
-                    return res.status(400).send(err)
+                    let response=ErrorController(err)
+                    return res.status(response.code).send({ response })
                 }
                 else{
                     console.log(err)
@@ -57,7 +57,8 @@ exports.AddLikes=async(req,res)=>{
     FoundContent.LikeCount+=1
     FoundContent.save((err,user)=>{
         if(err){
-            return res.status(400).send(err)
+            let response=ErrorController(err)
+            return res.status(response.code).send({ response })
         }
         else{
             return res.status(200).send({newLikeCount:user.LikeCount})

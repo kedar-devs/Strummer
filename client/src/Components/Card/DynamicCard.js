@@ -41,11 +41,11 @@ function DynamicCard(props) {
       })
     }
   },[props])
-  const AddHistory=(id)=>{
+  const AddHistory=async(id)=>{
     
     let Token=localStorage.getItem('Token')
     if(Token){
-      axios.get(`/User/GetUserId/${Token}`)
+      await axios.get(`/User/GetUserId/${Token}`)
       .then(result=>{
         console.log(result.data)
         const userId=result.data

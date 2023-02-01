@@ -8,6 +8,7 @@ const otpGenerator = require('otp-generator')
 const nodemailer=require('nodemailer')
 const cloudinary = require('cloudinary').v2
 const streamifier=require('./../Helper/Streamifier')
+const {ErrorController}=require('./../Helper/ErrorHadler/ErrorController')
 require('./../Helper/Cloudinary')
 const vonage = new Vonage({
     apiKey: process.env.VONAGE_API_KEY,
@@ -69,8 +70,8 @@ exports.RegisterUser = async (req, res) => {
     NewUser.refreshToken = token
     NewUser.save((err, user) => {
         if (err) {
-            console.log(err)
-            return res.status(400).send({ err })
+            let response=ErrorController(err)
+            return res.status(400).send({ response })
         }
         return res.status(200).send({ token: user.accessToken })
     })
@@ -93,13 +94,17 @@ exports.LoginUser = async (req, res) => {
             FoundUser.accessToken = token
             FoundUser.save((err, user) => {
                 if (err) {
-                    return res.status(401).send({ err })
+                    let response=ErrorController(err)
+                    return res.status(400).send({ response })
                 }
                 else {
                     
                     return res.status(200).send({ token })
                 }
             })
+        }
+        else{
+            return res.status(401).send({message:'Password did not match '})
         }
 
     }
@@ -129,7 +134,8 @@ exports.RegisterUserMobile = async (req, res) => {
                 FoundUser.otp = Otp
                 FoundUser.save((err, user) => {
                     if (err) {
-                        return res.status(400).send({ err })
+                        let response=ErrorController(err)
+                        return res.status(400).send({ response })
                     }
                     else {
                         return res.status(200).send({ message: "Message sent successfully." })
@@ -157,7 +163,8 @@ exports.LoginUserMobile = async (req, res) => {
     FoundUser.accessToken = token
     FoundUser.save((err, user) => {
         if (err) {
-            return res.status(400).send({ err })
+            let response=ErrorController(err)
+            return res.status(400).send({ response })
         }
         else {
             return res.status(200).send({ token })
@@ -189,7 +196,8 @@ exports.BecomeCreator = async (req, res) => {
     const NewCoach = await Creator(Coach)
     NewCoach.save((err, coach) => {
         if (err) {
-            return res.status(400).send({ err })
+            let response=ErrorController(err)
+            return res.status(400).send({ response })
         }
         else {
             FoundUser.isCoach = true
@@ -221,7 +229,8 @@ exports.EditProfile = async (req, res) => {
         }
         FoundUser.save((err, user) => {
             if (err) {
-                return res.status(400).send({ err })
+                let response=ErrorController(err)
+                return res.status(400).send({ response })
             }
             else {
                 return res.status(200).send({ message: 'User Details Updated Succesfully' })
@@ -255,7 +264,8 @@ exports.SendOTP = async (req, res) => {
                     FoundUser.otp = Otp
                     FoundUser.save((err, user) => {
                         if (err) {
-                            return res.status(400).send({ err })
+                            let response=ErrorController(err)
+                            return res.status(400).send({ response })
                         }
                         else {
                             return res.status(200).send({ message: 'OTP send successfully' })
@@ -287,7 +297,8 @@ exports.EditContact = async (req, res) => {
         FoundUser.accessToken = token
         FoundUser.save((err, user) => {
             if (err) {
-                return res.status(400).send({ err })
+                let response=ErrorController(err)
+                return res.status(400).send({ response })
             }
             else {
                 return res.status(200).send({ message: 'OTP send successfully' })
@@ -317,7 +328,8 @@ exports.generateResetLink = async (req, res) => {
     FoundUser.resetToken = token
     FoundUser.save((err, user) => {
         if (err) {
-            return res.status(400).send({ err })
+            let response=ErrorController(err)
+            return res.status(400).send({ response })
         }
         else {
             transporter.sendMail({

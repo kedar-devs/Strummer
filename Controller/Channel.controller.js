@@ -36,7 +36,8 @@ exports.AddChannel=async(req,res)=>{
     NewChannel.save((err,user)=>{
         console.log(user,err)
         if(err){
-            return res.status(200).send(err)
+            let response=ErrorController(err)
+            return res.status(400).send({ response })
         }
         else{
             let id=NewChannel._id
@@ -62,7 +63,8 @@ exports.editChannelImage=async(req,res)=>{
         return res.status(200).send({message:'Edit was Successful'})
     })
     .catch(err=>{
-        return res.status(400).send({message:err})
+        let response=ErrorController(err)
+        return res.status(400).send({ response })
     })
 }catch(err){
     return res.status(400).send({err})
@@ -75,7 +77,8 @@ exports.editChannelName=async(req,res)=>{
     FoundChannel.channelName=newName
     FoundChannel.save((err,user)=>{
         if(err){
-            return res.status(200).send(err)
+            let response=ErrorController(err)
+            return res.status(response.code).send({ response })
         }
         else{
             return res.status(200).send({message:'ChannelName Updated Succesfully'})
@@ -149,7 +152,8 @@ exports.editSocial=async(req,res)=>{
     FoundChannel.socialTwit=req.body.socialTwit?req.body.socialTwit:FoundChannel.socialTwit
     FoundChannel.save((err,user)=>{
         if(err){
-            return res.status(200).send(err)
+            let response=ErrorController(err)
+            return res.status(response.code).send({ response })
         }
         else{
             return res.status(200).send({message:'Subscriber Removed Succesfully'})
