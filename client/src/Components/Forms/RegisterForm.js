@@ -87,7 +87,6 @@ function RegisterForm(props) {
                                         }
                                     })
                                         .then(result => {
-                                            
                                             // navigator('/')
                                             alert(result)
                                             
@@ -109,8 +108,12 @@ function RegisterForm(props) {
                                             }
                                         })
                                         .catch(err => {
-                                            console.log(err)
-                                            alert(err)
+                                            if(err.response.data.message){
+                                                alert(err.response.data.message)
+                                              }
+                                              else{
+                                                alert(err.response.data.response.message.messages)
+                                              }
                                         })
                                 }, 400);
                             }}

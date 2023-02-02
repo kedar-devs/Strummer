@@ -81,7 +81,13 @@ function LoginForm(props) {
                   }
                 })
                 .catch(err=>{
-                  alert(err)
+                  if(err.response.data.message){
+                    alert(err.response.data.message)
+                  }
+                  else{
+                    alert(err.response.data.response.message.messages)
+                  }
+                  
                 })
               }, 400);
         }}
