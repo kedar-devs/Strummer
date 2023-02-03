@@ -7,11 +7,13 @@ exports.AddLikes=async(req,res)=>{
         const Like={
             ContentId:ContentId,
             userId:userId,
+            LikeStatus:true,
             DateTime:new Date()
         }
-        const FoundLike=await Likes.findOne({ContentId:ContentId,userId:userId})
+        const FoundLike=await Likes.findOne({ContentId:ContentId,userId:userId,LikeStatus:true})
         if(FoundLike){
-            return res.status(200).send({message:'Already Liked'})
+            console.log(FoundLike)
+            return res.status(400).send({message:'Already Liked'})
         }
         else{
         const newLike=new Likes(Like)
@@ -32,7 +34,7 @@ exports.AddLikes=async(req,res)=>{
 exports.checkLike=async(req,res)=>{
     try{
         const {contentId,userId}=req.body
-        const FoundLike=await Likes.findOne({ContentId:contentId,userId:userId})
+        const FoundLike=await Likes.findOne({ContentId:contentId,userId:userId,LikeStatus:true})
         if(FoundLike){
             return res.status(200).send(true)
         }
@@ -46,7 +48,7 @@ exports.checkLike=async(req,res)=>{
 exports.getLikedVideo=async(req,res)=>{
     try{
         const {id}=req.params
-        const FoundUser=await Likes.find({userId:id})
+        const FoundUser=await Likes.find({userId:id,LikeStatus:true})
         result=[]
         let FoundVideo
         if(FoundUser){
@@ -71,11 +73,21 @@ exports.deleteLikes=async(req,res)=>{
     try{
         console.log(req.body)
     const {ContentId,userId}=req.body
-    const FoundLike=await Likes.findOneAndDelete({ContentId,userId})
+    const FoundLike=await Likes.findOne({ContentId,userId})
     if(FoundLike){
-        return res.status(200).send({message:'Delete successfully'})
+        FoundLike.LikeStatus=false
+        FoundLike.save()
+        .then(result=>{
+            return res.status(200).send({message:'Delete successfully'})
+        })
+        .catch(err=>{
+            return res.status(400).send({message:'No user Found'})
+        })
+     
     }
+    else{
     return res.status(400).send({message:'No user Found'})
+    }
     }catch(err){
         console.log(err)
         return res.status(400).send({message:err})

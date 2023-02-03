@@ -118,7 +118,15 @@ function VideoPlayerPage(props) {
   
   const AddLike=(id)=>{
     if(!isLiked){
-    axios.get(`/Content/AddLike/${id}`)
+    
+    const body={
+      ContentId:id,
+      userId:UsersId
+    }
+    axios.post('/Content/Likes/AddLikes',body)
+    .then(result=>{
+      console.log(result.data)
+      axios.get(`/Content/AddLike/${id}`)
     .then(result=>{
       let newVideoInfo=videoInfo
       newVideoInfo.LikeCount=result.data.newLikeCount
@@ -127,13 +135,6 @@ function VideoPlayerPage(props) {
     .catch(err=>{
       console.log(err)
     })
-    const body={
-      ContentId:id,
-      userId:UsersId
-    }
-    axios.post('/Content/Likes/AddLikes',body)
-    .then(result=>{
-      console.log(result.data)
     })
     .catch(err=>{
       console.log(err)
@@ -143,7 +144,15 @@ function VideoPlayerPage(props) {
   }
   else{
     console.log('From Likes Else')
-    axios.get(`/Content/RemoveLike/${id}`)
+    
+    const body={
+      ContentId:id,
+      userId:UsersId
+    }
+    axios.delete('/Content/Likes/DeleteLikes',{data:body})
+    .then(result=>{
+      console.log(result.data)
+      axios.get(`/Content/RemoveLike/${id}`)
     .then(result=>{
       let newVideoInfo=videoInfo
       newVideoInfo.LikeCount=result.data.newLikeCount
@@ -152,13 +161,6 @@ function VideoPlayerPage(props) {
     .catch(err=>{
       console.log(err)
     })
-    const body={
-      ContentId:id,
-      userId:UsersId
-    }
-    axios.delete('/Content/Likes/DeleteLikes',{data:body})
-    .then(result=>{
-      console.log(result.data)
     })
     .catch(err=>{
       console.log(err)
