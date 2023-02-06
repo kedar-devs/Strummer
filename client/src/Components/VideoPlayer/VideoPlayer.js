@@ -16,7 +16,7 @@ function VideoPlayer(props) {
   useEffect(()=>{
     axios.get(`/Content/GetOneContent/${id}`)
     .then(result=>{
-      console.log(result.data)
+      
       setVideoUrl(result.data.Content)
       setChannelDetail(result.data.ChannelDetail)
       setChannelDetails(result.data.ChannelDetail)
@@ -30,7 +30,7 @@ function VideoPlayer(props) {
     console.log('Ended')
     axios.get(`/Content/IncreaseCount/${id}`)
     .then(result=>{
-      console.log(result.data)
+      
       setVideoUrl({...video,viewCount:result.data.viewCount})
     })
     .catch(err=>{

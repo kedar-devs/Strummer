@@ -15,7 +15,7 @@ function YourChannel() {
     console.log(channelId)
     axios.get(`/ChannelRoute/GetOneChannel/${channelId}`)
     .then(result=>{
-      console.log(result.data)
+      
       setChannel(result.data)
       setLoader(false)
 

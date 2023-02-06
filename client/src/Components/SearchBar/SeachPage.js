@@ -15,7 +15,7 @@ function SeachPage() {
     useEffect(()=>{
         axios.get(`/Content/search/${key}`)
         .then(result=>{
-          console.log(result.data)
+          
           if(result.data.FoundChannel.length>0){
             setChannelDetails(result.data.FoundChannel)
             setChannelPresent(true)

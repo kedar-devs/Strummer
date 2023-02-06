@@ -21,7 +21,7 @@ function ShowChannels(props) {
   useEffect(()=>{
     axios.get(`/ChannelRoute/GetCreatorsCahnnel/${creatorId}`)
     .then(result=>{
-      console.log(result.data)
+      
       if(result.data!==undefined){
       console.log('in here')
       setChannel(result.data)

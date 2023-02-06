@@ -11,7 +11,7 @@ function VideoPage() {
   useEffect(()=>{
     axios.get(`/Content/GetChannel/${channelDetails._id}`)
     .then(result=>{
-      console.log(result.data)
+      
       setCard(result.data)
       setLoader(true)
     })

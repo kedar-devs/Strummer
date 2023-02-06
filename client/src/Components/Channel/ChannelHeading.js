@@ -37,11 +37,11 @@ function ChannelHeading(props) {
           if(Token){
             axios.get(`/User/GetUserId/${Token}`)
             .then(result=>{
-              console.log(result.data)
+              
               const userId=result.data
               axios.delete('/ChannelRoute/RemoveSubscription',{data:{userId,id}})
               .then(result=>{
-                console.log(result.data)
+                
                 setFollowing(false)
               }).catch(err=>{
                 console.log(err)
@@ -57,12 +57,12 @@ function ChannelHeading(props) {
             if(Token){
               axios.get(`/User/GetUserId/${Token}`)
               .then(result=>{
-                console.log(result.data)
+                
                 const userId=result.data
                 const channelId=id
                 axios.post('/ChannelRoute/AddSubscription',{userId,channelId})
                 .then(result=>{
-                  console.log(result.data)
+                  
                   setFollowing(true)
                 }).catch(err=>{
                   console.log(err)

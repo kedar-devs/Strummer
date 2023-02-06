@@ -23,6 +23,9 @@ function AddComment(props) {
     axios.post('/Content/video/Comment',data)
     .then((result)=>{
       console.log(result)
+      let cmt=props.commentCnt+1
+      props.setCommentCnt({cmt})
+      setComment('')
     })
     .catch(err=>{
       console.log(err)

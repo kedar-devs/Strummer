@@ -11,7 +11,7 @@ function PlayListPage() {
       
       axios.get(`/Content/Playlist/GetChannelPlaylist/${id}`)
       .then(result=>{
-        console.log(result.data)
+        
         setCard(result.data)
         setLoader(true)
       })

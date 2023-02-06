@@ -12,7 +12,7 @@ function ChannelPage() {
       
       axios.get(`/ChannelRoute/GetAllCreatorChannel/${channelDetails._id}`)
       .then(result=>{
-        console.log(result.data)
+        
         setCard(result.data.AllChannel)
         setLoader(true)
       })

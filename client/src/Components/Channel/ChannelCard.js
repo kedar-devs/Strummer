@@ -11,11 +11,30 @@ function ChannelCard(props) {
     const navigation=useNavigate()
     const [channel,setChannel]=useState({})
     const [showSub,setShowSub]=useState(false)
-    const [subStatus,setSubStatus]=useState(true)
+    const [subStatus,setSubStatus]=useState(false)
     useEffect(()=>{
         console.log(props)
         setChannel(props.channel)
         setShowSub(props.showSubs)
+        const Token = localStorage.getItem("Token");
+        const channelId=props.id
+      if (Token) {
+        axios
+          .get(`/User/GetUserId/${Token}`)
+          .then((result) => {
+            
+            const userId = result.data;
+            axios.post('/ChannelRoute/CheckSubscription',{userId,channelId})
+            .then(result=>{
+              setSubStatus(true)
+            })
+            .catch(err=>{
+              console.log(err)
+            })
+          }).catch(err=>{
+            console.log(err)
+          })
+        }
     },[props])
 
     const gotoChannel=(id)=>{
@@ -33,11 +52,11 @@ function ChannelCard(props) {
           if(Token){
             axios.get(`/User/GetUserId/${Token}`)
             .then(result=>{
-              console.log(result.data)
+              
               const userId=result.data
               axios.delete('/ChannelRoute/RemoveSubscription',{data:{userId,id}})
               .then(result=>{
-                console.log(result.data)
+                
                 setSubStatus(false)
               }).catch(err=>{
                 console.log(err)
@@ -54,12 +73,12 @@ function ChannelCard(props) {
             if(Token){
               axios.get(`/User/GetUserId/${Token}`)
               .then(result=>{
-                console.log(result.data)
+                
                 const userId=result.data
                 const channelId=id
                 axios.post('/ChannelRoute/AddSubscription',{userId,channelId})
                 .then(result=>{
-                  console.log(result.data)
+                  
                   setSubStatus(true)
                 }).catch(err=>{
                   console.log(err)

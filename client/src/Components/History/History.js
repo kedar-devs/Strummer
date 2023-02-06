@@ -12,7 +12,7 @@ function History() {
     if(Token){
         axios.get(`/User/GetUserId/${Token}`)
         .then(result=>{
-            console.log(result.data)
+            
             const id=result.data
             axios.get(`/Content/history/getAll/${id}`)
             .then(result=>{

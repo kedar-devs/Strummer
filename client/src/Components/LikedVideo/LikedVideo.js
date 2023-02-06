@@ -12,7 +12,7 @@ function LikedVideo() {
         if(Token){
             axios.get(`/User/GetUserId/${Token}`)
             .then(result=>{
-                console.log(result.data)
+                
                 const id=result.data
                 axios.get(`/Content/likes/getLikedVideos/${id}`)
                 .then(result=>{

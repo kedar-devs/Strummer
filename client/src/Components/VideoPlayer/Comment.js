@@ -9,7 +9,7 @@ function Comment(props) {
     axios.get(`/Content/video/Comment/getComment/${props.id}`)
     .then(result=>{
       if(result.data.length>0){
-        console.log(result.data)
+        
         setComment(result.data)
         setLoading(false)
       }
@@ -18,7 +18,7 @@ function Comment(props) {
       console.log(err)
     })
 
-  },[props])
+  },[props.commentCnt])
   return (
     <div className='overflow-y-scroll h-64 scrollbar-hide mt-5'>
     {isLoading?<>No Comments Available</>:<>{comments.map((comment)=>{

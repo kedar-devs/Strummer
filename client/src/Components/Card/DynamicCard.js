@@ -24,7 +24,7 @@ function DynamicCard(props) {
     if(Token){
       axios.get(`/User/GetUserId/${Token}`)
       .then(result=>{
-        console.log(result.data)
+        
         const userId=result.data
         setUsersId(result.data)
         const contentId=props.cardDetail._id
@@ -47,12 +47,12 @@ function DynamicCard(props) {
     if(Token){
       await axios.get(`/User/GetUserId/${Token}`)
       .then(result=>{
-        console.log(result.data)
+        
         const userId=result.data
         const contentId=id
         axios.post('/Content/Video/AddHistory',{userId,contentId})
         .then(result=>{
-          console.log(result.data)
+          
         })
         .catch(err=>{
           console.log(err)
@@ -82,7 +82,7 @@ function DynamicCard(props) {
     }
     axios.post('/Content/Likes/AddLikes',body)
     .then(result=>{
-      console.log(result.data)
+      
     })
     .catch(err=>{
       console.log(err)
@@ -105,7 +105,7 @@ function DynamicCard(props) {
     }
     axios.delete('/Content/Likes/DeleteLikes',{data:body})
     .then(result=>{
-      console.log(result.data)
+      
     })
     .catch(err=>{
       console.log(err)
