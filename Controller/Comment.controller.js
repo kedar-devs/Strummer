@@ -124,8 +124,9 @@ exports.RemoveDisLike=async(req,res)=>{
 exports.GetComment=async(req,res)=>{
     try{
     const {id}=req.params
-    const FoundComment=await CommentData.find({contentId:id})
+    let FoundComment=await CommentData.find({contentId:id})
     if(FoundComment){
+        FoundComment=FoundComment.reverse()
         return res.status(200).send(FoundComment)
     }
     else{
