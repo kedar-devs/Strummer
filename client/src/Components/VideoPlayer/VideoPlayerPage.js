@@ -21,7 +21,7 @@ function VideoPlayerPage(props) {
   const [imgSrc, setImgSrc] = useState(
     "https://www.creative-tim.com/learning-lab/tailwind-starter-kit/img/team-2-800x800.jpg"
   );
-  const [commentCnt,setCommentCnt]=useState(0)
+  const [commentCnt, setCommentCnt] = useState(0);
   const prod = {
     name: "creator",
     email: "kedard249.kd@gmail.com",
@@ -80,13 +80,11 @@ function VideoPlayerPage(props) {
         axios
           .get(`/User/GetUserId/${Token}`)
           .then((result) => {
-            
             const userId = result.data;
             const channelId = id;
             axios
               .post("/ChannelRoute/AddSubscription", { userId, channelId })
               .then((result) => {
-                
                 setFollowing(true);
               })
               .catch((err) => {
@@ -105,14 +103,13 @@ function VideoPlayerPage(props) {
         axios
           .get(`/User/GetUserId/${Token}`)
           .then((result) => {
-            
             const userId = result.data;
 
             axios
-              .delete(`/ChannelRoute/RemoveSubscription`, { data: { userId, id } })
+              .delete(`/ChannelRoute/RemoveSubscription`, {
+                data: { userId, id },
+              })
               .then((result) => {
-                
-
                 setFollowing(false);
               })
               .catch((err) => {
@@ -126,16 +123,16 @@ function VideoPlayerPage(props) {
     }
   };
 
-  const AddLike =async (id) => {
+  const AddLike = async (id) => {
     if (!isLiked && !isDisLiked) {
+      console.log("in here");
       const body = {
         ContentId: id,
         userId: UsersId,
       };
-     await axios
+      await axios
         .post("/Content/Likes/AddLikes", body)
-        .then(async(result) => {
-          
+        .then(async (result) => {
           await axios
             .get(`/Content/AddLike/${id}`)
             .then((result) => {
@@ -149,20 +146,17 @@ function VideoPlayerPage(props) {
             })
             .catch((err) => {
               console.log(err);
-              if(err.response.data.message==='Already Liked'){
-                alert('You have already liked the video')
-              }
-              else{
-                alert('Some error occured and we are trying to fix it')
+              if (err.response.data.message === "Already Liked") {
+                alert("You have already liked the video");
+              } else {
+                alert("Some error occured and we are trying to fix it");
               }
             });
         })
         .catch((err) => {
           console.log(err);
         });
-      
-    } 
-    else if(isDisLiked){
+    } else if (isDisLiked) {
       await axios
         .get(`/Content/RemoveDisLike/${id}`)
         .then((result) => {
@@ -177,51 +171,45 @@ function VideoPlayerPage(props) {
         .catch((err) => {
           console.log(err);
         });
-      
-        const body = {
-          ContentId: id,
-          userId: UsersId,
-        };
-       await axios
-          .post("/Content/Likes/AddLikes", body)
-          .then(async(result) => {
-            
-            await axios
-              .get(`/Content/AddLike/${id}`)
-              .then((result) => {
-                let newVideoInfo = videoInfo;
-                newVideoInfo.LikeCount = result.data.newLikeCount;
-                setVideoInfo({
-                  ...videoInfo,
-                  LikeCount: result.data.newLikeCount,
-                });
-                setisLiked(!isLiked);
-              })
-              .catch((err) => {
-                console.log(err);
-                if(err.response.data.message==='Already Liked'){
-                  alert('You have already liked the video')
-                }
-                else{
-                  alert('Some error occured and we are trying to fix it')
-                }
-              });
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-    }
-    else {
-      
 
       const body = {
         ContentId: id,
         userId: UsersId,
       };
       await axios
+        .post("/Content/Likes/AddLikes", body)
+        .then(async (result) => {
+          await axios
+            .get(`/Content/AddLike/${id}`)
+            .then((result) => {
+              let newVideoInfo = videoInfo;
+              newVideoInfo.LikeCount = result.data.newLikeCount;
+              setVideoInfo({
+                ...videoInfo,
+                LikeCount: result.data.newLikeCount,
+              });
+              setisLiked(!isLiked);
+            })
+            .catch((err) => {
+              console.log(err);
+              if (err.response.data.message === "Already Liked") {
+                alert("You have already liked the video");
+              } else {
+                alert("Some error occured and we are trying to fix it");
+              }
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      const body = {
+        ContentId: id,
+        userId: UsersId,
+      };
+      await axios
         .delete("/Content/Likes/DeleteLikes", { data: body })
-        .then(async(result) => {
-          
+        .then(async (result) => {
           await axios
             .get(`/Content/RemoveLike/${id}`)
             .then((result) => {
@@ -240,11 +228,10 @@ function VideoPlayerPage(props) {
         .catch((err) => {
           console.log(err);
         });
-     
     }
   };
 
-  const AddDisLike =async (id) => {
+  const AddDisLike = async (id) => {
     if (!isDisLiked && !isLiked) {
       await axios
         .get(`/Content/AddDislikes/${id}`)
@@ -261,18 +248,14 @@ function VideoPlayerPage(props) {
         .catch((err) => {
           console.log(err);
         });
-
-     
-    }
-    else if(isLiked){
+    } else if (isLiked) {
       const body = {
         ContentId: id,
         userId: UsersId,
       };
       await axios
         .delete("/Content/Likes/DeleteLikes", { data: body })
-        .then(async(result) => {
-          
+        .then(async (result) => {
           await axios
             .get(`/Content/RemoveLike/${id}`)
             .then((result) => {
@@ -291,7 +274,7 @@ function VideoPlayerPage(props) {
         .catch((err) => {
           console.log(err);
         });
-        await axios
+      await axios
         .get(`/Content/AddDislikes/${id}`)
         .then((result) => {
           let newVideoInfo = videoInfo;
@@ -306,8 +289,7 @@ function VideoPlayerPage(props) {
         .catch((err) => {
           console.log(err);
         });
-    }
-    else {
+    } else {
       await axios
         .get(`/Content/RemoveDisLike/${id}`)
         .then((result) => {
@@ -322,8 +304,6 @@ function VideoPlayerPage(props) {
         .catch((err) => {
           console.log(err);
         });
-
-     
     }
   };
   const Share = () => {
@@ -450,7 +430,11 @@ function VideoPlayerPage(props) {
             </div>
             <div className="text-white mt-10">
               {" "}
-              <AddComment id={videoInfo._id} setCommentCnt={setCommentCnt} commentCnt={commentCnt} />
+              <AddComment
+                id={videoInfo._id}
+                setCommentCnt={setCommentCnt}
+                commentCnt={commentCnt}
+              />
               <Comment id={videoInfo._id} commentCnt={commentCnt} />
             </div>
           </div>

@@ -9,6 +9,9 @@ function History() {
   const [isData,setIsData]=useState(false)
   useEffect(()=>{
     const Token=localStorage.getItem('Token')
+    setTimeout(()=>{
+      setLoader(false)
+    },4000)
     if(Token){
         axios.get(`/User/GetUserId/${Token}`)
         .then(result=>{
@@ -19,16 +22,17 @@ function History() {
                 console.log(result.data.result)
                 setCard(result.data.result)
                 setIsData(true)
+                setLoader(false)
             })
             .catch(err=>{
                 console.log(err)
             })
-            setLoader(false)
         })
         .catch(err=>{
-            console.log(err);
+            console.log(err);  
         })
     }
+   
   },[])
   return (
     <div className="min-h-screen">

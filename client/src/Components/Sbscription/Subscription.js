@@ -5,14 +5,18 @@ import axios from 'axios'
 import { Bars } from 'react-loader-spinner'
 
 function Subscription() {
-    const [channelDetails,setCard]=useState({})
+    const [channelDetails,setCard]=useState([])
     const [loading,setLoading]=useState(false)
     useEffect(()=>{
       const Token=localStorage.getItem('Token')
+      setTimeout(()=>{
+        setLoading(true)
+      },4000)
       if(Token){
       axios.get(`/User/GetUserId/${Token}`)
       .then(user=>{
         const userId=user.data
+        
         axios.get(`/ChannelRoute/GetSubscription/${userId}`)
         .then(Channel=>{
             console.log(Channel.data)
@@ -21,6 +25,7 @@ function Subscription() {
         })
       })
       .catch(err=>{
+        
           console.log(err)
       })
       }
