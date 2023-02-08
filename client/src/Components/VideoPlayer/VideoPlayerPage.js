@@ -122,7 +122,71 @@ function VideoPlayerPage(props) {
       }
     }
   };
-
+  /*
+  const AddLikeFeature=async(id)=>{
+    if (!isLiked && !isDisLiked) {
+      const body = {
+        ContentId: id,
+        userId: UsersId,
+      };
+      await axios
+        .post("/Content/Likes/AddLikes", body)
+        .then(async (result) => {
+          let Likes=videoInfo.LikeCount+1
+          setVideoInfo({
+            ...videoInfo,
+            LikeCount: Likes,
+          });
+          setisLiked(!isLiked)
+        })
+    }
+    else if(isDisLiked){
+      const body = {
+        ContentId: id,
+        userId: UsersId,
+      };
+      await axios
+      .delete("/Content/Dislikes/DeleteLikes", { data: body })
+      .then(async (result) => {
+        let Dislike=videoInfo.DislikeCount-1
+        setVideoInfo({
+          ...videoInfo,
+          DislikeCount: Dislike,
+        });
+        setIsDisliked(!isDisLiked)
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+      await axios
+        .post("/Content/Likes/AddLikes", body)
+        .then(async (result) => {
+          let Likes=videoInfo.LikeCount+1
+          setVideoInfo({
+            ...videoInfo,
+            LikeCount: Likes,
+          });
+          setisLiked(!isLiked)
+        })
+    } 
+    else{
+      const body = {
+        ContentId: id,
+        userId: UsersId,
+      }
+      await axios
+      .delete("/Content/Likes/DeleteLikes", { data: body })
+      .then(async (result) => {
+        let Likes=videoInfo.LikeCount-1
+        setVideoInfo({
+          ...videoInfo,
+          LikeCount: Likes,
+        });
+        setisLiked(!isLiked)
+      })
+    }
+  }
+  */
   const AddLike = async (id) => {
     if (!isLiked && !isDisLiked) {
       console.log("in here");
@@ -230,7 +294,71 @@ function VideoPlayerPage(props) {
         });
     }
   };
-
+  /*
+  const AddDisLikeFeature= async (id) => {
+    const body = {
+      ContentId: id,
+      userId: UsersId,
+    }
+    if (!isDisLiked && !isLiked) {
+      await axios.post('/Content/Dislikes/Adddislikes',body)
+      .then(result=>{
+        let dislikeCnt=videoInfo.DislikeCount+1
+        setVideoInfo({
+          ...videoInfo,
+          DislikeCount: dislikeCnt,
+        });
+        setIsDisliked(!isDisLiked)
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+    }
+    else if(isLiked){
+      const body = {
+        ContentId: id,
+        userId: UsersId,
+      }
+      await axios
+      .delete("/Content/Likes/DeleteLikes", { data: body })
+      .then(async (result) => {
+        let Likes=videoInfo.LikeCount-1
+        setVideoInfo({
+          ...videoInfo,
+          LikeCount: Likes,
+        });
+        setisLiked(!isLiked)
+      })
+      await axios.post('/Content/Dislikes/Adddislikes',body)
+      .then(result=>{
+        let dislikeCnt=videoInfo.DislikeCount+1
+        setVideoInfo({
+          ...videoInfo,
+          DislikeCount: dislikeCnt,
+        });
+        setIsDisliked(!isDisLiked)
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+    }
+    else{
+      await axios
+      .delete("/Content/Dislikes/DeleteLikes", { data: body })
+      .then(async (result) => {
+        let Dislike=videoInfo.DislikeCount-1
+        setVideoInfo({
+          ...videoInfo,
+          DislikeCount: Dislike,
+        });
+        setIsDisliked(!isDisLiked)
+      })
+      .catch(err=>{
+        console.log(err)
+      })
+    }
+  }
+  */
   const AddDisLike = async (id) => {
     if (!isDisLiked && !isLiked) {
       await axios
@@ -306,6 +434,7 @@ function VideoPlayerPage(props) {
         });
     }
   };
+  
   const Share = () => {
     const url = window.location.href;
     navigator.clipboard.writeText(url);
