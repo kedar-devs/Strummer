@@ -1,5 +1,7 @@
 const ChannelData = require("../Models/Channel.model");
 const ContentData = require("../Models/content.model");
+const DislikeController=require("./DisLike.controller")
+const LikeController=require('./LikeController')
 const cloudinary = require('cloudinary').v2
 const {ErrorController}=require('./../Helper/ErrorHadler/ErrorController')
 const streamifier=require('./../Helper/Streamifier')
@@ -190,6 +192,8 @@ exports.getOneContent=async(req,res)=>{
     if(Content){
         let ChannelDetail=await ChannelData.findOne({_id:Content.channelId})
         if(ChannelDetail){
+            Content.DislikeCount=await DislikeController.getDislikeCount
+            Content.LikeCount=await LikeController.getLikeCount
         return res.status(200).send({Content,ChannelDetail})
         }
         else{

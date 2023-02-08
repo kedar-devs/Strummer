@@ -1,22 +1,22 @@
-const Likes = require("../Models/VideoRelatedStuff/LikeCountModel")
+const DisLike=require('./../Models/VideoRelatedStuff/DislikeCount.model')
 const ContentData = require("../Models/content.model");
 
-exports.AddLikes=async(req,res)=>{
+exports.AddDisLikes=async(req,res)=>{
     try{
         const {ContentId,userId}=req.body
         const Like={
             ContentId:ContentId,
             userId:userId,
-            LikeStatus:true,
+            DisLikeStatus:true,
             DateTime:new Date()
         }
-        const FoundLike=await Likes.findOne({ContentId:ContentId,userId:userId,LikeStatus:true})
-        if(FoundLike){
-            console.log(FoundLike)
+        const FoundDisLike=await DisLike.findOne({ContentId:ContentId,userId:userId,DisLikeStatus:true})
+        if(FoundDisLike){
+            console.log(FoundDisLike)
             return res.status(400).send({message:'Already Liked'})
         }
         else{
-        const newLike=new Likes(Like)
+        const newLike=new DisLike(Like)
         newLike.save((err,result)=>{
             if(err){
                 console.log(err)
@@ -31,11 +31,11 @@ exports.AddLikes=async(req,res)=>{
         return res.status(400).send({message:err})
     }
 }
-exports.checkLike=async(req,res)=>{
+exports.checkDisLike=async(req,res)=>{
     try{
         const {contentId,userId}=req.body
-        const FoundLike=await Likes.findOne({ContentId:contentId,userId:userId,LikeStatus:true})
-        if(FoundLike){
+        const FoundDisLike=await DisLike.findOne({ContentId:contentId,userId:userId,DisLikeStatus:true})
+        if(FoundDisLike){
             return res.status(200).send(true)
         }
         else{
@@ -45,10 +45,10 @@ exports.checkLike=async(req,res)=>{
         return res.status(400).send(false)
     }
 }
-exports.getLikedVideo=async(req,res)=>{
+exports.getDisLikedVideo=async(req,res)=>{
     try{
         const {id}=req.params
-        const FoundUser=await Likes.find({userId:id,LikeStatus:true})
+        const FoundUser=await DisLike.find({userId:id,DisLikeStatus:true})
         result=[]
         let FoundVideo
         if(FoundUser){
@@ -69,14 +69,14 @@ exports.getLikedVideo=async(req,res)=>{
         return res.status(400).send({message:err})
     }
 }
-exports.deleteLikes=async(req,res)=>{
+exports.deleteDisLikes=async(req,res)=>{
     try{
         console.log(req.body)
     const {ContentId,userId}=req.body
-    const FoundLike=await Likes.findOne({ContentId,userId})
-    if(FoundLike){
-        FoundLike.LikeStatus=false
-        FoundLike.save()
+    const FoundDisLike=await DisLike.findOne({ContentId,userId})
+    if(FoundDisLike){
+        FoundDisLike.DisLikeStatus=false
+        FoundDisLike.save()
         .then(result=>{
             return res.status(200).send({message:'Delete successfully'})
         })
@@ -93,12 +93,13 @@ exports.deleteLikes=async(req,res)=>{
         return res.status(400).send({message:err})
     }
 }
-exports.getLikeCount=async(ContentId)=>{
+exports.getDislikeCount=async(ContentId)=>{
     try{
-    const FoundLike=await Likes.find({ContentId,LikeStatus:true})
-    if(FoundLike){
-    return FoundLike.length()
-    }else{
+    const FoundDislike=await DisLike.find({ContentId,DisLikeStatus:true})
+    if(FoundDislike){
+    return FoundDislike.length()
+    }
+    else{
         return 0
     }
     }catch(err){
