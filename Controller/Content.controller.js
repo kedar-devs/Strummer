@@ -4,7 +4,8 @@ const DislikeController=require("./DisLike.controller")
 const LikeController=require('./LikeController')
 const cloudinary = require('cloudinary').v2
 const {ErrorController}=require('./../Helper/ErrorHadler/ErrorController')
-const streamifier=require('./../Helper/Streamifier')
+const streamifier=require('./../Helper/Streamifier');
+const { ObjectId } = require("mongodb");
 
 require('./../Helper/Cloudinary')
 
@@ -29,6 +30,8 @@ exports.CreateNewContent=async(req,res)=>{
                 length:length,
                 LikeCount:0,
                 DislikeCount:0,
+                LikedUser:[new ObjectId()],
+                DislikeUser:[new ObjectId()],
                 viewCount:0,
                 isApproved:false,
                 Tags:Tags,
@@ -53,6 +56,34 @@ exports.CreateNewContent=async(req,res)=>{
         console.log(err)
     }
 }
+exports.AddLikeFunctionality=async(req,res)=>{
+    try{
+        const {userId}=req.body
+        const FoundContent=await ContentData.findOne({LikedUser:{$in:userId}})
+        if(FoundContent){
+            return res.status(400).send({message:'User Alredy Liked'})
+        }
+        else{
+            const FoundContent=await ContentData.findOne({_id:req.params.id})
+            if(FoundContent){
+                FoundContent.LikedUser.push(userId)
+                FoundContent.LikeCount+=1
+                FoundContent.save((err,user)=>{
+                    if(err){
+                        console.log(err)
+                        return res.status(400).send({message:'Error Occured while saving'})
+                    }
+                    else{
+                        return res.status(200).send({newLikeCount:user.LikeCount})
+                    }
+                })
+            }
+        }
+    }catch(err){
+        console.log(err)
+        return res.status(500).send({message:'Unknown error Occured'})
+    }
+}
 exports.AddLikes=async(req,res)=>{
     try{
     const _id=req.params.id
@@ -71,6 +102,31 @@ exports.AddLikes=async(req,res)=>{
     console.log(err)
     return res.status(400).send(err)
 }
+}
+exports.RemoveLikesFunction=async(req,res)=>{
+    try{
+        const {userId}=req.body
+        const FoundContent=await ContentData.findOne({LikedUser:{$in:userId}})
+        if(FoundContent){
+            FoundContent.LikeCount-=1
+            FoundContent.LikedUser=FoundContent.LikedUser.filter(id=>id!=userId)
+            FoundContent.save((err,user)=>{
+                if(err){
+                    return res.status(400).send({message:'Error occured while saving the data'})
+                }
+                else{
+                    return res.status(200).send({newLikeCount:user.LikeCount})
+                }
+            })
+        }
+        else{
+            return res.status(400).send({message:'No user in the like community Found'})
+        }
+
+    }catch(err){
+        console.log(err)
+        return res.status(400).send(err)
+    }
 }
 exports.RemoveLikes=async(req,res)=>{
     try{
@@ -95,6 +151,34 @@ exports.RemoveLikes=async(req,res)=>{
     return res.status(400).send(err)
 }
 }
+exports.AddDislikeFunctionality=async(req,res)=>{
+    try{
+        const {userId}=req.body
+        const FoundContent=await ContentData.findOne({DislikeUser:{$in:userId}})
+        if(FoundContent){
+            return res.status(400).send({message:'User Alredy Liked'})
+        }
+        else{
+            const FoundContent=await ContentData.findOne({_id:req.params.id})
+            if(FoundContent){
+                FoundContent.DislikeUser.push(userId)
+                FoundContent.DislikeCount+=1
+                FoundContent.save((err,user)=>{
+                    if(err){
+                        console.log(err)
+                        return res.status(400).send({message:'Error Occured while saving'})
+                    }
+                    else{
+                        return res.status(200).send({newDisLikeCount:user.DislikeCount})
+                    }
+                })
+            }
+        }
+    }catch(err){
+        console.log(err)
+        return res.status(400).send(err)
+    }
+}
 exports.AddDislike=async(req,res)=>{
     try{
     const _id=req.params.id
@@ -112,6 +196,31 @@ exports.AddDislike=async(req,res)=>{
     console.log(err)
     return res.status(400).send(err)
 }
+}
+exports.RemoveDislikeFunction=async(req,res)=>{
+    try{
+        const {userId}=req.body
+        const FoundContent=await ContentData.findOne({DislikeUser:{$in:userId}})
+        if(FoundContent){
+            FoundContent.DislikeCount-=1
+            FoundContent.DislikeUser=FoundContent.DislikeUser.filter(id=>id!=userId)
+            FoundContent.save((err,user)=>{
+                if(err){
+                    return res.status(400).send({message:'Error occured while saving the data'})
+                }
+                else{
+                    return res.status(200).send({newDisLikeCount:user.DislikeCount})
+                }
+            })
+        }
+        else{
+            return res.status(400).send({message:'No user in the like community Found'})
+        }
+
+    }catch(err){
+        console.log(err)
+        return res.status(400).send(err)
+    }
 }
 exports.RemoveDislike=async(req,res)=>{
     try{
@@ -352,4 +461,50 @@ exports.ContentSearch=async(req,res)=>{
     }catch(err){
             console.log(err)
     }
+}
+exports.checkLikeFunction=async(req,res)=>{
+    try{
+    const {userId}=req.body
+    const FoundContent=await ContentData.findOne({LikedUser:{$in:userId}})
+    if(FoundContent){
+        return res.status(200).send(true)
+    }
+    else{
+        return res.status(400).send(false)
+    }
+}catch(err){
+    console.log(err)
+    return res.status(400).send(false)
+}
+}
+exports.checkDisLikeFunction=async(req,res)=>{
+    try{
+    const {userId}=req.body
+    const FoundContent=await ContentData.findOne({DislikeUser:{$in:userId}})
+    if(FoundContent){
+        return res.status(200).send(true)
+    }
+    else{
+        return res.status(400).send(false)
+    }
+}catch(err){
+    console.log(err)
+    return res.status(400).send(false)
+}
+}
+exports.getLikedVideo=async(req,res)=>{
+    try{
+        const {id}=req.params
+        const FoundContent=await ContentData.find({LikedUser:{$in:id}})
+        if(FoundContent){
+            console.log(FoundContent)
+            return res.status(200).send({FoundContent})
+        }
+        else{
+            return res.status(400).send({message:'No user Found'})
+        }
+    }catch(err){
+        console.log(err)
+        return res.status(500).send({message:'Unknown error occured'})
+    } 
 }
