@@ -16,8 +16,8 @@ function LikedVideo() {
                 const id=result.data
                 axios.get(`/Content/likes/getLikedVideos/${id}`)
                 .then(result=>{
-                    console.log(result.data.result)
-                    setCard(result.data.result)
+                    console.log(result.data.FoundContent)
+                    setCard(result.data.FoundContent)
                     setIsData(true)
                 })
                 .catch(err=>{
